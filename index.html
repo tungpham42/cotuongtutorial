@@ -1,0 +1,1014 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <title>Xiangqi in 10 minutes</title>
+    <meta
+      name="description"
+      content="Learn Xiangqi (Chinese chess) in 10 minutes by moving each piece on an interactive board."
+    />
+    <link rel="icon" type="image/png" sizes="256x256" href="./favicon.png" />
+    <link rel="apple-touch-icon" href="./favicon.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Xiangqi in 10 minutes" />
+    <meta
+      property="og:description"
+      content="Learn Chinese chess by moving the pieces yourself."
+    />
+    <meta property="og:image" content="./og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="Xiangqi board with a red horse showing its legal moves, beside the title Xiangqi in 10 minutes"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Xiangqi in 10 minutes" />
+    <meta
+      name="twitter:description"
+      content="Learn Chinese chess by moving the pieces yourself."
+    />
+    <meta name="twitter:image" content="./og-image.png" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;600;700&family=Noto+Serif+SC:wght@600;900&display=swap"
+    />
+    <style>
+      :root {
+        --bg: #eaeee6;
+        --ink: #1c2a25;
+        --mute: #4b5d56;
+        --card: #f6f8f2;
+        --board: #e6cf94;
+        --line: #5b4524;
+        --disc: #f7efd7;
+        --red: #b3261e;
+        --blk: #1b1b1b;
+        --go: #16745a;
+        --cap: #d1382d;
+        --hero: #c98a00;
+        --palace: rgba(91, 69, 36, 0.13);
+        --rule: #c9d3c8;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root:not([data-theme="light"]) {
+          --bg: #101a17;
+          --ink: #e4eadf;
+          --mute: #a3b3ab;
+          --card: #18261f;
+          --board: #3b3322;
+          --line: #c9ae73;
+          --disc: #efe4c6;
+          --red: #a8231b;
+          --blk: #1b1b1b;
+          --go: #4fd1a5;
+          --cap: #ff7468;
+          --hero: #f0b429;
+          --palace: rgba(201, 174, 115, 0.16);
+          --rule: #2b3d35;
+        }
+      }
+      :root[data-theme="dark"] {
+        --bg: #101a17;
+        --ink: #e4eadf;
+        --mute: #a3b3ab;
+        --card: #18261f;
+        --board: #3b3322;
+        --line: #c9ae73;
+        --disc: #efe4c6;
+        --red: #a8231b;
+        --blk: #1b1b1b;
+        --go: #4fd1a5;
+        --cap: #ff7468;
+        --hero: #f0b429;
+        --palace: rgba(201, 174, 115, 0.16);
+        --rule: #2b3d35;
+      }
+      :root {
+        box-sizing: border-box;
+        padding-top: env(safe-area-inset-top, 0px);
+        padding-bottom: env(safe-area-inset-bottom, 0px);
+      }
+      html {
+        scroll-padding-top: env(safe-area-inset-top, 0px);
+      }
+      *,
+      *::before,
+      *::after {
+        box-sizing: inherit;
+      }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--ink);
+        font:
+          400 17px/1.6 Figtree,
+          system-ui,
+          sans-serif;
+      }
+      main {
+        max-width: 700px;
+        margin: 0 auto;
+        padding: 28px 20px 64px;
+      }
+      h1,
+      h2 {
+        font-family: "Noto Serif SC", Georgia, serif;
+        line-height: 1.2;
+        margin: 0;
+      }
+      h1 {
+        font-size: clamp(34px, 8vw, 52px);
+        font-weight: 900;
+      }
+      h2 {
+        font-size: 26px;
+        font-weight: 600;
+        margin: 56px 0 10px;
+      }
+      p {
+        margin: 0 0 12px;
+        max-width: 60ch;
+      }
+      .lede {
+        color: var(--mute);
+        font-size: 19px;
+        margin-top: 10px;
+      }
+      .board-wrap {
+        background: var(--card);
+        border: 1px solid var(--rule);
+        border-radius: 14px;
+        padding: 14px;
+        margin-top: 20px;
+      }
+      svg.board {
+        display: block;
+        width: 100%;
+        max-width: 470px;
+        margin: 0 auto;
+        height: auto;
+      }
+      .picker {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 12px;
+      }
+      .picker button {
+        font:
+          600 15px Figtree,
+          sans-serif;
+        color: var(--ink);
+        background: transparent;
+        border: 1.5px solid var(--rule);
+        border-radius: 999px;
+        padding: 5px 12px 5px 6px;
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        cursor: pointer;
+      }
+      .picker button .g {
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        background: var(--disc);
+        color: var(--red);
+        display: grid;
+        place-items: center;
+        font:
+          900 16px "Noto Serif SC",
+          serif;
+        border: 1.5px solid var(--line);
+      }
+      .picker button[aria-pressed="true"] {
+        border-color: var(--hero);
+        box-shadow: 0 0 0 2px var(--hero);
+      }
+      button:focus-visible {
+        outline: 3px solid var(--go);
+        outline-offset: 2px;
+      }
+      .info {
+        margin-top: 12px;
+      }
+      .info b {
+        font-size: 19px;
+      }
+      .key {
+        display: flex;
+        gap: 18px;
+        flex-wrap: wrap;
+        font-size: 14px;
+        color: var(--mute);
+        margin-top: 6px;
+      }
+      .key i {
+        display: inline-block;
+        vertical-align: middle;
+        margin-right: 6px;
+      }
+      .dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: var(--go);
+      }
+      .ring {
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        border: 3px solid var(--cap);
+      }
+      .hint {
+        font-size: 14px;
+        color: var(--mute);
+        margin: 10px 0 0;
+      }
+      .key {
+        align-items: center;
+      }
+      .reset {
+        margin-left: auto;
+        font:
+          600 14px Figtree,
+          sans-serif;
+        color: var(--ink);
+        background: transparent;
+        border: 1.5px solid var(--rule);
+        border-radius: 999px;
+        padding: 5px 14px;
+        cursor: pointer;
+      }
+      .reset:hover {
+        border-color: var(--hero);
+      }
+      .blk {
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        border: 3px dashed var(--cap);
+      }
+      .notice {
+        margin-top: 10px;
+        padding: 10px 14px;
+        min-height: 3.4em;
+        border: 1.5px solid transparent;
+        border-radius: 10px;
+        font-size: 15px;
+        line-height: 1.45;
+        color: var(--ink);
+      }
+      .notice:empty {
+        visibility: hidden;
+      }
+      .notice.warn {
+        border-color: var(--cap);
+        background: color-mix(in srgb, var(--cap) 12%, var(--card));
+        animation: nudge 0.3s;
+      }
+      .notice.warn b {
+        color: var(--cap);
+      }
+      .notice.ok {
+        border-color: var(--go);
+        background: color-mix(in srgb, var(--go) 12%, var(--card));
+      }
+      .notice.info {
+        border-color: var(--rule);
+      }
+      @keyframes nudge {
+        25% {
+          transform: translateX(-5px);
+        }
+        75% {
+          transform: translateX(5px);
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .notice.warn {
+          animation: none;
+        }
+      }
+      .vals {
+        display: grid;
+        gap: 8px;
+        margin-top: 14px;
+      }
+      .row {
+        display: grid;
+        grid-template-columns: 96px 1fr 38px;
+        align-items: center;
+        gap: 10px;
+        font-size: 15px;
+      }
+      .bar {
+        height: 14px;
+        border-radius: 7px;
+        background: var(--go);
+        opacity: 0.85;
+      }
+      .rules {
+        display: grid;
+        gap: 12px;
+      }
+      .rule {
+        background: var(--card);
+        border: 1px solid var(--rule);
+        border-left: 5px solid var(--hero);
+        border-radius: 10px;
+        padding: 12px 16px;
+      }
+      .rule b {
+        display: block;
+        font-size: 18px;
+      }
+      .rule p {
+        margin: 4px 0 0;
+      }
+      .plan {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        display: grid;
+        gap: 12px;
+        counter-reset: s;
+      }
+      .plan li {
+        counter-increment: s;
+        padding-left: 46px;
+        position: relative;
+      }
+      .plan li::before {
+        content: counter(s);
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background: var(--red);
+        color: #fff;
+        display: grid;
+        place-items: center;
+        font-weight: 700;
+      }
+      .legend {
+        font-size: 15px;
+        color: var(--mute);
+      }
+      .legend span {
+        display: inline-block;
+        margin-right: 14px;
+      }
+      .foot {
+        margin-top: 48px;
+        color: var(--mute);
+        font-size: 15px;
+      }
+      .lang-link {
+        margin-top: 28px;
+        padding-top: 16px;
+        border-top: 1px solid var(--rule);
+        font-size: 14px;
+        color: var(--mute);
+        text-align: center;
+      }
+      .lang-link a {
+        color: var(--mute);
+        text-decoration: underline;
+        text-underline-offset: 3px;
+      }
+      .lang-link a:hover,
+      .lang-link a:focus-visible {
+        color: var(--go);
+      }
+      .ad-top {
+        width: 100%;
+        height: 300px;
+        overflow: hidden;
+      }
+    </style>
+  </head>
+  <body>
+    <script
+      async
+      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3585118770961536"
+      crossorigin="anonymous"
+    ></script>
+    <!-- CO_TUTOR_res -->
+    <div class="ad-top">
+      <ins
+        class="adsbygoogle"
+        style="display: block; width: 100%; height: 300px"
+        data-ad-client="ca-pub-3585118770961536"
+        data-ad-slot="4310795924"
+      ></ins>
+    </div>
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+    <main>
+      <h1>Xiangqi in 10 minutes</h1>
+      <p class="lede">
+        Chinese chess: two armies, one goal. Trap the enemy general. You already
+        know the idea if you have played chess. Tap the board below to learn
+        each piece by moving it.
+      </p>
+
+      <h2>Try every piece</h2>
+      <p>
+        Pick a piece, then tap a green dot to move it. Tap a red ring to capture
+        that piece. Pieces can’t be dropped anywhere: every move follows the
+        real rules, and blockers stop them. Tap any other point to try an
+        illegal move and see why it isn’t allowed. Press Reset board to start
+        over.
+      </p>
+      <div class="board-wrap">
+        <div
+          class="picker"
+          id="picker"
+          role="group"
+          aria-label="Choose a piece"
+        ></div>
+        <div id="play"></div>
+        <div class="info" id="info"></div>
+        <div class="key">
+          <span><i class="dot"></i>can move here</span
+          ><span><i class="ring"></i>can capture</span
+          ><span><i class="blk"></i>blocking piece</span>
+          <button type="button" class="reset" id="reset">Reset board</button>
+        </div>
+        <div class="notice" id="status" role="status" aria-live="polite"></div>
+      </div>
+
+      <h2>The board</h2>
+      <p>
+        Nine lines across, ten along. Pieces sit on the crossings, not inside
+        squares. The shaded boxes are the <b>palaces</b>, and the gap in the
+        middle is the <b>river</b>. Red moves first.
+      </p>
+      <div class="board-wrap">
+        <div id="start"></div>
+        <p class="hint">
+          Red is at the bottom, black at the top. Pieces are the same set for
+          both sides, only the characters differ.
+        </p>
+      </div>
+
+      <h2>The goal</h2>
+      <p>
+        Checkmate the enemy general, or leave the enemy with no legal move. In
+        Xiangqi, having no legal move means you <b>lose</b>, not draw.
+      </p>
+
+      <h2>How much is each piece worth?</h2>
+      <p>Rough guide for deciding trades. Longer bar, more valuable.</p>
+      <div class="vals" id="vals"></div>
+
+      <h2>Three rules that surprise newcomers</h2>
+      <div class="rules">
+        <div class="rule">
+          <b>Generals cannot face each other</b>
+          <p>
+            If the two generals look at each other down an open file with
+            nothing between them, that position is illegal. This can force a
+            win, so watch the file.
+          </p>
+        </div>
+        <div class="rule">
+          <b>Horses and elephants can be blocked</b>
+          <p>
+            A horse needs the point next to it (its “leg”) to be empty. An
+            elephant needs the point in the middle of its jump (its “eye”) to be
+            empty.
+          </p>
+        </div>
+        <div class="rule">
+          <b>Cannons need a screen to capture</b>
+          <p>
+            A cannon moves like a chariot, but to capture it must hop over
+            exactly one piece of either colour, then land on an enemy behind it.
+          </p>
+        </div>
+      </div>
+
+      <h2>Your first game plan</h2>
+      <ol class="plan">
+        <li>
+          <b>Open with the cannon to the centre.</b> Slide a cannon in front of
+          your general. It pressures the enemy’s central soldier right away.
+        </li>
+        <li>
+          <b>Get your chariots out.</b> They are your strongest pieces and are
+          stuck in the corners. Open a file for each one.
+        </li>
+        <li>
+          <b>Keep guards home, attack with the rest.</b> Advisors and elephants
+          rarely leave. Use chariots, horses, and cannons to chase the general.
+        </li>
+      </ol>
+
+      <p class="foot">
+        Next steps: play a few games against a beginner-level app, and learn the
+        check rules (a perpetual chase can be illegal in formal play).
+      </p>
+
+      <p class="lang-link">
+        <a href="https://cotuong.top/en" hreflang="en" lang="en"
+          >English version of cotuong.top &rarr;</a
+        >
+      </p>
+    </main>
+
+    <script>
+      const CH = {
+        red: { K: "帥", A: "仕", E: "相", H: "傌", R: "俥", C: "炮", S: "兵" },
+        black: {
+          K: "將",
+          A: "士",
+          E: "象",
+          H: "馬",
+          R: "車",
+          C: "砲",
+          S: "卒",
+        },
+      };
+      const INFO = {
+        K: [
+          "General",
+          "Moves one step up, down, or left and right. It must stay inside its palace.",
+          "Try stepping left: the black general would face yours down an open file, which is illegal. Your chariot blocks the right.",
+        ],
+        A: [
+          "Advisor",
+          "Moves one step diagonally and must stay inside the palace.",
+          "Your chariot blocks one diagonal; the black chariot can be captured. Tap any other point to see why it’s illegal.",
+        ],
+        E: [
+          "Elephant",
+          "Jumps exactly two points diagonally. It can’t cross the river, and it can’t jump if the point in between (the eye) is occupied.",
+          "The red soldier blocks one eye, so one jump is missing.",
+        ],
+        H: [
+          "Horse",
+          "One step straight, then one step diagonally outward. If the straight step is occupied, that direction is blocked.",
+          "Notice the horse can’t go up: the soldier in front is its blocked leg.",
+        ],
+        R: [
+          "Chariot",
+          "Slides any distance along a row or column, like a rook. Captures by landing on the first enemy it meets.",
+          "The most powerful piece. It stops before your own pieces.",
+        ],
+        C: [
+          "Cannon",
+          "Moves like a chariot without capturing. To capture, it jumps over exactly one piece and lands on an enemy beyond.",
+          "Rings show captures. The red soldier is its screen.",
+        ],
+        S: [
+          "Soldier",
+          "Moves one step forward only. After crossing the river it can also step sideways. It never moves backward.",
+          "Step forward across the river to unlock sideways moves. Own pieces block, enemy pieces can be captured.",
+        ],
+      };
+      const VAL = [
+        ["Chariot", 9, "R"],
+        ["Cannon", 4.5, "C"],
+        ["Horse", 4, "H"],
+        ["Advisor", 2, "A"],
+        ["Elephant", 2, "E"],
+        ["Soldier", 1, "S"],
+      ];
+      const D = {
+        K: {
+          x: 4,
+          y: 8,
+          o: [
+            { t: "K", s: "black", x: 3, y: 0 },
+            { t: "R", s: "red", x: 5, y: 8 },
+          ],
+        },
+        A: {
+          x: 4,
+          y: 8,
+          o: [
+            { t: "R", s: "red", x: 3, y: 9 },
+            { t: "R", s: "black", x: 5, y: 7 },
+          ],
+        },
+        E: { x: 4, y: 7, o: [{ t: "S", s: "red", x: 3, y: 6 }] },
+        H: {
+          x: 2,
+          y: 7,
+          o: [
+            { t: "S", s: "red", x: 2, y: 6 },
+            { t: "S", s: "black", x: 4, y: 6 },
+          ],
+        },
+        R: {
+          x: 4,
+          y: 6,
+          o: [
+            { t: "S", s: "red", x: 7, y: 6 },
+            { t: "S", s: "black", x: 4, y: 3 },
+          ],
+        },
+        C: {
+          x: 1,
+          y: 7,
+          o: [
+            { t: "S", s: "red", x: 1, y: 4 },
+            { t: "S", s: "black", x: 1, y: 2 },
+            { t: "H", s: "black", x: 1, y: 0 },
+          ],
+        },
+        S: {
+          x: 4,
+          y: 6,
+          o: [
+            { t: "H", s: "black", x: 4, y: 5 },
+            { t: "R", s: "red", x: 3, y: 4 },
+            { t: "S", s: "black", x: 5, y: 4 },
+          ],
+        },
+      };
+      const Cs = 52,
+        M = 36;
+      function facing(h, x, y, pcs) {
+        const ek = pcs.find((p) => p.t === "K" && p.s !== h.s);
+        if (!ek || ek.x !== x) return null;
+        const lo = Math.min(ek.y, y),
+          hi = Math.max(ek.y, y);
+        return pcs.some((p) => p !== ek && p.x === x && p.y > lo && p.y < hi)
+          ? null
+          : ek;
+      }
+      function moves(h, pcs) {
+        const at = (x, y) => pcs.find((p) => p.x === x && p.y === y);
+        const inb = (x, y) => x >= 0 && x <= 8 && y >= 0 && y <= 9,
+          out = [];
+        const add = (x, y) => {
+          if (!inb(x, y)) return;
+          const o = at(x, y);
+          if (o && o.s === h.s) return;
+          out.push({ x, y, cap: !!o });
+        };
+        const pal = (x, y) => x >= 3 && x <= 5 && y >= 7;
+        const O = [
+          [1, 0],
+          [-1, 0],
+          [0, 1],
+          [0, -1],
+        ];
+        if (h.t === "K")
+          O.forEach(([a, b]) => pal(h.x + a, h.y + b) && add(h.x + a, h.y + b));
+        if (h.t === "A")
+          [
+            [1, 1],
+            [1, -1],
+            [-1, 1],
+            [-1, -1],
+          ].forEach(([a, b]) => pal(h.x + a, h.y + b) && add(h.x + a, h.y + b));
+        if (h.t === "E")
+          [
+            [2, 2],
+            [2, -2],
+            [-2, 2],
+            [-2, -2],
+          ].forEach(([a, b]) => {
+            const x = h.x + a,
+              y = h.y + b;
+            if (y >= 5 && !at(h.x + a / 2, h.y + b / 2)) add(x, y);
+          });
+        if (h.t === "H")
+          O.forEach(([a, b]) => {
+            if (!inb(h.x + a, h.y + b) || at(h.x + a, h.y + b)) return;
+            if (a) [1, -1].forEach((d) => add(h.x + 2 * a, h.y + d));
+            else [1, -1].forEach((d) => add(h.x + d, h.y + 2 * b));
+          });
+        if (h.t === "R")
+          O.forEach(([a, b]) => {
+            let x = h.x + a,
+              y = h.y + b;
+            while (inb(x, y)) {
+              const o = at(x, y);
+              if (o) {
+                if (o.s !== h.s) out.push({ x, y, cap: true });
+                break;
+              }
+              out.push({ x, y });
+              x += a;
+              y += b;
+            }
+          });
+        if (h.t === "C")
+          O.forEach(([a, b]) => {
+            let x = h.x + a,
+              y = h.y + b,
+              screen = false;
+            while (inb(x, y)) {
+              const o = at(x, y);
+              if (!screen) {
+                if (o) screen = true;
+                else out.push({ x, y });
+              } else if (o) {
+                if (o.s !== h.s) out.push({ x, y, cap: true });
+                break;
+              }
+              x += a;
+              y += b;
+            }
+          });
+        if (h.t === "S") {
+          add(h.x, h.y - 1);
+          if (h.y <= 4) {
+            add(h.x - 1, h.y);
+            add(h.x + 1, h.y);
+          }
+        }
+        if (h.t === "K") return out.filter((m) => !facing(h, m.x, m.y, pcs));
+        return out;
+      }
+      const px = (x) => M + x * Cs,
+        py = (y) => M + y * Cs;
+      function board(pcs, o = {}) {
+        const W = 8 * Cs + 2 * M,
+          H = 9 * Cs + 2 * M;
+        let s = `<svg class="board" viewBox="0 0 ${W} ${H}" role="img" aria-label="Xiangqi board"><rect x="0" y="0" width="${W}" height="${H}" rx="10" fill="var(--board)"/>`;
+        s += `<rect x="${px(3)}" y="${py(0)}" width="${2 * Cs}" height="${2 * Cs}" fill="var(--palace)"/><rect x="${px(3)}" y="${py(7)}" width="${2 * Cs}" height="${2 * Cs}" fill="var(--palace)"/>`;
+        let d = "";
+        for (let y = 0; y < 10; y++) d += `M${px(0)} ${py(y)}H${px(8)}`;
+        d += `M${px(0)} ${py(0)}V${py(9)}M${px(8)} ${py(0)}V${py(9)}`;
+        for (let x = 1; x < 8; x++)
+          d += `M${px(x)} ${py(0)}V${py(4)}M${px(x)} ${py(5)}V${py(9)}`;
+        d += `M${px(3)} ${py(0)}L${px(5)} ${py(2)}M${px(5)} ${py(0)}L${px(3)} ${py(2)}M${px(3)} ${py(7)}L${px(5)} ${py(9)}M${px(5)} ${py(7)}L${px(3)} ${py(9)}`;
+        s += `<path d="${d}" stroke="var(--line)" stroke-width="1.6" fill="none"/><rect x="${px(0) - 4}" y="${py(0) - 4}" width="${8 * Cs + 8}" height="${9 * Cs + 8}" fill="none" stroke="var(--line)" stroke-width="3"/>`;
+        const ry = py(4.5);
+        s += `<g fill="var(--line)" font-family="Noto Serif SC,serif" font-size="24" font-weight="600" text-anchor="middle" dominant-baseline="central" opacity=".75"><text x="${px(2)}" y="${ry}">楚 河</text><text x="${px(6)}" y="${ry}">漢 界</text></g>`;
+        if (o.hit)
+          for (let y = 0; y < 10; y++)
+            for (let x = 0; x < 9; x++)
+              s += `<circle class="hit" data-x="${x}" data-y="${y}" cx="${px(x)}" cy="${py(y)}" r="${Cs / 2}" fill="transparent" style="cursor:pointer"/>`;
+        (o.mv || []).forEach((m) => {
+          if (!m.cap)
+            s += `<circle cx="${px(m.x)}" cy="${py(m.y)}" r="8" fill="var(--go)" pointer-events="none"/>`;
+        });
+        pcs.forEach((p) => {
+          const c = p.s === "red" ? "var(--red)" : "var(--blk)";
+          s += `<g pointer-events="none"><circle cx="${px(p.x)}" cy="${py(p.y)}" r="23" fill="var(--disc)" stroke="var(--line)" stroke-width="2"/><circle cx="${px(p.x)}" cy="${py(p.y)}" r="18" fill="none" stroke="${c}" stroke-width="1.5"/><text x="${px(p.x)}" y="${py(p.y) + 1}" text-anchor="middle" dominant-baseline="central" font-family="Noto Serif SC,serif" font-weight="900" font-size="24" fill="${c}">${CH[p.s][p.t]}</text></g>`;
+        });
+        if (o.hero)
+          s += `<circle cx="${px(o.hero.x)}" cy="${py(o.hero.y)}" r="28" fill="none" stroke="var(--hero)" stroke-width="3.5" pointer-events="none"/>`;
+        (o.mv || []).forEach((m) => {
+          if (m.cap)
+            s += `<circle cx="${px(m.x)}" cy="${py(m.y)}" r="27" fill="none" stroke="var(--cap)" stroke-width="4" pointer-events="none"/>`;
+        });
+        if (o.bad) {
+          (o.bad.bl || []).forEach((p) => {
+            s += `<circle cx="${px(p.x)}" cy="${py(p.y)}" r="27" fill="none" stroke="var(--cap)" stroke-width="4" stroke-dasharray="7 5" pointer-events="none"/>`;
+          });
+          const cx = px(o.bad.x),
+            cy = py(o.bad.y);
+          s += `<circle cx="${cx}" cy="${cy}" r="14" fill="var(--card)" opacity=".92" pointer-events="none"/><path d="M${cx - 8} ${cy - 8}L${cx + 8} ${cy + 8}M${cx + 8} ${cy - 8}L${cx - 8} ${cy + 8}" stroke="var(--cap)" stroke-width="5" stroke-linecap="round" pointer-events="none"/>`;
+        }
+        return s + "</svg>";
+      }
+      let cur = "K",
+        pos = { ...D.K },
+        obs = D.K.o.map((p) => ({ ...p })),
+        note = null,
+        bad = null;
+      const play = document.getElementById("play"),
+        info = document.getElementById("info"),
+        picker = document.getElementById("picker"),
+        statusEl = document.getElementById("status");
+      const nameOf = (t) => INFO[t][0].toLowerCase();
+      const nm = (p) =>
+        p.s === "red"
+          ? `your ${nameOf(p.t)} ${CH.red[p.t]}`
+          : `the black ${nameOf(p.t)} ${CH.black[p.t]}`;
+      const up = (t) => t[0].toUpperCase() + t.slice(1);
+      // Explains why a move to (x, y) is illegal and which pieces cause it.
+      function why(h, x, y, pcs) {
+        const at = (a, b) => pcs.find((p) => p.x === a && p.y === b);
+        const dx = x - h.x,
+          dy = y - h.y,
+          ax = Math.abs(dx),
+          ay = Math.abs(dy),
+          sx = Math.sign(dx),
+          sy = Math.sign(dy);
+        const tgt = at(x, y),
+          me = nameOf(h.t);
+        const W = (t, bl = []) => ({ t, bl });
+        const own = () =>
+          tgt && tgt.s === h.s
+            ? W(
+                `Blocked: ${nm(tgt)} is already on that point, and a piece can’t capture its own side.`,
+                [tgt],
+              )
+            : null;
+        const btw = () => {
+          const r = [];
+          if (dx && dy) return r;
+          for (let i = 1; i < Math.max(ax, ay); i++) {
+            const p = at(h.x + sx * i, h.y + sy * i);
+            if (p) r.push(p);
+          }
+          return r;
+        };
+        let r = null;
+        if (h.t === "K") {
+          if (x < 3 || x > 5 || y < 7)
+            return W(
+              "The general must stay inside its palace (the shaded box).",
+            );
+          if (ax + ay !== 1)
+            return W(
+              ax === 1 && ay === 1
+                ? "The general can’t move diagonally. It steps one point up, down, left or right."
+                : "The general moves only one step at a time.",
+            );
+          if ((r = own())) return r;
+          const ek = facing(h, x, y, pcs);
+          if (ek)
+            return W(
+              "Generals can’t face each other: after that step the two generals would look at each other down an open file.",
+              [ek],
+            );
+        } else if (h.t === "A") {
+          if (x < 3 || x > 5 || y < 7)
+            return W(
+              "The advisor must stay inside the palace (the shaded box).",
+            );
+          if (ax === 1 && ay === 1) {
+            if ((r = own())) return r;
+          } else if (ax + ay === 1)
+            return W(
+              "The advisor can’t move straight. It moves one step diagonally.",
+            );
+          else return W("The advisor moves exactly one step diagonally.");
+        } else if (h.t === "E") {
+          if (ax !== 2 || ay !== 2)
+            return W("The elephant jumps exactly two points diagonally.");
+          if (y < 5) return W("The elephant can’t cross the river.");
+          const eye = at(h.x + sx, h.y + sy);
+          if (eye)
+            return W(
+              `Blocked: ${nm(eye)} sits on the elephant’s eye (the point in the middle of its jump), so it can’t jump that way.`,
+              [eye],
+            );
+          if ((r = own())) return r;
+        } else if (h.t === "H") {
+          if (!((ax === 1 && ay === 2) || (ax === 2 && ay === 1)))
+            return W(
+              "The horse moves one step straight, then one step diagonally outward. It can’t slide.",
+            );
+          const leg = ay === 2 ? at(h.x, h.y + sy) : at(h.x + sx, h.y);
+          if (leg)
+            return W(
+              `Blocked: ${nm(leg)} sits on the horse’s leg (its first straight step), so it can’t jump that way.`,
+              [leg],
+            );
+          if ((r = own())) return r;
+        } else if (h.t === "R") {
+          if (dx && dy)
+            return W(
+              "The chariot moves only along a row or column, never diagonally.",
+            );
+          const b = btw();
+          if (b.length)
+            return W(
+              `Blocked: ${nm(b[0])} is in the way. A chariot can’t jump over pieces; ${b[0].s === h.s ? "it has to stop before your own piece" : "it can capture that piece but not go past it"}.`,
+              [b[0]],
+            );
+          if ((r = own())) return r;
+        } else if (h.t === "C") {
+          if (dx && dy)
+            return W(
+              "The cannon moves only along a row or column, never diagonally.",
+            );
+          const b = btw();
+          if (!tgt)
+            return W(
+              `Blocked: a cannon only slides across empty points. ${up(nm(b[0]))} is in the way, and jumping is only allowed when capturing.`,
+              [b[0]],
+            );
+          if ((r = own())) return r;
+          if (!b.length)
+            return W(
+              "A cannon can’t capture directly. It needs exactly one piece in between as a screen.",
+            );
+          if (b.length > 1)
+            return W(
+              `A cannon must jump over exactly one piece, but ${b.length} pieces are in the way.`,
+              b,
+            );
+        } else if (h.t === "S") {
+          if (dy > 0) return W("Soldiers never move backward.");
+          if (ax && ay)
+            return W(
+              "The soldier can’t move diagonally. It steps one point straight.",
+            );
+          if (ax + ay > 1)
+            return W("The soldier moves only one step at a time.");
+          if (dx && h.y > 4)
+            return W(
+              "The soldier can’t step sideways until it has crossed the river. Until then it only moves forward.",
+            );
+          if ((r = own())) return r;
+        }
+        return W(`That move isn’t allowed for the ${me}.`);
+      }
+      function draw() {
+        const o = obs,
+          hero = { t: cur, s: "red", x: pos.x, y: pos.y };
+        play.innerHTML = board([...o, hero], {
+          hero,
+          mv: moves(hero, o),
+          hit: true,
+          bad,
+        });
+        const i = INFO[cur];
+        info.innerHTML = `<b>${i[0]}</b><p>${i[1]}</p><p class="hint">${i[2]}</p>`;
+        statusEl.className = "notice";
+        void statusEl.offsetWidth;
+        if (note) {
+          statusEl.setAttribute("role", note.k === "warn" ? "alert" : "status");
+          statusEl.className = "notice " + note.k;
+          statusEl.innerHTML =
+            note.k === "warn" ? `<b>Illegal move.</b> ${note.t}` : note.t;
+        } else statusEl.innerHTML = "";
+        picker
+          .querySelectorAll("button")
+          .forEach((b) => b.setAttribute("aria-pressed", b.dataset.t === cur));
+      }
+      function reset(t) {
+        cur = t;
+        pos = { x: D[t].x, y: D[t].y };
+        obs = D[t].o.map((p) => ({ ...p }));
+        note = bad = null;
+        draw();
+      }
+      document.getElementById("reset").onclick = () => reset(cur);
+      Object.keys(INFO).forEach((t) => {
+        const b = document.createElement("button");
+        b.dataset.t = t;
+        b.innerHTML = `<span class="g">${CH.red[t]}</span>${INFO[t][0]}`;
+        b.onclick = () => reset(t);
+        picker.appendChild(b);
+      });
+      play.addEventListener("click", (e) => {
+        const t = e.target.closest(".hit");
+        if (!t) return;
+        const x = +t.dataset.x,
+          y = +t.dataset.y;
+        const hero = { t: cur, s: "red", x: pos.x, y: pos.y };
+        bad = null;
+        if (x === pos.x && y === pos.y) {
+          note = {
+            k: "info",
+            t: `The ${nameOf(cur)} is already on that point. Tap a green dot or a red ring.`,
+          };
+        } else if (moves(hero, obs).some((m) => m.x === x && m.y === y)) {
+          const target = obs.find((p) => p.x === x && p.y === y);
+          if (target) {
+            obs = obs.filter((p) => p !== target);
+            note = {
+              k: "ok",
+              t: `Captured the black ${nameOf(target.t)} ${CH.black[target.t]}. Press Reset board to try again.`,
+            };
+          } else note = null;
+          pos = { x, y };
+        } else {
+          const r = why(hero, x, y, obs);
+          bad = { x, y, bl: r.bl };
+          note = { k: "warn", t: r.t };
+        }
+        draw();
+      });
+      draw();
+      // start position
+      const st = [];
+      "RHEAKAEHR".split("").forEach((t, x) => {
+        st.push({ t, s: "black", x, y: 0 }, { t, s: "red", x, y: 9 });
+      });
+      [1, 7].forEach((x) => {
+        st.push({ t: "C", s: "black", x, y: 2 }, { t: "C", s: "red", x, y: 7 });
+      });
+      [0, 2, 4, 6, 8].forEach((x) => {
+        st.push({ t: "S", s: "black", x, y: 3 }, { t: "S", s: "red", x, y: 6 });
+      });
+      document.getElementById("start").innerHTML = board(st);
+      // values
+      document.getElementById("vals").innerHTML = VAL.map(
+        (v) =>
+          `<div class="row"><span>${v[0]}</span><div class="bar" style="width:${(v[1] / 9) * 100}%"></div><b>${v[1]}</b></div>`,
+      ).join("");
+    </script>
+  </body>
+</html>
