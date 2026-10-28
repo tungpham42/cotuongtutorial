@@ -35,58 +35,70 @@
     <meta name="twitter:image" content="/og-image.png" />
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;600;700&family=Noto+Serif+SC:wght@600;900&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Figtree:wght@400;600;700&family=Noto+Serif+SC:wght@600;900&display=swap"
     />
     <style>
       :root {
-        --bg: #eaeee6;
-        --ink: #1c2a25;
-        --mute: #4b5d56;
-        --card: #f6f8f2;
-        --board: #e6cf94;
-        --line: #5b4524;
-        --disc: #f7efd7;
-        --red: #b3261e;
-        --blk: #1b1b1b;
-        --go: #16745a;
-        --cap: #d1382d;
-        --hero: #c98a00;
-        --palace: rgba(91, 69, 36, 0.13);
-        --rule: #c9d3c8;
+        --bg: #fbf3e4;
+        --bg2: #f6e6c6;
+        --ink: #2b1d16;
+        --mute: #6e5c50;
+        --card: #fffaf0;
+        --board: #ecce85;
+        --board2: #dfb866;
+        --line: #6a4a22;
+        --disc: #fff6dc;
+        --disc2: #ecdcae;
+        --red: #d0352b;
+        --blk: #231d1a;
+        --go: #118a6a;
+        --cap: #e0392d;
+        --hero: #f2a900;
+        --palace: rgba(106, 74, 34, 0.14);
+        --rule: #ead9bb;
+        --shadow: 0 10px 30px rgba(106, 60, 20, 0.14);
       }
       @media (prefers-color-scheme: dark) {
         :root:not([data-theme="light"]) {
-          --bg: #101a17;
-          --ink: #e4eadf;
-          --mute: #a3b3ab;
-          --card: #18261f;
-          --board: #3b3322;
-          --line: #c9ae73;
-          --disc: #efe4c6;
-          --red: #a8231b;
-          --blk: #1b1b1b;
-          --go: #4fd1a5;
-          --cap: #ff7468;
-          --hero: #f0b429;
-          --palace: rgba(201, 174, 115, 0.16);
-          --rule: #2b3d35;
+          --bg: #17120f;
+          --bg2: #20170f;
+          --ink: #f6ead7;
+          --mute: #b8a794;
+          --card: #231b15;
+          --board: #55421f;
+          --board2: #3f3118;
+          --line: #d8b978;
+          --disc: #f6ebcc;
+          --disc2: #d9c690;
+          --red: #c22f26;
+          --blk: #231d1a;
+          --go: #46d6a6;
+          --cap: #ff7a6d;
+          --hero: #ffc233;
+          --palace: rgba(216, 185, 120, 0.18);
+          --rule: #3a2d22;
+          --shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
         }
       }
       :root[data-theme="dark"] {
-        --bg: #101a17;
-        --ink: #e4eadf;
-        --mute: #a3b3ab;
-        --card: #18261f;
-        --board: #3b3322;
-        --line: #c9ae73;
-        --disc: #efe4c6;
-        --red: #a8231b;
-        --blk: #1b1b1b;
-        --go: #4fd1a5;
-        --cap: #ff7468;
-        --hero: #f0b429;
-        --palace: rgba(201, 174, 115, 0.16);
-        --rule: #2b3d35;
+        --bg: #17120f;
+        --bg2: #20170f;
+        --ink: #f6ead7;
+        --mute: #b8a794;
+        --card: #231b15;
+        --board: #55421f;
+        --board2: #3f3118;
+        --line: #d8b978;
+        --disc: #f6ebcc;
+        --disc2: #d9c690;
+        --red: #c22f26;
+        --blk: #231d1a;
+        --go: #46d6a6;
+        --cap: #ff7a6d;
+        --hero: #ffc233;
+        --palace: rgba(216, 185, 120, 0.18);
+        --rule: #3a2d22;
+        --shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
       }
       :root {
         box-sizing: border-box;
@@ -94,7 +106,8 @@
         padding-bottom: env(safe-area-inset-bottom, 0px);
       }
       html {
-        scroll-padding-top: env(safe-area-inset-top, 0px);
+        scroll-behavior: smooth;
+        scroll-padding-top: 16px;
       }
       *,
       *::before,
@@ -109,104 +122,412 @@
           400 17px/1.6 Figtree,
           system-ui,
           sans-serif;
+        -webkit-text-size-adjust: 100%;
       }
       main {
-        max-width: 700px;
+        max-width: 760px;
         margin: 0 auto;
-        padding: 28px 20px 64px;
+        padding: 0 18px 64px;
       }
       h1,
-      h2 {
-        font-family: "Noto Serif SC", Georgia, serif;
-        line-height: 1.2;
+      h2,
+      h3 {
+        font-family: Fredoka, "Noto Serif SC", system-ui, sans-serif;
+        line-height: 1.15;
         margin: 0;
       }
-      h1 {
-        font-size: clamp(34px, 8vw, 52px);
-        font-weight: 900;
-      }
       h2 {
-        font-size: 26px;
-        font-weight: 600;
-        margin: 56px 0 10px;
+        font-size: clamp(26px, 6vw, 34px);
+        font-weight: 700;
+        margin: 0 0 8px;
       }
       p {
         margin: 0 0 12px;
-        max-width: 60ch;
+        max-width: 62ch;
+      }
+      section {
+        margin-top: 72px;
+      }
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font:
+          700 13px/1 Figtree,
+          sans-serif;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--red);
+        background: color-mix(in srgb, var(--red) 11%, transparent);
+        border-radius: 999px;
+        padding: 7px 12px;
+        margin-bottom: 12px;
+      }
+      .sub {
+        color: var(--mute);
+      }
+
+      /* ---------- hero ---------- */
+      .hero {
+        position: relative;
+        text-align: center;
+        padding: 52px 8px 20px;
+        overflow: hidden;
+      }
+      .hero::before {
+        content: "";
+        position: absolute;
+        inset: -40% -20% auto -20%;
+        height: 120%;
+        z-index: -1;
+        background:
+          radial-gradient(
+            closest-side at 20% 40%,
+            color-mix(in srgb, var(--red) 20%, transparent),
+            transparent
+          ),
+          radial-gradient(
+            closest-side at 80% 30%,
+            color-mix(in srgb, var(--hero) 30%, transparent),
+            transparent
+          ),
+          radial-gradient(
+            closest-side at 55% 80%,
+            color-mix(in srgb, var(--go) 16%, transparent),
+            transparent
+          );
+      }
+      .float {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin-bottom: 22px;
+      }
+      .disc {
+        --s: 54px;
+        width: var(--s);
+        height: var(--s);
+        flex: none;
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        background: radial-gradient(
+          circle at 35% 28%,
+          #fffdf2,
+          var(--disc) 45%,
+          var(--disc2)
+        );
+        border: 2px solid var(--line);
+        box-shadow:
+          0 4px 0 color-mix(in srgb, var(--line) 70%, #000),
+          0 10px 16px rgba(60, 30, 10, 0.25),
+          inset 0 0 0 4px color-mix(in srgb, var(--disc) 80%, transparent),
+          inset 0 0 0 5px color-mix(in srgb, currentColor 55%, transparent);
+        font:
+          900 calc(var(--s) * 0.5) "Noto Serif SC",
+          serif;
+        color: var(--red);
+        line-height: 1;
+      }
+      .disc.k {
+        color: var(--blk);
+      }
+      .float .disc {
+        animation: bob 3.2s ease-in-out infinite;
+      }
+      .float .disc:nth-child(2) {
+        animation-delay: -0.5s;
+      }
+      .float .disc:nth-child(3) {
+        animation-delay: -1s;
+      }
+      .float .disc:nth-child(4) {
+        animation-delay: -1.5s;
+      }
+      .float .disc:nth-child(5) {
+        animation-delay: -2s;
+      }
+      @keyframes bob {
+        50% {
+          transform: translateY(-9px) rotate(4deg);
+        }
+      }
+      h1 {
+        font-size: clamp(40px, 11vw, 72px);
+        font-weight: 700;
+        letter-spacing: -0.01em;
+      }
+      h1 em {
+        font-style: normal;
+        color: var(--red);
+        position: relative;
+        white-space: nowrap;
+      }
+      h1 em::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0.04em;
+        height: 0.22em;
+        background: var(--hero);
+        opacity: 0.55;
+        border-radius: 99px;
+        z-index: -1;
       }
       .lede {
+        font-size: clamp(18px, 4.6vw, 21px);
         color: var(--mute);
-        font-size: 19px;
-        margin-top: 10px;
+        margin: 16px auto 24px;
+        max-width: 34em;
       }
-      .board-wrap {
+      .cta-row {
+        display: flex;
+        gap: 12px;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+      .btn {
+        font:
+          700 18px/1 Fredoka,
+          Figtree,
+          sans-serif;
+        text-decoration: none;
+        color: #fff;
+        background: var(--red);
+        border: 0;
+        border-radius: 999px;
+        padding: 16px 28px;
+        cursor: pointer;
+        box-shadow: 0 5px 0 color-mix(in srgb, var(--red) 60%, #000);
+        transition:
+          transform 0.12s,
+          box-shadow 0.12s;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .btn:hover {
+        transform: translateY(-2px);
+      }
+      .btn:active {
+        transform: translateY(4px);
+        box-shadow: 0 1px 0 color-mix(in srgb, var(--red) 60%, #000);
+      }
+      .btn.ghost {
+        color: var(--ink);
         background: var(--card);
-        border: 1px solid var(--rule);
-        border-radius: 14px;
-        padding: 14px;
-        margin-top: 20px;
+        border: 2px solid var(--rule);
+        box-shadow: 0 5px 0 var(--rule);
       }
-      svg.board {
-        display: block;
+      .btn:focus-visible,
+      button:focus-visible,
+      a:focus-visible {
+        outline: 3px solid var(--go);
+        outline-offset: 3px;
+      }
+      .stats {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-top: 26px;
+        font-weight: 600;
+        font-size: 15px;
+      }
+      .stats span {
+        background: var(--card);
+        border: 1.5px solid var(--rule);
+        border-radius: 999px;
+        padding: 6px 14px;
+      }
+
+      /* ---------- ad ---------- */
+      .ad-top {
         width: 100%;
-        max-width: 470px;
-        margin: 0 auto;
-        height: auto;
+        height: 300px;
+        overflow: hidden;
+        margin-top: 36px;
+        border-radius: 16px;
+      }
+
+      /* ---------- lesson ---------- */
+      .lesson {
+        background: var(--card);
+        border: 2px solid var(--rule);
+        border-radius: 26px;
+        padding: 16px;
+        box-shadow: var(--shadow);
+        margin-top: 18px;
+      }
+      .progress {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font:
+          600 14px Figtree,
+          sans-serif;
+        color: var(--mute);
+        margin: 2px 4px 12px;
+      }
+      .track {
+        flex: 1;
+        height: 10px;
+        border-radius: 99px;
+        background: var(--rule);
+        overflow: hidden;
+      }
+      .fill {
+        height: 100%;
+        width: 0;
+        background: linear-gradient(90deg, var(--go), var(--hero));
+        border-radius: 99px;
+        transition: width 0.5s cubic-bezier(0.3, 1.4, 0.5, 1);
       }
       .picker {
         display: flex;
-        flex-wrap: wrap;
         gap: 8px;
-        margin-bottom: 12px;
+        overflow-x: auto;
+        padding: 4px 4px 10px;
+        margin: 0 -4px 8px;
+        scrollbar-width: thin;
+        scroll-snap-type: x proximity;
       }
       .picker button {
+        scroll-snap-align: start;
+        flex: none;
+        position: relative;
         font:
           600 15px Figtree,
           sans-serif;
         color: var(--ink);
         background: transparent;
-        border: 1.5px solid var(--rule);
+        border: 2px solid var(--rule);
         border-radius: 999px;
-        padding: 5px 12px 5px 6px;
+        padding: 5px 14px 5px 5px;
         display: flex;
         align-items: center;
-        gap: 7px;
+        gap: 8px;
         cursor: pointer;
+        transition:
+          transform 0.12s,
+          border-color 0.12s;
       }
-      .picker button .g {
-        width: 28px;
-        height: 28px;
-        border-radius: 50%;
-        background: var(--disc);
-        color: var(--red);
-        display: grid;
-        place-items: center;
-        font:
-          900 16px "Noto Serif SC",
-          serif;
-        border: 1.5px solid var(--line);
+      .picker button:hover {
+        transform: translateY(-2px);
+      }
+      .picker button .disc {
+        --s: 34px;
+        box-shadow:
+          0 2px 0 color-mix(in srgb, var(--line) 70%, #000),
+          inset 0 0 0 3px color-mix(in srgb, var(--disc) 80%, transparent),
+          inset 0 0 0 4px color-mix(in srgb, currentColor 55%, transparent);
       }
       .picker button[aria-pressed="true"] {
         border-color: var(--hero);
+        background: color-mix(in srgb, var(--hero) 16%, transparent);
         box-shadow: 0 0 0 2px var(--hero);
       }
-      button:focus-visible {
-        outline: 3px solid var(--go);
-        outline-offset: 2px;
+      .picker button .tick {
+        display: none;
+        position: absolute;
+        top: -5px;
+        right: -3px;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: var(--go);
+        color: #fff;
+        font-size: 12px;
+        font-weight: 700;
+        place-items: center;
+        border: 2px solid var(--card);
+      }
+      .picker button.done .tick {
+        display: grid;
+      }
+      .stage {
+        background: radial-gradient(
+          circle at 50% 30%,
+          color-mix(in srgb, var(--hero) 10%, var(--card)),
+          var(--card)
+        );
+        border-radius: 18px;
+      }
+      svg.board {
+        display: block;
+        width: 100%;
+        max-width: 500px;
+        margin: 0 auto;
+        height: auto;
+        touch-action: manipulation;
+        -webkit-tap-highlight-color: transparent;
+      }
+      .hit:hover {
+        fill: color-mix(in srgb, var(--hero) 28%, transparent);
+      }
+      .dotv {
+        transform-box: fill-box;
+        transform-origin: center;
+        animation: pulse 1.4s ease-in-out infinite;
+      }
+      @keyframes pulse {
+        50% {
+          transform: scale(1.35);
+          opacity: 0.75;
+        }
+      }
+      .ringc {
+        transform-box: fill-box;
+        transform-origin: center;
+        animation: pulse2 1.2s ease-in-out infinite;
+      }
+      @keyframes pulse2 {
+        50% {
+          transform: scale(1.07);
+        }
+      }
+      .slide {
+        animation: slide 0.32s cubic-bezier(0.3, 0.9, 0.3, 1);
+      }
+      @keyframes slide {
+        from {
+          transform: translate(var(--dx), var(--dy));
+        }
       }
       .info {
-        margin-top: 12px;
+        margin-top: 14px;
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 14px;
+        align-items: start;
+        padding: 0 4px;
       }
-      .info b {
-        font-size: 19px;
+      .info .disc {
+        --s: 62px;
+      }
+      .info h3 {
+        font-size: 24px;
+        font-weight: 700;
+      }
+      .info p {
+        margin: 4px 0 0;
+      }
+      .info .tip {
+        font-size: 15px;
+        color: var(--mute);
+        border-left: 3px solid var(--hero);
+        padding-left: 10px;
+        margin-top: 8px;
       }
       .key {
         display: flex;
-        gap: 18px;
+        gap: 6px 16px;
         flex-wrap: wrap;
+        align-items: center;
         font-size: 14px;
         color: var(--mute);
-        margin-top: 6px;
+        margin: 14px 4px 0;
       }
       .key i {
         display: inline-block;
@@ -225,29 +546,6 @@
         border-radius: 50%;
         border: 3px solid var(--cap);
       }
-      .hint {
-        font-size: 14px;
-        color: var(--mute);
-        margin: 10px 0 0;
-      }
-      .key {
-        align-items: center;
-      }
-      .reset {
-        margin-left: auto;
-        font:
-          600 14px Figtree,
-          sans-serif;
-        color: var(--ink);
-        background: transparent;
-        border: 1.5px solid var(--rule);
-        border-radius: 999px;
-        padding: 5px 14px;
-        cursor: pointer;
-      }
-      .reset:hover {
-        border-color: var(--hero);
-      }
       .blk {
         width: 14px;
         height: 14px;
@@ -255,22 +553,29 @@
         border: 3px dashed var(--cap);
       }
       .notice {
-        margin-top: 10px;
-        padding: 10px 14px;
-        min-height: 3.4em;
-        border: 1.5px solid transparent;
-        border-radius: 10px;
-        font-size: 15px;
+        margin-top: 12px;
+        padding: 11px 14px;
+        min-height: 3.6em;
+        border: 2px solid var(--rule);
+        border-radius: 14px;
+        font-size: 15.5px;
         line-height: 1.45;
-        color: var(--ink);
+        display: flex;
+        align-items: center;
+        gap: 10px;
       }
-      .notice:empty {
-        visibility: hidden;
+      .notice::before {
+        content: "👆";
+        font-size: 22px;
+        flex: none;
       }
       .notice.warn {
         border-color: var(--cap);
-        background: color-mix(in srgb, var(--cap) 12%, var(--card));
+        background: color-mix(in srgb, var(--cap) 11%, var(--card));
         animation: nudge 0.3s;
+      }
+      .notice.warn::before {
+        content: "🚫";
       }
       .notice.warn b {
         color: var(--cap);
@@ -279,8 +584,11 @@
         border-color: var(--go);
         background: color-mix(in srgb, var(--go) 12%, var(--card));
       }
-      .notice.info {
-        border-color: var(--rule);
+      .notice.ok::before {
+        content: "🎯";
+      }
+      .notice.win::before {
+        content: "🎉";
       }
       @keyframes nudge {
         25% {
@@ -290,86 +598,218 @@
           transform: translateX(5px);
         }
       }
-      @media (prefers-reduced-motion: reduce) {
-        .notice.warn {
-          animation: none;
+      .actions {
+        display: flex;
+        gap: 10px;
+        margin-top: 12px;
+        justify-content: space-between;
+        flex-wrap: wrap;
+      }
+      .small {
+        font:
+          700 15px Fredoka,
+          Figtree,
+          sans-serif;
+        padding: 11px 18px;
+        border-radius: 999px;
+        cursor: pointer;
+        color: var(--ink);
+        background: transparent;
+        border: 2px solid var(--rule);
+      }
+      .small:hover {
+        border-color: var(--hero);
+      }
+      .small.next {
+        background: var(--go);
+        border-color: var(--go);
+        color: #fff;
+        margin-left: auto;
+      }
+      :root[data-theme="dark"] .small.next,
+      :root:not([data-theme="light"]) .small.next {
+        color: #08241b;
+      }
+      @media (prefers-color-scheme: light) {
+        :root:not([data-theme="dark"]) .small.next {
+          color: #fff;
         }
+      }
+      .win-banner {
+        display: none;
+        margin-top: 12px;
+        text-align: center;
+        padding: 16px;
+        border-radius: 16px;
+        background: linear-gradient(
+          120deg,
+          color-mix(in srgb, var(--hero) 30%, var(--card)),
+          color-mix(in srgb, var(--go) 22%, var(--card))
+        );
+        font:
+          600 18px Fredoka,
+          sans-serif;
+      }
+      .win-banner.show {
+        display: block;
+        animation: pop 0.5s cubic-bezier(0.3, 1.6, 0.5, 1);
+      }
+      @keyframes pop {
+        from {
+          transform: scale(0.8);
+          opacity: 0;
+        }
+      }
+      .win-banner a {
+        color: var(--red);
+      }
+
+      /* ---------- generic cards ---------- */
+      .board-wrap {
+        background: var(--card);
+        border: 2px solid var(--rule);
+        border-radius: 26px;
+        padding: 16px;
+        box-shadow: var(--shadow);
+        margin-top: 16px;
+      }
+      .hint {
+        font-size: 14px;
+        color: var(--mute);
+        margin: 10px 4px 0;
       }
       .vals {
         display: grid;
-        gap: 8px;
-        margin-top: 14px;
+        gap: 10px;
+        margin-top: 16px;
       }
       .row {
         display: grid;
-        grid-template-columns: 96px 1fr 38px;
+        grid-template-columns: 38px 84px 1fr 34px;
         align-items: center;
         gap: 10px;
         font-size: 15px;
+        font-weight: 600;
+      }
+      .row .disc {
+        --s: 36px;
+        box-shadow:
+          0 2px 0 color-mix(in srgb, var(--line) 70%, #000),
+          inset 0 0 0 3px color-mix(in srgb, var(--disc) 80%, transparent);
+      }
+      .barwrap {
+        background: var(--rule);
+        border-radius: 99px;
+        height: 16px;
+        overflow: hidden;
       }
       .bar {
-        height: 14px;
-        border-radius: 7px;
-        background: var(--go);
-        opacity: 0.85;
+        height: 100%;
+        width: 0;
+        border-radius: 99px;
+        background: linear-gradient(90deg, var(--go), var(--hero));
+        transition: width 0.9s cubic-bezier(0.2, 0.9, 0.3, 1);
       }
       .rules {
         display: grid;
-        gap: 12px;
+        gap: 14px;
+        margin-top: 16px;
       }
       .rule {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 16px;
         background: var(--card);
-        border: 1px solid var(--rule);
-        border-left: 5px solid var(--hero);
-        border-radius: 10px;
-        padding: 12px 16px;
+        border: 2px solid var(--rule);
+        border-radius: 20px;
+        padding: 16px;
+        box-shadow: var(--shadow);
+      }
+      .rule .disc {
+        --s: 56px;
       }
       .rule b {
         display: block;
-        font-size: 18px;
+        font:
+          700 20px Fredoka,
+          sans-serif;
       }
       .rule p {
         margin: 4px 0 0;
       }
       .plan {
-        margin: 0;
+        margin: 16px 0 0;
         padding: 0;
         list-style: none;
         display: grid;
-        gap: 12px;
+        gap: 14px;
         counter-reset: s;
       }
       .plan li {
         counter-increment: s;
-        padding-left: 46px;
         position: relative;
+        background: var(--card);
+        border: 2px solid var(--rule);
+        border-radius: 20px;
+        padding: 16px 16px 16px 70px;
+        box-shadow: var(--shadow);
       }
       .plan li::before {
         content: counter(s);
         position: absolute;
-        left: 0;
-        top: 0;
-        width: 32px;
-        height: 32px;
+        left: 16px;
+        top: 16px;
+        width: 40px;
+        height: 40px;
         border-radius: 50%;
         background: var(--red);
         color: #fff;
         display: grid;
         place-items: center;
-        font-weight: 700;
+        font:
+          700 20px Fredoka,
+          sans-serif;
+        box-shadow: 0 3px 0 color-mix(in srgb, var(--red) 60%, #000);
       }
-      .legend {
-        font-size: 15px;
-        color: var(--mute);
+      .plan b {
+        font:
+          700 19px Fredoka,
+          sans-serif;
       }
-      .legend span {
-        display: inline-block;
-        margin-right: 14px;
+      .goal {
+        display: grid;
+        gap: 14px;
+        margin-top: 16px;
+      }
+      .goal .big {
+        background: linear-gradient(
+          135deg,
+          color-mix(in srgb, var(--red) 90%, #000),
+          var(--red)
+        );
+        color: #fff;
+        border-radius: 22px;
+        padding: 22px;
+        font:
+          600 clamp(20px, 5vw, 26px) / 1.3 Fredoka,
+          sans-serif;
+        box-shadow: var(--shadow);
+      }
+      .goal .big small {
+        display: block;
+        font:
+          400 16px/1.5 Figtree,
+          sans-serif;
+        opacity: 0.92;
+        margin-top: 8px;
       }
       .foot {
-        margin-top: 48px;
+        margin-top: 56px;
         color: var(--mute);
         font-size: 15px;
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
       }
       .lang-link {
         margin-top: 28px;
@@ -378,6 +818,7 @@
         font-size: 14px;
         color: var(--mute);
         text-align: center;
+        max-width: none;
       }
       .lang-link a {
         color: var(--mute);
@@ -388,10 +829,32 @@
       .lang-link a:focus-visible {
         color: var(--go);
       }
-      .ad-top {
-        width: 100%;
-        height: 300px;
-        overflow: hidden;
+      @media (max-width: 480px) {
+        .row {
+          grid-template-columns: 36px 72px 1fr 30px;
+          gap: 8px;
+        }
+        .float .disc {
+          --s: 46px;
+        }
+        .float {
+          gap: 6px;
+        }
+        .info {
+          grid-template-columns: 1fr;
+        }
+        .info .disc {
+          display: none;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          animation: none !important;
+          transition: none !important;
+          scroll-behavior: auto !important;
+        }
       }
     </style>
   </head>
@@ -401,118 +864,189 @@
       src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3585118770961536"
       crossorigin="anonymous"
     ></script>
-    <!-- CO_TUTOR_res -->
-    <div class="ad-top">
-      <ins
-        class="adsbygoogle"
-        style="display: block; width: 100%; height: 300px"
-        data-ad-client="ca-pub-3585118770961536"
-        data-ad-slot="4310795924"
-      ></ins>
-    </div>
-    <script>
-      (adsbygoogle = window.adsbygoogle || []).push({});
-    </script>
     <main>
-      <h1>Xiangqi in 10 minutes</h1>
-      <p class="lede">
-        Chinese chess: two armies, one goal. Trap the enemy general. You already
-        know the idea if you have played chess. Tap the board below to learn
-        each piece by moving it.
-      </p>
-
-      <h2>Try every piece</h2>
-      <p>
-        Pick a piece, then tap a green dot to move it. Tap a red ring to capture
-        that piece. Pieces can’t be dropped anywhere: every move follows the
-        real rules, and blockers stop them. Tap any other point to try an
-        illegal move and see why it isn’t allowed. Press Reset board to start
-        over.
-      </p>
-      <div class="board-wrap">
-        <div
-          class="picker"
-          id="picker"
-          role="group"
-          aria-label="Choose a piece"
-        ></div>
-        <div id="play"></div>
-        <div class="info" id="info"></div>
-        <div class="key">
-          <span><i class="dot"></i>can move here</span
-          ><span><i class="ring"></i>can capture</span
-          ><span><i class="blk"></i>blocking piece</span>
-          <button type="button" class="reset" id="reset">Reset board</button>
+      <header class="hero">
+        <div class="float" aria-hidden="true">
+          <span class="disc">帥</span><span class="disc">俥</span
+          ><span class="disc">傌</span><span class="disc k">砲</span
+          ><span class="disc k">卒</span>
         </div>
-        <div class="notice" id="status" role="status" aria-live="polite"></div>
-      </div>
-
-      <h2>The board</h2>
-      <p>
-        Nine lines across, ten along. Pieces sit on the crossings, not inside
-        squares. The shaded boxes are the <b>palaces</b>, and the gap in the
-        middle is the <b>river</b>. Red moves first.
-      </p>
-      <div class="board-wrap">
-        <div id="start"></div>
-        <p class="hint">
-          Red is at the bottom, black at the top. Pieces are the same set for
-          both sides, only the characters differ.
+        <h1>Xiangqi in <em>10 minutes</em></h1>
+        <p class="lede">
+          Chinese chess is two armies and one goal: trap the enemy general. Move
+          every piece yourself on a real board, and learn by playing, not
+          reading.
         </p>
+        <div class="cta-row">
+          <a class="btn" href="#try"
+            >Start playing <span aria-hidden="true">→</span></a
+          >
+          <a class="btn ghost" href="#rules">3 sneaky rules</a>
+        </div>
+        <div class="stats" aria-label="What you will learn">
+          <span>7 pieces</span><span>3 key rules</span><span>0 sign-ups</span>
+        </div>
+      </header>
+
+      <!-- CO_TUTOR_res -->
+      <div class="ad-top">
+        <ins
+          class="adsbygoogle"
+          style="display: block; width: 100%; height: 300px"
+          data-ad-client="ca-pub-3585118770961536"
+          data-ad-slot="4310795924"
+        ></ins>
       </div>
+      <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
 
-      <h2>The goal</h2>
-      <p>
-        Checkmate the enemy general, or leave the enemy with no legal move. In
-        Xiangqi, having no legal move means you <b>lose</b>, not draw.
-      </p>
+      <section id="try">
+        <span class="eyebrow">Step 1 · Play</span>
+        <h2>Try every piece</h2>
+        <p class="sub">
+          Pick a piece, then tap a <b style="color: var(--go)">green dot</b> to
+          move it or a <b style="color: var(--cap)">red ring</b> to capture. Tap
+          anywhere else to find out why a move is illegal.
+        </p>
+        <div class="lesson">
+          <div class="progress">
+            <span id="pcount">0 of 7 tried</span>
+            <div class="track"><div class="fill" id="pfill"></div></div>
+          </div>
+          <div
+            class="picker"
+            id="picker"
+            role="group"
+            aria-label="Choose a piece"
+          ></div>
+          <div class="stage"><div id="play"></div></div>
+          <div class="info" id="info"></div>
+          <div
+            class="notice"
+            id="status"
+            role="status"
+            aria-live="polite"
+          ></div>
+          <div class="win-banner" id="win">
+            You’ve moved all 7 pieces! Now check the
+            <a href="#rules">3 sneaky rules</a> and you’re ready to play.
+          </div>
+          <div class="actions">
+            <button type="button" class="small" id="reset">
+              ↺ Reset board
+            </button>
+            <button type="button" class="small next" id="next">
+              Next piece →
+            </button>
+          </div>
+          <div class="key">
+            <span><i class="dot"></i>can move here</span>
+            <span><i class="ring"></i>can capture</span>
+            <span><i class="blk"></i>blocking piece</span>
+          </div>
+        </div>
+      </section>
 
-      <h2>How much is each piece worth?</h2>
-      <p>Rough guide for deciding trades. Longer bar, more valuable.</p>
-      <div class="vals" id="vals"></div>
-
-      <h2>Three rules that surprise newcomers</h2>
-      <div class="rules">
-        <div class="rule">
-          <b>Generals cannot face each other</b>
-          <p>
-            If the two generals look at each other down an open file with
-            nothing between them, that position is illegal. This can force a
-            win, so watch the file.
+      <section>
+        <span class="eyebrow">Step 2 · Look around</span>
+        <h2>The board</h2>
+        <p class="sub">
+          Nine lines across, ten along. Pieces sit on the crossings, not inside
+          squares. The shaded boxes are the <b>palaces</b>, and the gap in the
+          middle is the <b>river</b>. Red moves first.
+        </p>
+        <div class="board-wrap">
+          <div id="start"></div>
+          <p class="hint">
+            Red is at the bottom, black at the top. Both sides have the same
+            set; only the characters differ.
           </p>
         </div>
-        <div class="rule">
-          <b>Horses and elephants can be blocked</b>
-          <p>
-            A horse needs the point next to it (its “leg”) to be empty. An
-            elephant needs the point in the middle of its jump (its “eye”) to be
-            empty.
-          </p>
-        </div>
-        <div class="rule">
-          <b>Cannons need a screen to capture</b>
-          <p>
-            A cannon moves like a chariot, but to capture it must hop over
-            exactly one piece of either colour, then land on an enemy behind it.
-          </p>
-        </div>
-      </div>
+      </section>
 
-      <h2>Your first game plan</h2>
-      <ol class="plan">
-        <li>
-          <b>Open with the cannon to the centre.</b> Slide a cannon in front of
-          your general. It pressures the enemy’s central soldier right away.
-        </li>
-        <li>
-          <b>Get your chariots out.</b> They are your strongest pieces and are
-          stuck in the corners. Open a file for each one.
-        </li>
-        <li>
-          <b>Keep guards home, attack with the rest.</b> Advisors and elephants
-          rarely leave. Use chariots, horses, and cannons to chase the general.
-        </li>
-      </ol>
+      <section>
+        <span class="eyebrow">Step 3 · Win</span>
+        <h2>The goal</h2>
+        <div class="goal">
+          <div class="big">
+            Checkmate the enemy general.
+            <small>
+              Or leave your opponent with no legal move. In Xiangqi, having no
+              legal move means you <b>lose</b>, not draw.
+            </small>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <span class="eyebrow">Step 4 · Trade smart</span>
+        <h2>How much is each piece worth?</h2>
+        <p class="sub">A rough guide for trades. Longer bar, more valuable.</p>
+        <div class="vals" id="vals"></div>
+      </section>
+
+      <section id="rules">
+        <span class="eyebrow">Step 5 · Avoid surprises</span>
+        <h2>Three rules that surprise newcomers</h2>
+        <div class="rules">
+          <div class="rule">
+            <span class="disc" aria-hidden="true">帥</span>
+            <div>
+              <b>Generals cannot face each other</b>
+              <p>
+                If the two generals look at each other down an open file with
+                nothing between them, that position is illegal. This can force a
+                win, so watch the file.
+              </p>
+            </div>
+          </div>
+          <div class="rule">
+            <span class="disc" aria-hidden="true">傌</span>
+            <div>
+              <b>Horses and elephants can be blocked</b>
+              <p>
+                A horse needs the point next to it (its “leg”) to be empty. An
+                elephant needs the point in the middle of its jump (its “eye”)
+                to be empty.
+              </p>
+            </div>
+          </div>
+          <div class="rule">
+            <span class="disc" aria-hidden="true">炮</span>
+            <div>
+              <b>Cannons need a screen to capture</b>
+              <p>
+                A cannon moves like a chariot, but to capture it must hop over
+                exactly one piece of either colour, then land on an enemy behind
+                it.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <span class="eyebrow">Step 6 · Your first game</span>
+        <h2>Your first game plan</h2>
+        <ol class="plan">
+          <li>
+            <b>Open with the cannon to the centre.</b><br />
+            Slide a cannon in front of your general. It pressures the enemy’s
+            central soldier right away.
+          </li>
+          <li>
+            <b>Get your chariots out.</b><br />
+            They are your strongest pieces and are stuck in the corners. Open a
+            file for each one.
+          </li>
+          <li>
+            <b>Keep guards home, attack with the rest.</b><br />
+            Advisors and elephants rarely leave. Use chariots, horses, and
+            cannons to chase the general.
+          </li>
+        </ol>
+      </section>
 
       <p class="foot">
         Next steps: play a few games against a beginner-level app, and learn the
@@ -576,6 +1110,7 @@
           "Step forward across the river to unlock sideways moves. Own pieces block, enemy pieces can be captured.",
         ],
       };
+      const ORDER = Object.keys(INFO);
       const VAL = [
         ["Chariot", 9, "R"],
         ["Cannon", 4.5, "C"],
@@ -739,7 +1274,7 @@
       function board(pcs, o = {}) {
         const W = 8 * Cs + 2 * M,
           H = 9 * Cs + 2 * M;
-        let s = `<svg class="board" viewBox="0 0 ${W} ${H}" role="img" aria-label="Xiangqi board"><rect x="0" y="0" width="${W}" height="${H}" rx="10" fill="var(--board)"/>`;
+        let s = `<svg class="board" viewBox="0 0 ${W} ${H}" role="img" aria-label="Xiangqi board"><defs><linearGradient id="wd" x1="0" y1="0" x2="1" y2="1"><stop offset="0" style="stop-color:var(--board)"/><stop offset="1" style="stop-color:var(--board2)"/></linearGradient><radialGradient id="dg" cx=".35" cy=".28" r=".85"><stop offset="0" stop-color="#fffdf2"/><stop offset=".45" style="stop-color:var(--disc)"/><stop offset="1" style="stop-color:var(--disc2)"/></radialGradient></defs><rect x="0" y="0" width="${W}" height="${H}" rx="18" fill="url(#wd)"/>`;
         s += `<rect x="${px(3)}" y="${py(0)}" width="${2 * Cs}" height="${2 * Cs}" fill="var(--palace)"/><rect x="${px(3)}" y="${py(7)}" width="${2 * Cs}" height="${2 * Cs}" fill="var(--palace)"/>`;
         let d = "";
         for (let y = 0; y < 10; y++) d += `M${px(0)} ${py(y)}H${px(8)}`;
@@ -747,34 +1282,39 @@
         for (let x = 1; x < 8; x++)
           d += `M${px(x)} ${py(0)}V${py(4)}M${px(x)} ${py(5)}V${py(9)}`;
         d += `M${px(3)} ${py(0)}L${px(5)} ${py(2)}M${px(5)} ${py(0)}L${px(3)} ${py(2)}M${px(3)} ${py(7)}L${px(5)} ${py(9)}M${px(5)} ${py(7)}L${px(3)} ${py(9)}`;
-        s += `<path d="${d}" stroke="var(--line)" stroke-width="1.6" fill="none"/><rect x="${px(0) - 4}" y="${py(0) - 4}" width="${8 * Cs + 8}" height="${9 * Cs + 8}" fill="none" stroke="var(--line)" stroke-width="3"/>`;
+        s += `<path d="${d}" stroke="var(--line)" stroke-width="1.6" fill="none" stroke-linecap="round"/><rect x="${px(0) - 5}" y="${py(0) - 5}" width="${8 * Cs + 10}" height="${9 * Cs + 10}" rx="3" fill="none" stroke="var(--line)" stroke-width="3.5"/>`;
         const ry = py(4.5);
-        s += `<g fill="var(--line)" font-family="Noto Serif SC,serif" font-size="24" font-weight="600" text-anchor="middle" dominant-baseline="central" opacity=".75"><text x="${px(2)}" y="${ry}">楚 河</text><text x="${px(6)}" y="${ry}">漢 界</text></g>`;
+        s += `<g fill="var(--line)" font-family="Noto Serif SC,serif" font-size="24" font-weight="600" text-anchor="middle" dominant-baseline="central" opacity=".7"><text x="${px(2)}" y="${ry}">楚 河</text><text x="${px(6)}" y="${ry}">漢 界</text></g>`;
         if (o.hit)
           for (let y = 0; y < 10; y++)
             for (let x = 0; x < 9; x++)
               s += `<circle class="hit" data-x="${x}" data-y="${y}" cx="${px(x)}" cy="${py(y)}" r="${Cs / 2}" fill="transparent" style="cursor:pointer"/>`;
         (o.mv || []).forEach((m) => {
           if (!m.cap)
-            s += `<circle cx="${px(m.x)}" cy="${py(m.y)}" r="8" fill="var(--go)" pointer-events="none"/>`;
+            s += `<circle class="dotv" cx="${px(m.x)}" cy="${py(m.y)}" r="9" fill="var(--go)" stroke="var(--card)" stroke-width="2" pointer-events="none"/>`;
         });
+        const sl = o.slide
+          ? ` class="slide" style="--dx:${px(o.slide.x) - px(o.hero.x)}px;--dy:${py(o.slide.y) - py(o.hero.y)}px"`
+          : "";
         pcs.forEach((p) => {
           const c = p.s === "red" ? "var(--red)" : "var(--blk)";
-          s += `<g pointer-events="none"><circle cx="${px(p.x)}" cy="${py(p.y)}" r="23" fill="var(--disc)" stroke="var(--line)" stroke-width="2"/><circle cx="${px(p.x)}" cy="${py(p.y)}" r="18" fill="none" stroke="${c}" stroke-width="1.5"/><text x="${px(p.x)}" y="${py(p.y) + 1}" text-anchor="middle" dominant-baseline="central" font-family="Noto Serif SC,serif" font-weight="900" font-size="24" fill="${c}">${CH[p.s][p.t]}</text></g>`;
+          const cx = px(p.x),
+            cy = py(p.y);
+          s += `<g pointer-events="none"${p === o.hero ? sl : ""}><ellipse cx="${cx}" cy="${cy + 6}" rx="23" ry="21" fill="#000" opacity=".28"/><circle cx="${cx}" cy="${cy + 3}" r="23" fill="var(--line)"/><circle cx="${cx}" cy="${cy}" r="23" fill="url(#dg)" stroke="var(--line)" stroke-width="2"/><circle cx="${cx}" cy="${cy}" r="18" fill="none" stroke="${c}" stroke-width="1.6"/><text x="${cx}" y="${cy + 1}" text-anchor="middle" dominant-baseline="central" font-family="Noto Serif SC,serif" font-weight="900" font-size="24" fill="${c}">${CH[p.s][p.t]}</text></g>`;
         });
         if (o.hero)
-          s += `<circle cx="${px(o.hero.x)}" cy="${py(o.hero.y)}" r="28" fill="none" stroke="var(--hero)" stroke-width="3.5" pointer-events="none"/>`;
+          s += `<circle${sl} cx="${px(o.hero.x)}" cy="${py(o.hero.y)}" r="29" fill="none" stroke="var(--hero)" stroke-width="4" pointer-events="none"/>`;
         (o.mv || []).forEach((m) => {
           if (m.cap)
-            s += `<circle cx="${px(m.x)}" cy="${py(m.y)}" r="27" fill="none" stroke="var(--cap)" stroke-width="4" pointer-events="none"/>`;
+            s += `<circle class="ringc" cx="${px(m.x)}" cy="${py(m.y)}" r="28" fill="none" stroke="var(--cap)" stroke-width="4.5" pointer-events="none"/>`;
         });
         if (o.bad) {
           (o.bad.bl || []).forEach((p) => {
-            s += `<circle cx="${px(p.x)}" cy="${py(p.y)}" r="27" fill="none" stroke="var(--cap)" stroke-width="4" stroke-dasharray="7 5" pointer-events="none"/>`;
+            s += `<circle cx="${px(p.x)}" cy="${py(p.y)}" r="28" fill="none" stroke="var(--cap)" stroke-width="4.5" stroke-dasharray="7 5" pointer-events="none"/>`;
           });
           const cx = px(o.bad.x),
             cy = py(o.bad.y);
-          s += `<circle cx="${cx}" cy="${cy}" r="14" fill="var(--card)" opacity=".92" pointer-events="none"/><path d="M${cx - 8} ${cy - 8}L${cx + 8} ${cy + 8}M${cx + 8} ${cy - 8}L${cx - 8} ${cy + 8}" stroke="var(--cap)" stroke-width="5" stroke-linecap="round" pointer-events="none"/>`;
+          s += `<circle cx="${cx}" cy="${cy}" r="15" fill="var(--card)" opacity=".95" pointer-events="none"/><path d="M${cx - 8} ${cy - 8}L${cx + 8} ${cy + 8}M${cx + 8} ${cy - 8}L${cx - 8} ${cy + 8}" stroke="var(--cap)" stroke-width="5" stroke-linecap="round" pointer-events="none"/>`;
         }
         return s + "</svg>";
       }
@@ -782,11 +1322,21 @@
         pos = { ...D.K },
         obs = D.K.o.map((p) => ({ ...p })),
         note = null,
-        bad = null;
+        bad = null,
+        slide = null;
+      let learned = new Set();
+      try {
+        learned = new Set(
+          JSON.parse(localStorage.getItem("xq-learned") || "[]").filter((t) =>
+            ORDER.includes(t),
+          ),
+        );
+      } catch (e) {}
       const play = document.getElementById("play"),
         info = document.getElementById("info"),
         picker = document.getElementById("picker"),
-        statusEl = document.getElementById("status");
+        statusEl = document.getElementById("status"),
+        winEl = document.getElementById("win");
       const nameOf = (t) => INFO[t][0].toLowerCase();
       const nm = (p) =>
         p.s === "red"
@@ -924,41 +1474,62 @@
         }
         return W(`That move isn’t allowed for the ${me}.`);
       }
+      const coach = () => ({
+        k: "info",
+        t: `Tap a green dot to move the ${nameOf(cur)}. Tap anywhere else to see why a move is illegal.`,
+      });
+      function save() {
+        try {
+          localStorage.setItem("xq-learned", JSON.stringify([...learned]));
+        } catch (e) {}
+      }
       function draw() {
-        const o = obs,
-          hero = { t: cur, s: "red", x: pos.x, y: pos.y };
-        play.innerHTML = board([...o, hero], {
+        const hero = { t: cur, s: "red", x: pos.x, y: pos.y };
+        play.innerHTML = board([...obs, hero], {
           hero,
-          mv: moves(hero, o),
+          mv: moves(hero, obs),
           hit: true,
           bad,
+          slide,
         });
+        slide = null;
         const i = INFO[cur];
-        info.innerHTML = `<b>${i[0]}</b><p>${i[1]}</p><p class="hint">${i[2]}</p>`;
+        info.innerHTML = `<span class="disc" aria-hidden="true">${CH.red[cur]}</span><div><h3>${i[0]}</h3><p>${i[1]}</p><p class="tip">${i[2]}</p></div>`;
+        const n = note || coach();
         statusEl.className = "notice";
         void statusEl.offsetWidth;
-        if (note) {
-          statusEl.setAttribute("role", note.k === "warn" ? "alert" : "status");
-          statusEl.className = "notice " + note.k;
-          statusEl.innerHTML =
-            note.k === "warn" ? `<b>Illegal move.</b> ${note.t}` : note.t;
-        } else statusEl.innerHTML = "";
-        picker
-          .querySelectorAll("button")
-          .forEach((b) => b.setAttribute("aria-pressed", b.dataset.t === cur));
+        statusEl.setAttribute("role", n.k === "warn" ? "alert" : "status");
+        statusEl.className = "notice " + n.k;
+        statusEl.innerHTML =
+          n.k === "warn"
+            ? `<span><b>Illegal move.</b> ${n.t}</span>`
+            : `<span>${n.t}</span>`;
+        picker.querySelectorAll("button").forEach((b) => {
+          b.setAttribute("aria-pressed", b.dataset.t === cur);
+          b.classList.toggle("done", learned.has(b.dataset.t));
+        });
+        document.getElementById("pcount").textContent =
+          `${learned.size} of 7 tried`;
+        document.getElementById("pfill").style.width =
+          (learned.size / 7) * 100 + "%";
+        winEl.classList.toggle("show", learned.size === 7);
+        const nx = ORDER[(ORDER.indexOf(cur) + 1) % 7];
+        document.getElementById("next").textContent = `Next: ${INFO[nx][0]} →`;
       }
       function reset(t) {
         cur = t;
         pos = { x: D[t].x, y: D[t].y };
         obs = D[t].o.map((p) => ({ ...p }));
-        note = bad = null;
+        note = bad = slide = null;
         draw();
       }
       document.getElementById("reset").onclick = () => reset(cur);
-      Object.keys(INFO).forEach((t) => {
+      document.getElementById("next").onclick = () =>
+        reset(ORDER[(ORDER.indexOf(cur) + 1) % 7]);
+      ORDER.forEach((t) => {
         const b = document.createElement("button");
         b.dataset.t = t;
-        b.innerHTML = `<span class="g">${CH.red[t]}</span>${INFO[t][0]}`;
+        b.innerHTML = `<span class="disc" aria-hidden="true">${CH.red[t]}</span>${INFO[t][0]}<span class="tick" aria-label="tried">✓</span>`;
         b.onclick = () => reset(t);
         picker.appendChild(b);
       });
@@ -976,13 +1547,26 @@
           };
         } else if (moves(hero, obs).some((m) => m.x === x && m.y === y)) {
           const target = obs.find((p) => p.x === x && p.y === y);
+          const wasNew = !learned.has(cur);
+          learned.add(cur);
+          save();
+          slide = { x: pos.x, y: pos.y };
           if (target) {
             obs = obs.filter((p) => p !== target);
             note = {
               k: "ok",
-              t: `Captured the black ${nameOf(target.t)} ${CH.black[target.t]}. Press Reset board to try again.`,
+              t: `Captured the black ${nameOf(target.t)} ${CH.black[target.t]}! Press Reset board to try again.`,
             };
-          } else note = null;
+          } else
+            note = {
+              k: "ok",
+              t: `Nice move! Keep going, or hit “Next” for the next piece.`,
+            };
+          if (wasNew && learned.size === 7)
+            note = {
+              k: "ok win",
+              t: "You’ve now moved every piece. Brilliant!",
+            };
           pos = { x, y };
         } else {
           const r = why(hero, x, y, obs);
@@ -1007,8 +1591,23 @@
       // values
       document.getElementById("vals").innerHTML = VAL.map(
         (v) =>
-          `<div class="row"><span>${v[0]}</span><div class="bar" style="width:${(v[1] / 9) * 100}%"></div><b>${v[1]}</b></div>`,
+          `<div class="row"><span class="disc" aria-hidden="true">${CH.red[v[2]]}</span><span>${v[0]}</span><div class="barwrap"><div class="bar" data-w="${(v[1] / 9) * 100}"></div></div><b>${v[1]}</b></div>`,
       ).join("");
+      const bars = document.querySelectorAll(".bar");
+      const fillBars = () =>
+        bars.forEach((b) => (b.style.width = b.dataset.w + "%"));
+      if ("IntersectionObserver" in window) {
+        const io = new IntersectionObserver(
+          (es) => {
+            if (es.some((e) => e.isIntersecting)) {
+              fillBars();
+              io.disconnect();
+            }
+          },
+          { threshold: 0.3 },
+        );
+        io.observe(document.getElementById("vals"));
+      } else fillBars();
     </script>
   </body>
 </html>
