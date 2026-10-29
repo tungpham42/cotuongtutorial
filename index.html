@@ -11,15 +11,15 @@
       name="description"
       content="Learn Xiangqi in 10 minutes with an interactive board, piece lessons, coaching positions, and 10 tactical patterns."
     />
-    <link rel="icon" type="image/png" sizes="256x256" href="/favicon.png" />
-    <link rel="apple-touch-icon" href="/favicon.png" />
+    <link rel="icon" type="image/png" sizes="256x256" href="./favicon.png" />
+    <link rel="apple-touch-icon" href="./favicon.png" />
     <meta property="og:type" content="website" />
     <meta property="og:title" content="Xiangqi in 10 minutes" />
     <meta
       property="og:description"
       content="Learn Chinese chess by moving the pieces yourself."
     />
-    <meta property="og:image" content="/og-image.png" />
+    <meta property="og:image" content="./og-image.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta
@@ -32,7 +32,7 @@
       name="twitter:description"
       content="Learn Chinese chess by moving the pieces yourself."
     />
-    <meta name="twitter:image" content="/og-image.png" />
+    <meta name="twitter:image" content="./og-image.png" />
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Figtree:wght@400;600;700&family=Noto+Serif+SC:wght@600;900&display=swap"
@@ -927,6 +927,10 @@
       .coach-actions .small {
         flex: 1 1 auto;
       }
+      .coach-actions button:disabled {
+        opacity: 0.42;
+        cursor: not-allowed;
+      }
       .coach-instructions {
         margin: 0 4px 12px;
         color: var(--mute);
@@ -1314,13 +1318,15 @@
         <span class="eyebrow">Step 7 · Train with a coach</span>
         <h2>Opening, middlegame, and endgame</h2>
         <p class="sub">
-          Put the ideas into practice. Each position has one coaching goal: tap
-          a green destination on the board to try your move. If it is not the
-          lesson's best move, the position stays in place so you can try again.
+          Twelve coached positions, four in each phase of the game. Every
+          position has one idea to find: tap a green destination on the board to
+          try your move. A legal but weaker move is explained and the position
+          stays put, so you can think again. Illegal moves are explained too.
+          Work through a phase in order — the lessons build on each other.
         </p>
         <div class="lesson" id="coachLesson">
           <div class="coach-progress">
-            <span id="coachProgressCount">0 of 3 lessons completed</span>
+            <span id="coachProgressCount">0 of 12 lessons completed</span>
             <div class="track">
               <div class="fill" id="coachProgressFill"></div>
             </div>
@@ -1352,7 +1358,9 @@
             </button>
           </div>
           <div class="coach-heading">
-            <span class="eyebrow" id="coachStageLabel">Opening principle</span>
+            <span class="eyebrow" id="coachStageLabel"
+              >Opening · lesson 1 of 4</span
+            >
             <h3 id="coachTitle">Centralize the cannon</h3>
             <p id="coachPrompt">
               Choose a useful developing move that brings the cannon toward the
@@ -1361,8 +1369,9 @@
             <p class="coach-principle" id="coachPrinciple"></p>
           </div>
           <p class="coach-instructions">
-            The red-ringed piece is your lesson piece. Tap one of its green dots
-            or a red capture ring to try a move.
+            The gold-ringed piece is your lesson piece. Tap any green dot to try
+            a move — every legal move is shown, but only the lesson's move
+            passes.
           </p>
           <div class="stage"><div id="coachBoard"></div></div>
           <p
@@ -1374,9 +1383,10 @@
             Find the strongest move for this position.
           </p>
           <div class="coach-actions">
-            <button type="button" class="small" id="coachHint">
-              💡 Show hint
+            <button type="button" class="small" id="coachPrev">
+              ← Previous
             </button>
+            <button type="button" class="small" id="coachHint">💡 Hint</button>
             <button type="button" class="small" id="coachReset">↺ Reset</button>
             <button type="button" class="small next" id="coachNext">
               Next lesson →
@@ -2022,67 +2032,626 @@
         io.observe(document.getElementById("vals"));
       } else fillBars();
 
-      // Interactive coach challenges for the three phases of a Xiangqi game.
+      /* ============================================================
+         Step 7 — coached lessons (opening / middlegame / endgame)
+         ============================================================ */
+
+      const openBase = () => st.map((p) => ({ ...p }));
+      const shifted = (pieces, s, t, from, to) => {
+        const p = pieces.find(
+          (q) => q.s === s && q.t === t && q.x === from[0] && q.y === from[1],
+        );
+        if (p) {
+          p.x = to[0];
+          p.y = to[1];
+        }
+        return pieces;
+      };
+
+      const STAGE_NAMES = {
+        opening: "Opening",
+        middlegame: "Middlegame",
+        endgame: "Endgame",
+      };
+
       const COACH_LESSONS = [
+        /* ======================= OPENING ======================= */
         {
-          id: "opening",
-          label: "Opening principle",
+          id: "op-1",
+          stage: "opening",
           title: "Centralize the cannon",
           prompt:
-            "Red to move. Choose a developing move that brings your cannon toward the centre and increases pressure on the black central soldier.",
+            "Red to move. Play the classic central cannon: slide a cannon onto the middle file.",
           principle:
-            "Opening goal: develop active pieces and contest the centre. The central cannon uses the soldier in front of your general as a screen, threatening the black central soldier. After this, keep developing your horses and chariots rather than moving the same piece repeatedly without a reason.",
-          hint: "Look across the cannon's rank. The central point is clear, and moving there lines the cannon up with the black central soldier behind your own soldier screen.",
-          success:
-            "Excellent development! The cannon is centralized and has a screen on the same file. The cannon now threatens the black central soldier. In a real game, continue by developing your horses and chariots.",
-          mover: { t: "C", x: 1, y: 7 },
-          target: { x: 4, y: 7 },
-          setup: st.map((p) => ({ ...p })),
+            "The central cannon points down the file of the enemy general. Your own central soldier becomes its screen, so the cannon pressures the black soldier in the middle straight away. A developing move that also creates a threat is the best kind of developing move.",
+          hint: "Slide the right-hand cannon sideways along its own rank until it reaches the middle file.",
+          setup: openBase(),
+          steps: [
+            {
+              s: "red",
+              t: "C",
+              from: [7, 7],
+              targets: [[4, 7]],
+              prompt: "Slide the right-hand cannon onto the middle file.",
+              result:
+                "Central cannon! Your own central soldier is now the screen, and the cannon bears down on the black soldier on the same file.",
+            },
+          ],
+          finish:
+            "You have played the most popular first move in Xiangqi. Next, develop your horses and chariots rather than moving the same cannon again.",
         },
         {
-          id: "middlegame",
-          label: "Middlegame tactic",
-          title: "Use the screen to win a chariot",
+          id: "op-2",
+          stage: "opening",
+          title: "Develop a horse",
           prompt:
-            "Red to move. Your cannon and soldier are aligned with a black chariot. Find the cannon shot that wins the chariot.",
+            "Red to move. Your cannon is centralized. Now bring a horse into the game.",
           principle:
-            "Middlegame goal: count the pieces between your cannon and its target. A cannon capture requires exactly one screen; zero screens or two screens will not work.",
-          hint: "Trace the cannon's file toward the black chariot. The red soldier is the one screen; the chariot beyond it is the capture target.",
-          success:
-            "Well played! The cannon jumped over exactly one screen and captured the chariot. Before every cannon move, count the screens and check what the capture wins—and what your opponent might threaten next.",
-          mover: { t: "C", x: 2, y: 5 },
-          target: { x: 2, y: 0 },
+            "Horses are slow but strong. A horse needs the point straight in front of it — its leg — to be empty, so develop it before the board gets crowded. From the corner a horse reaches only two squares; toward the centre it reaches six.",
+          hint: "The horse on the right edge jumps two points forward and one sideways. Aim it toward the middle rather than the edge.",
+          setup: shifted(openBase(), "red", "C", [7, 7], [4, 7]),
+          steps: [
+            {
+              s: "red",
+              t: "H",
+              from: [7, 9],
+              targets: [
+                [6, 7],
+                [8, 7],
+              ],
+              prompt: "Jump the right-hand horse forward.",
+              result:
+                "The horse is developed. Toward the centre it controls more squares, but either jump gets it out of the corner.",
+            },
+          ],
+          finish:
+            "Develop all your pieces before hunting for tactics. A piece left on its starting square is a piece that is not helping you.",
+        },
+        {
+          id: "op-3",
+          stage: "opening",
+          title: "Activate a chariot",
+          prompt:
+            "Red to move. The chariot is the strongest piece in the game — get it off the back rank.",
+          principle:
+            "A chariot on its starting square is worth far less than one on an open file. Chariots love open files and open ranks, where they can sweep from one side of the board to the other in a single move. Bring them out early.",
+          hint: "The chariot on the right edge now has a clear file in front of it, because the horse has moved away.",
+          setup: shifted(
+            shifted(openBase(), "red", "C", [7, 7], [4, 7]),
+            "red",
+            "H",
+            [7, 9],
+            [6, 7],
+          ),
+          steps: [
+            {
+              s: "red",
+              t: "R",
+              from: [8, 9],
+              targets: [
+                [8, 8],
+                [8, 7],
+              ],
+              prompt: "Advance the right-hand chariot up its open file.",
+              result: "The chariot is out and already sweeping the board.",
+            },
+          ],
+          finish:
+            "Both chariots out is a great sign. In the opening, count how many of your pieces have moved: the player with the more active pieces usually lands the first real threat.",
+        },
+        {
+          id: "op-4",
+          stage: "opening",
+          title: "Guard the centre with an elephant",
+          prompt:
+            "Red to move. Develop a defensive piece without weakening your palace — bring an elephant toward the middle.",
+          principle:
+            "Elephants never cross the river, so they are pure defenders. From the corner they guard very little; from the centre they cover the squares in front of the palace. The catch: an elephant jumps exactly two points diagonally, and it cannot jump if the point in the middle — its eye — is occupied.",
+          hint: "The right-hand elephant jumps two points diagonally toward the middle of the board. Its eye must be empty, and it must stay behind the river.",
+          setup: openBase(),
+          steps: [
+            {
+              s: "red",
+              t: "E",
+              from: [6, 9],
+              targets: [[4, 7]],
+              prompt: "Jump the right-hand elephant to the middle file.",
+              result:
+                "The elephant now guards the centre. Notice it stays behind the river, as elephants always must.",
+            },
+          ],
+          finish:
+            "Your defensive shell is taking shape. Keep advisors and elephants near home — they protect the general, they do not attack.",
+        },
+
+        /* ====================== MIDDLEGAME ====================== */
+        {
+          id: "mg-1",
+          stage: "middlegame",
+          title: "Shoot with a screen",
+          prompt:
+            "Red to move. Your cannon is lined up with a black chariot. Find the shot that wins it.",
+          principle:
+            "A cannon moves like a chariot but captures differently: it must jump over exactly one piece of either colour and land on the first enemy beyond. Count the pieces between your cannon and its target before you commit.",
+          hint: "Trace the cannon's file upward. The red soldier is exactly one screen; the black chariot sits behind it.",
           setup: [
-            { t: "K", s: "red", x: 4, y: 9 },
+            { t: "K", s: "red", x: 3, y: 9 },
             { t: "C", s: "red", x: 2, y: 5 },
             { t: "S", s: "red", x: 2, y: 3 },
-            { t: "S", s: "red", x: 4, y: 6 },
             { t: "K", s: "black", x: 4, y: 0 },
             { t: "R", s: "black", x: 2, y: 0 },
           ],
+          steps: [
+            {
+              s: "red",
+              t: "C",
+              from: [2, 5],
+              targets: [[2, 0]],
+              prompt: "Capture the black chariot.",
+              result:
+                "The cannon jumped exactly one screen and took the chariot.",
+            },
+          ],
+          finish:
+            "Before every cannon move, count the screens. Zero screens means no capture, one works, two or more block the shot entirely.",
         },
         {
-          id: "endgame",
-          label: "Endgame technique",
-          title: "Advance with check",
+          id: "mg-2",
+          stage: "middlegame",
+          title: "Uncover a discovered check",
           prompt:
-            "Red to move. Your soldier has crossed the river. Find the forward move that checks the black general and makes it harder for the general to stay safe.",
+            "Red to move. Your chariot is stuck behind your own soldier. Move the soldier so the chariot checks the black general.",
           principle:
-            "Endgame goal: use active soldiers and your general together. After crossing the river, a soldier can also move sideways—but a forcing check can be more powerful than a quiet step. Note that the soldier is safe from the general because it stands outside the palace.",
-          hint: "Advance one point on the same file toward the black general. A soldier attacks forward, so the move will give check—and the general cannot capture the soldier because it is outside the palace.",
-          success:
-            "Correct! The advanced soldier moves forward with check. The general cannot capture it because the soldier is outside the palace. In endgames, look for forcing moves first—checks, captures, and threats—then improve your general and support passed soldiers.",
-          mover: { t: "S", x: 4, y: 4 },
-          target: { x: 4, y: 3 },
+            "A discovered attack moves one piece out of the way so a second piece attacks. When the piece behind is a chariot aimed at the general, the result is a forcing check — and the piece that stepped aside may threaten something of its own.",
+          hint: "The soldier has crossed the river, so it can also step sideways. Sidestep it and let the chariot through.",
+          setup: [
+            { t: "K", s: "red", x: 3, y: 9 },
+            { t: "R", s: "red", x: 4, y: 8 },
+            { t: "S", s: "red", x: 4, y: 4 },
+            { t: "K", s: "black", x: 4, y: 1 },
+          ],
+          steps: [
+            {
+              s: "red",
+              t: "S",
+              from: [4, 4],
+              targets: [
+                [3, 4],
+                [5, 4],
+              ],
+              prompt: "Step the soldier sideways off the chariot's file.",
+              result:
+                "The chariot now checks the black general down the open file.",
+            },
+          ],
+          finish:
+            "Discovered attacks win material because the opponent must answer the check and can rarely save the piece the moving piece attacked.",
+        },
+        {
+          id: "mg-3",
+          stage: "middlegame",
+          title: "Fork two targets",
+          prompt:
+            "Red to move. One horse jump can attack two black pieces at the same time.",
+          principle:
+            "A horse attacks eight points, so it is the natural forking piece. Look for two enemy pieces one horse-jump apart from a single landing square. The landing square must be empty and the horse's leg must be clear.",
+          hint: "Look for a square from which the horse would attack both the black chariot and the black cannon.",
+          setup: [
+            { t: "K", s: "red", x: 3, y: 9 },
+            { t: "H", s: "red", x: 4, y: 5 },
+            { t: "K", s: "black", x: 4, y: 0 },
+            { t: "R", s: "black", x: 2, y: 1 },
+            { t: "C", s: "black", x: 4, y: 1 },
+          ],
+          steps: [
+            {
+              s: "red",
+              t: "H",
+              from: [4, 5],
+              targets: [[3, 3]],
+              prompt: "Jump the horse to the forking square.",
+              result:
+                "The horse attacks the chariot and the cannon at once. Black can save only one.",
+            },
+          ],
+          finish:
+            "Forks are everywhere once you start looking. Before every horse move, ask which enemy pieces each of the eight destinations attacks.",
+        },
+        {
+          id: "mg-4",
+          stage: "middlegame",
+          title: "Pin a defender",
+          prompt:
+            "Red to move. Line your chariot up with the black horse and the general behind it.",
+          principle:
+            "A pinned piece may not move because something more valuable sits behind it on the same line. Pins freeze defenders and often win material for free, because the pinned piece cannot run away.",
+          hint: "Bring the chariot onto the black general's file. The black horse is the only piece on that file — and the general is behind it.",
+          setup: [
+            { t: "K", s: "red", x: 3, y: 9 },
+            { t: "R", s: "red", x: 1, y: 6 },
+            { t: "K", s: "black", x: 4, y: 0 },
+            { t: "H", s: "black", x: 4, y: 2 },
+          ],
+          steps: [
+            {
+              s: "red",
+              t: "R",
+              from: [1, 6],
+              targets: [[4, 6]],
+              prompt: "Slide the chariot onto the general's file.",
+              result:
+                "The black horse cannot move anywhere: every jump would expose its general to the chariot.",
+            },
+          ],
+          finish:
+            "A pinned piece is a piece you can attack at leisure. If you can attack it again with a soldier or a second chariot, it usually falls.",
+        },
+
+        /* ======================= ENDGAME ======================= */
+        {
+          id: "eg-1",
+          stage: "endgame",
+          title: "Push the soldier with check",
+          prompt:
+            "Red to move. Your soldier has crossed the river. Find the forward step that checks the black general.",
+          principle:
+            "A soldier that has crossed the river can also move sideways, and it is worth much more than one still at home. In the endgame, forcing moves come first: a check that also improves your position is the best kind of move.",
+          hint: "Advance the soldier one point straight ahead. The black general cannot capture it, because the soldier stands outside the palace.",
           setup: [
             { t: "K", s: "red", x: 4, y: 9 },
             { t: "S", s: "red", x: 4, y: 4 },
             { t: "K", s: "black", x: 4, y: 2 },
           ],
+          steps: [
+            {
+              s: "red",
+              t: "S",
+              from: [4, 4],
+              targets: [[4, 3]],
+              prompt: "Step the soldier forward.",
+              result:
+                "Check! The general cannot capture the soldier, because the soldier is outside the palace and a general may never leave it.",
+            },
+          ],
+          finish:
+            "In the endgame, soldiers decide games. Push them forward, use them to control squares, and remember that they never retreat.",
+        },
+        {
+          id: "eg-2",
+          stage: "endgame",
+          title: "Mate with the flying general",
+          prompt:
+            "Red to move. Check the black general along the open file and let your own general cover the last escape square.",
+          principle:
+            "The two generals may never face each other with nothing in between. That rule makes your own general a weapon: it silently forbids the enemy general from stepping onto its file.",
+          hint: "Slide the chariot onto the black general's file to give check. Then see where the general could run — one square is denied by your own general.",
+          setup: [
+            { t: "K", s: "red", x: 4, y: 9 },
+            { t: "R", s: "red", x: 0, y: 5 },
+            { t: "K", s: "black", x: 3, y: 1 },
+          ],
+          steps: [
+            {
+              s: "red",
+              t: "R",
+              from: [0, 5],
+              targets: [[3, 5]],
+              prompt: "Check the black general down the open file.",
+              result:
+                "Checkmate. The chariot covers the general's own file, and the red general forbids the last sideways escape.",
+            },
+          ],
+          finish:
+            "Remember this in defence too: never let your general stand on the same file as the enemy general with nothing between them — it is illegal, and it can cost you the game.",
+        },
+        {
+          id: "eg-3",
+          stage: "endgame",
+          title: "Back-rank mate with soldiers",
+          prompt:
+            "Red to move. One chariot, two soldiers, and a general with nowhere to run.",
+          principle:
+            "Mating with a chariot is about escape squares. The chariot delivers the check; the other pieces take away the general's sideways steps. Count the general's flight squares before you move.",
+          hint: "The chariot sweeps along your back rank. Slide it onto the black general's file, then check which of the general's three possible steps are already covered.",
+          setup: [
+            { t: "K", s: "red", x: 5, y: 9 },
+            { t: "R", s: "red", x: 0, y: 9 },
+            { t: "S", s: "red", x: 3, y: 1 },
+            { t: "S", s: "red", x: 5, y: 1 },
+            { t: "K", s: "black", x: 4, y: 0 },
+          ],
+          steps: [
+            {
+              s: "red",
+              t: "R",
+              from: [0, 9],
+              targets: [[4, 9]],
+              prompt: "Slide the chariot onto the black general's file.",
+              result:
+                "Checkmate. The chariot covers the file, and the two soldiers cover the general's sideways steps.",
+            },
+          ],
+          finish:
+            "A mate is a team effort: one piece checks, the others cover escapes. Before you check, list every square the enemy general could run to.",
+        },
+        {
+          id: "eg-4",
+          stage: "endgame",
+          title: "Cannon mate over a soldier",
+          prompt:
+            "Red to move. Your cannon needs exactly one screen to capture — use your own soldier as that screen.",
+          principle:
+            "A cannon with one screen on the enemy general's file is a mating threat. Because the cannon jumps over the screen, the general cannot simply hide behind it; it has to leave the file, which is often impossible.",
+          hint: "Bring the cannon onto the black general's file. The soldier in the middle of the file becomes the single screen.",
+          setup: [
+            { t: "K", s: "red", x: 5, y: 9 },
+            { t: "C", s: "red", x: 0, y: 5 },
+            { t: "S", s: "red", x: 4, y: 2 },
+            { t: "S", s: "red", x: 3, y: 1 },
+            { t: "S", s: "red", x: 5, y: 1 },
+            { t: "K", s: "black", x: 4, y: 0 },
+          ],
+          steps: [
+            {
+              s: "red",
+              t: "C",
+              from: [0, 5],
+              targets: [[4, 5]],
+              prompt: "Slide the cannon onto the general's file.",
+              result:
+                "Checkmate. The soldier is the one screen, and the other soldiers take away the general's sideways steps.",
+            },
+          ],
+          finish:
+            "Cannons need screens — including your own pieces. When you attack the enemy palace, look for a friendly piece that can become the screen.",
         },
       ];
 
-      // (coach rendering/event code unchanged — see original file)
+      const lessonsInStage = (stage) =>
+        COACH_LESSONS.filter((l) => l.stage === stage);
+
+      let coachIndex = 0;
+      let coachStep = 0;
+      let coachChosen = [];
+      let coachBad = null;
+      let coachMessage = null;
+      let coachAnim = null;
+      let coachHintOn = false;
+      const coachDone = new Set();
+
+      const coachBoardEl = document.getElementById("coachBoard");
+      const coachStatusEl = document.getElementById("coachStatus");
+
+      function coachPosition(lesson, count, chosen) {
+        const pieces = lesson.setup.map((piece) => ({ ...piece }));
+        for (let i = 0; i < count; i++) {
+          const step = lesson.steps[i];
+          const to = chosen[i] || step.targets[0];
+          const mover = pieces.find(
+            (piece) =>
+              piece.s === step.s &&
+              piece.t === step.t &&
+              piece.x === step.from[0] &&
+              piece.y === step.from[1],
+          );
+          if (!mover) {
+            console.error(
+              `Coach setup error in ${lesson.id}, step ${i + 1}`,
+              step,
+            );
+            continue;
+          }
+          const targetIndex = pieces.findIndex(
+            (piece) =>
+              piece !== mover && piece.x === to[0] && piece.y === to[1],
+          );
+          if (targetIndex >= 0) pieces.splice(targetIndex, 1);
+          mover.x = to[0];
+          mover.y = to[1];
+        }
+        return pieces;
+      }
+
+      function renderCoach() {
+        const lesson = COACH_LESSONS[coachIndex];
+        const stageLessons = lessonsInStage(lesson.stage);
+        const stagePos = stageLessons.indexOf(lesson) + 1;
+
+        const pieces = coachPosition(lesson, coachStep, coachChosen);
+        const step = lesson.steps[coachStep] || null;
+        const hero = step
+          ? pieces.find(
+              (p) =>
+                p.s === step.s &&
+                p.t === step.t &&
+                p.x === step.from[0] &&
+                p.y === step.from[1],
+            )
+          : null;
+        const legal = hero ? moves(hero, pieces) : [];
+        const halos =
+          coachHintOn && step ? step.targets.map(([x, y]) => ({ x, y })) : [];
+
+        coachBoardEl.innerHTML = board(pieces, {
+          hero,
+          mv: legal,
+          hit: true,
+          bad: coachBad,
+          halos,
+          animate: coachAnim,
+        });
+        coachAnim = null;
+
+        coachBoardEl
+          .querySelector("svg.board")
+          ?.setAttribute(
+            "aria-label",
+            `${lesson.title}. ${
+              step
+                ? "The gold-ringed piece is yours to move."
+                : "Lesson complete."
+            }`,
+          );
+
+        document.getElementById("coachStageLabel").textContent =
+          `${STAGE_NAMES[lesson.stage]} · lesson ${stagePos} of ${stageLessons.length}`;
+        document.getElementById("coachTitle").textContent = lesson.title;
+        document.getElementById("coachPrompt").textContent = lesson.prompt;
+        document.getElementById("coachPrinciple").textContent =
+          lesson.principle;
+
+        document.getElementById("coachProgressCount").textContent =
+          `${coachDone.size} of ${COACH_LESSONS.length} lessons completed`;
+        document.getElementById("coachProgressFill").style.width =
+          `${(coachDone.size / COACH_LESSONS.length) * 100}%`;
+
+        document.querySelectorAll(".coach-tab").forEach((tab) => {
+          const s = tab.dataset.coachStage;
+          tab.setAttribute("aria-pressed", String(s === lesson.stage));
+          const all = lessonsInStage(s);
+          tab.classList.toggle(
+            "done",
+            all.length > 0 && all.every((l) => coachDone.has(l.id)),
+          );
+        });
+
+        let statusText;
+        let statusKind = "";
+        if (coachMessage) {
+          statusText = coachMessage.t;
+          statusKind = coachMessage.k;
+        } else if (!step) {
+          statusText = lesson.finish;
+          statusKind = "good";
+        } else {
+          statusText = step.prompt;
+        }
+        coachStatusEl.textContent = statusText;
+        coachStatusEl.className =
+          "coach-status" +
+          (statusKind === "good"
+            ? " good"
+            : statusKind === "warn"
+              ? " warn"
+              : "");
+
+        document.getElementById("coachPrev").disabled = coachIndex === 0;
+        document.getElementById("coachNext").textContent =
+          coachIndex === COACH_LESSONS.length - 1
+            ? "Start over ↺"
+            : "Next lesson →";
+      }
+
+      function loadLesson(index) {
+        coachIndex =
+          ((index % COACH_LESSONS.length) + COACH_LESSONS.length) %
+          COACH_LESSONS.length;
+        coachStep = 0;
+        coachChosen = [];
+        coachBad = null;
+        coachMessage = null;
+        coachAnim = null;
+        coachHintOn = false;
+        renderCoach();
+      }
+
+      coachBoardEl.addEventListener("click", (event) => {
+        const point = event.target.closest(".hit");
+        if (!point) return;
+        const x = Number(point.dataset.x);
+        const y = Number(point.dataset.y);
+
+        const lesson = COACH_LESSONS[coachIndex];
+        const step = lesson.steps[coachStep];
+        if (!step) {
+          coachMessage = {
+            k: "good",
+            t: "This lesson is finished. Use Next lesson to keep going, or Reset to replay it.",
+          };
+          renderCoach();
+          return;
+        }
+
+        const pieces = coachPosition(lesson, coachStep, coachChosen);
+        const hero = pieces.find(
+          (p) =>
+            p.s === step.s &&
+            p.t === step.t &&
+            p.x === step.from[0] &&
+            p.y === step.from[1],
+        );
+        if (!hero) return;
+
+        const legal = moves(hero, pieces);
+        const isTarget = step.targets.some(([tx, ty]) => tx === x && ty === y);
+        const isLegal = legal.some((m) => m.x === x && m.y === y);
+
+        if (isTarget) {
+          coachChosen[coachStep] = [x, y];
+          coachAnim = { s: step.s, t: step.t, from: step.from, to: [x, y] };
+          coachStep += 1;
+          coachBad = null;
+          coachHintOn = false;
+          if (coachStep >= lesson.steps.length) {
+            coachDone.add(lesson.id);
+            coachMessage = { k: "good", t: `${step.result} ${lesson.finish}` };
+          } else {
+            const nextStep = lesson.steps[coachStep];
+            coachMessage = {
+              k: "good",
+              t: `${step.result} ${nextStep.prompt}`,
+            };
+          }
+        } else if (isLegal) {
+          coachBad = { x, y, bl: [] };
+          coachMessage = {
+            k: "warn",
+            t: "That move is legal, but it is not the idea of this lesson. Look again — the hint button will point you at the right square.",
+          };
+        } else {
+          const reason = why(hero, x, y, pieces);
+          coachBad = { x, y, bl: reason.bl };
+          coachMessage = { k: "warn", t: `Illegal move. ${reason.t}` };
+        }
+        renderCoach();
+      });
+
+      document.querySelectorAll(".coach-tab").forEach((tab) => {
+        tab.addEventListener("click", () => {
+          const stage = tab.dataset.coachStage;
+          const list = lessonsInStage(stage);
+          const first = list.find((l) => !coachDone.has(l.id)) || list[0];
+          loadLesson(COACH_LESSONS.indexOf(first));
+        });
+      });
+
+      document.getElementById("coachHint").addEventListener("click", () => {
+        const lesson = COACH_LESSONS[coachIndex];
+        const step = lesson.steps[coachStep];
+        coachBad = null;
+        if (!step) {
+          coachMessage = {
+            k: "good",
+            t: "You have already solved this one. Press Next lesson for the next idea.",
+          };
+        } else {
+          coachHintOn = true;
+          coachMessage = { k: "", t: `💡 ${step.hint || lesson.hint}` };
+        }
+        renderCoach();
+      });
+
+      document
+        .getElementById("coachReset")
+        .addEventListener("click", () => loadLesson(coachIndex));
+      document
+        .getElementById("coachPrev")
+        .addEventListener("click", () => loadLesson(coachIndex - 1));
+      document
+        .getElementById("coachNext")
+        .addEventListener("click", () => loadLesson(coachIndex + 1));
+
+      loadLesson(0);
 
       // Interactive tactical motifs. Each step is a visualized legal move.
       const TACTICS = [
