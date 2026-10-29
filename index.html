@@ -9,7 +9,7 @@
     <title>Xiangqi in 10 minutes</title>
     <meta
       name="description"
-      content="Learn Xiangqi (Chinese chess) in 10 minutes by moving each piece on an interactive board."
+      content="Learn Xiangqi in 10 minutes with an interactive board, piece lessons, coaching positions, and 10 tactical patterns."
     />
     <link rel="icon" type="image/png" sizes="256x256" href="/favicon.png" />
     <link rel="apple-touch-icon" href="/favicon.png" />
@@ -842,6 +842,254 @@
       .lang-link a:focus-visible {
         color: var(--go);
       }
+      /* ---------- coach lessons ---------- */
+      .coach-tabs {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 8px;
+        margin: 2px 0 18px;
+      }
+      .coach-tab {
+        min-width: 0;
+        padding: 10px 8px;
+        border: 2px solid var(--rule);
+        border-radius: 14px;
+        color: var(--ink);
+        background: var(--card);
+        font:
+          700 15px Fredoka,
+          Figtree,
+          sans-serif;
+        cursor: pointer;
+      }
+      .coach-tab[aria-pressed="true"] {
+        border-color: var(--hero);
+        background: color-mix(in srgb, var(--hero) 18%, var(--card));
+        box-shadow: 0 0 0 1px var(--hero);
+      }
+      .coach-tab.done::after {
+        content: " ✓";
+        color: var(--go);
+      }
+      .coach-progress {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin: 0 4px 14px;
+        color: var(--mute);
+        font-size: 14px;
+        font-weight: 700;
+      }
+      .coach-progress .track {
+        flex: 1;
+      }
+      .coach-heading {
+        padding: 2px 4px 14px;
+      }
+      .coach-heading h3 {
+        font-size: clamp(22px, 5vw, 28px);
+        margin-bottom: 8px;
+      }
+      .coach-heading p {
+        margin-bottom: 8px;
+      }
+      .coach-principle {
+        color: var(--mute);
+        border-left: 3px solid var(--hero);
+        padding-left: 10px;
+        font-size: 15px;
+      }
+      .coach-status {
+        margin-top: 12px;
+        padding: 12px 14px;
+        border: 2px solid var(--rule);
+        border-radius: 14px;
+        background: color-mix(in srgb, var(--hero) 8%, var(--card));
+        font-size: 15px;
+        line-height: 1.5;
+      }
+      .coach-status.good {
+        border-color: var(--go);
+        background: color-mix(in srgb, var(--go) 12%, var(--card));
+      }
+      .coach-status.warn {
+        border-color: var(--cap);
+        background: color-mix(in srgb, var(--cap) 10%, var(--card));
+      }
+      .coach-actions {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 12px;
+      }
+      .coach-actions .small {
+        flex: 1 1 auto;
+      }
+      .coach-instructions {
+        margin: 0 4px 12px;
+        color: var(--mute);
+        font-size: 14px;
+      }
+      /* ---------- interactive tactics trainer ---------- */
+      .tactic-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+        margin: 4px 0 18px;
+      }
+      .tactic-select {
+        min-width: 0;
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        text-align: left;
+        padding: 10px;
+        border: 2px solid var(--rule);
+        border-radius: 14px;
+        color: var(--ink);
+        background: var(--card);
+        font:
+          600 14px/1.25 Figtree,
+          sans-serif;
+        cursor: pointer;
+        transition:
+          transform 0.12s,
+          border-color 0.12s,
+          background 0.12s;
+      }
+      .tactic-select:hover {
+        transform: translateY(-1px);
+        border-color: var(--hero);
+      }
+      .tactic-select[aria-pressed="true"] {
+        border-color: var(--hero);
+        background: color-mix(in srgb, var(--hero) 16%, var(--card));
+        box-shadow: 0 0 0 1px var(--hero);
+      }
+      .tactic-select .tactic-num {
+        width: 30px;
+        height: 30px;
+        flex: none;
+        display: grid;
+        place-items: center;
+        border-radius: 50%;
+        background: var(--bg2);
+        color: var(--ink);
+        font:
+          700 14px Fredoka,
+          sans-serif;
+      }
+      .tactic-select.done .tactic-num {
+        background: var(--go);
+        color: #fff;
+      }
+      .tactic-select .tactic-check {
+        display: none;
+        color: var(--go);
+        font-weight: 900;
+        margin-left: auto;
+      }
+      .tactic-select.done .tactic-check {
+        display: inline;
+      }
+      .tactic-heading {
+        padding: 2px 4px 12px;
+      }
+      .tactic-heading h3 {
+        font-size: clamp(24px, 5vw, 30px);
+        margin: 8px 0;
+      }
+      .tactic-heading p {
+        margin-bottom: 8px;
+      }
+      .tactic-meta {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+      .tactic-meta .eyebrow {
+        margin: 0;
+      }
+      .tactic-cn {
+        display: inline-flex;
+        align-items: center;
+        border: 1px solid var(--rule);
+        border-radius: 999px;
+        padding: 5px 10px;
+        color: var(--mute);
+        font-size: 13px;
+        font-weight: 700;
+      }
+      .tactic-principle {
+        color: var(--mute);
+        border-left: 3px solid var(--hero);
+        padding-left: 10px;
+        font-size: 15px;
+      }
+      .tactic-instructions {
+        margin: 0 4px 12px;
+        color: var(--mute);
+        font-size: 14px;
+      }
+      .tactic-status {
+        margin-top: 12px;
+        padding: 12px 14px;
+        border: 2px solid var(--rule);
+        border-radius: 14px;
+        background: color-mix(in srgb, var(--hero) 8%, var(--card));
+        font-size: 15px;
+        line-height: 1.5;
+      }
+      .tactic-status.good {
+        border-color: var(--go);
+        background: color-mix(in srgb, var(--go) 12%, var(--card));
+      }
+      .tactic-status.warn {
+        border-color: var(--cap);
+        background: color-mix(in srgb, var(--cap) 10%, var(--card));
+      }
+      .tactic-step-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+        margin: 10px 4px 0;
+        color: var(--mute);
+        font-size: 13px;
+        font-weight: 700;
+      }
+      .tactic-controls {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 12px;
+      }
+      .tactic-controls .small {
+        flex: 1 1 auto;
+      }
+      .tactic-controls .small.next {
+        margin-left: 0;
+      }
+      .tactic-controls button:disabled {
+        opacity: 0.42;
+        cursor: not-allowed;
+      }
+      @media (max-width: 480px) {
+        .tactic-grid {
+          grid-template-columns: 1fr;
+        }
+        .tactic-select {
+          padding: 9px 10px;
+        }
+        .tactic-controls .small {
+          padding: 10px 12px;
+        }
+      }
+
       @media (max-width: 480px) {
         .row {
           grid-template-columns: 36px 72px 1fr 30px;
@@ -894,10 +1142,11 @@
           <a class="btn" href="#try"
             >Start playing <span aria-hidden="true">→</span></a
           >
+          <a class="btn ghost" href="#tactics">Train tactics</a>
           <a class="btn ghost" href="#rules">3 sneaky rules</a>
         </div>
         <div class="stats" aria-label="What you will learn">
-          <span>7 pieces</span><span>3 key rules</span><span>0 sign-ups</span>
+          <span>7 pieces</span><span>10 tactics</span><span>0 sign-ups</span>
         </div>
       </header>
 
@@ -1059,6 +1308,141 @@
             cannons to chase the general.
           </li>
         </ol>
+      </section>
+
+      <section id="coach">
+        <span class="eyebrow">Step 7 · Train with a coach</span>
+        <h2>Opening, middlegame, and endgame</h2>
+        <p class="sub">
+          Put the ideas into practice. Each position has one coaching goal: tap
+          a green destination on the board to try your move. If it is not the
+          lesson's best move, the position stays in place so you can try again.
+        </p>
+        <div class="lesson" id="coachLesson">
+          <div class="coach-progress">
+            <span id="coachProgressCount">0 of 3 lessons completed</span>
+            <div class="track">
+              <div class="fill" id="coachProgressFill"></div>
+            </div>
+          </div>
+          <div class="coach-tabs" role="group" aria-label="Choose a game phase">
+            <button
+              type="button"
+              class="coach-tab"
+              data-coach-stage="opening"
+              aria-pressed="true"
+            >
+              Opening
+            </button>
+            <button
+              type="button"
+              class="coach-tab"
+              data-coach-stage="middlegame"
+              aria-pressed="false"
+            >
+              Middlegame
+            </button>
+            <button
+              type="button"
+              class="coach-tab"
+              data-coach-stage="endgame"
+              aria-pressed="false"
+            >
+              Endgame
+            </button>
+          </div>
+          <div class="coach-heading">
+            <span class="eyebrow" id="coachStageLabel">Opening principle</span>
+            <h3 id="coachTitle">Centralize the cannon</h3>
+            <p id="coachPrompt">
+              Choose a useful developing move that brings the cannon toward the
+              centre.
+            </p>
+            <p class="coach-principle" id="coachPrinciple"></p>
+          </div>
+          <p class="coach-instructions">
+            The red-ringed piece is your lesson piece. Tap one of its green dots
+            or a red capture ring to try a move.
+          </p>
+          <div class="stage"><div id="coachBoard"></div></div>
+          <p
+            class="coach-status"
+            id="coachStatus"
+            role="status"
+            aria-live="polite"
+          >
+            Find the strongest move for this position.
+          </p>
+          <div class="coach-actions">
+            <button type="button" class="small" id="coachHint">
+              💡 Show hint
+            </button>
+            <button type="button" class="small" id="coachReset">↺ Reset</button>
+            <button type="button" class="small next" id="coachNext">
+              Next lesson →
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <section id="tactics">
+        <span class="eyebrow">Step 8 · Think tactically</span>
+        <h2>10 Xiangqi tactics worth spotting</h2>
+        <p class="sub">
+          Pick a pattern, then follow the highlighted move on the board. Tap the
+          highlighted destination or use the controls to step through the idea.
+          Dashed lines and rings mark the tactical targets when they help
+          explain the pattern.
+        </p>
+        <div class="lesson" id="tacticLesson">
+          <div class="progress">
+            <span id="tacticCount">0 of 10 tactics explored</span>
+            <div class="track"><div class="fill" id="tacticFill"></div></div>
+          </div>
+          <div
+            class="tactic-grid"
+            id="tacticPicker"
+            role="group"
+            aria-label="Choose a Xiangqi tactic"
+          ></div>
+          <div class="tactic-heading">
+            <div class="tactic-meta">
+              <span class="eyebrow" id="tacticFamily">Fork</span>
+              <span class="tactic-cn" id="tacticChinese">马叉</span>
+            </div>
+            <h3 id="tacticTitle">Horse fork</h3>
+            <p id="tacticDescription"></p>
+            <p class="tactic-principle" id="tacticPrinciple"></p>
+          </div>
+          <p class="tactic-instructions" id="tacticInstructions">
+            Follow the highlighted destination. You can also use Show move to
+            reveal the next step.
+          </p>
+          <div class="stage"><div id="tacticBoard"></div></div>
+          <div
+            class="tactic-status"
+            id="tacticStatus"
+            role="status"
+            aria-live="polite"
+          >
+            Tap the highlighted destination or choose Show move.
+          </div>
+          <div class="tactic-step-row">
+            <span id="tacticStepCount">Move 1</span>
+            <span id="tacticStepEffect">One tactical idea at a time</span>
+          </div>
+          <div class="tactic-controls">
+            <button type="button" class="small" id="tacticPrev">
+              ← Previous
+            </button>
+            <button type="button" class="small" id="tacticReset">
+              ↺ Replay tactic
+            </button>
+            <button type="button" class="small next" id="tacticNext">
+              Show move →
+            </button>
+          </div>
+        </div>
       </section>
 
       <p class="foot">
@@ -1296,6 +1680,14 @@
           d += `M${px(x)} ${py(0)}V${py(4)}M${px(x)} ${py(5)}V${py(9)}`;
         d += `M${px(3)} ${py(0)}L${px(5)} ${py(2)}M${px(5)} ${py(0)}L${px(3)} ${py(2)}M${px(3)} ${py(7)}L${px(5)} ${py(9)}M${px(5)} ${py(7)}L${px(3)} ${py(9)}`;
         s += `<path d="${d}" stroke="var(--line)" stroke-width="1.6" fill="none" stroke-linecap="round"/><rect x="${px(0) - 5}" y="${py(0) - 5}" width="${8 * Cs + 10}" height="${9 * Cs + 10}" rx="3" fill="none" stroke="var(--line)" stroke-width="3.5"/>`;
+        (o.lines || []).forEach((line) => {
+          const [x1, y1] = line.from;
+          const [x2, y2] = line.to;
+          s += `<line x1="${px(x1)}" y1="${py(y1)}" x2="${px(x2)}" y2="${py(y2)}" stroke="${line.color || "var(--hero)"}" stroke-width="3" stroke-dasharray="7 5" stroke-linecap="round" opacity=".9" pointer-events="none"/>`;
+        });
+        (o.halos || []).forEach((spot) => {
+          s += `<circle cx="${px(spot.x)}" cy="${py(spot.y)}" r="28" fill="none" stroke="var(--hero)" stroke-width="3.5" stroke-dasharray="4 4" opacity=".95" pointer-events="none"/>`;
+        });
         const ry = py(4.5);
         s += `<g fill="var(--line)" font-family="Noto Serif SC,serif" font-size="24" font-weight="600" text-anchor="middle" dominant-baseline="central" opacity=".7"><text x="${px(2)}" y="${ry}">楚 河</text><text x="${px(6)}" y="${ry}">漢 界</text></g>`;
         if (o.hit)
@@ -1313,7 +1705,15 @@
           const c = p.s === "red" ? "var(--red)" : "var(--blk)";
           const cx = px(p.x),
             cy = py(p.y);
-          s += `<g pointer-events="none"${p === o.hero ? sl : ""}><ellipse cx="${cx}" cy="${cy + 6}" rx="23" ry="21" fill="#000" opacity=".28"/><circle cx="${cx}" cy="${cy + 3}" r="23" fill="var(--line)"/><circle cx="${cx}" cy="${cy}" r="23" fill="url(#dg)" stroke="var(--line)" stroke-width="2"/><circle cx="${cx}" cy="${cy}" r="18" fill="none" stroke="${c}" stroke-width="1.6"/><text x="${cx}" y="${cy + 1}" text-anchor="middle" dominant-baseline="central" font-family="Noto Serif SC,serif" font-weight="900" font-size="24" fill="${c}">${CH[p.s][p.t]}</text></g>`;
+          const anim =
+            o.animate &&
+            p.s === o.animate.s &&
+            p.t === o.animate.t &&
+            p.x === o.animate.to[0] &&
+            p.y === o.animate.to[1]
+              ? ` class="slide" style="--dx:${px(o.animate.from[0]) - px(o.animate.to[0])}px;--dy:${py(o.animate.from[1]) - py(o.animate.to[1])}px"`
+              : "";
+          s += `<g pointer-events="none"${anim || (p === o.hero ? sl : "")}><ellipse cx="${cx}" cy="${cy + 6}" rx="23" ry="21" fill="#000" opacity=".28"/><circle cx="${cx}" cy="${cy + 3}" r="23" fill="var(--line)"/><circle cx="${cx}" cy="${cy}" r="23" fill="url(#dg)" stroke="var(--line)" stroke-width="2"/><circle cx="${cx}" cy="${cy}" r="18" fill="none" stroke="${c}" stroke-width="1.6"/><text x="${cx}" y="${cy + 1}" text-anchor="middle" dominant-baseline="central" font-family="Noto Serif SC,serif" font-weight="900" font-size="24" fill="${c}">${CH[p.s][p.t]}</text></g>`;
         });
         if (o.hero)
           s += `<circle${sl} cx="${px(o.hero.x)}" cy="${py(o.hero.y)}" r="29" fill="none" stroke="var(--hero)" stroke-width="4" pointer-events="none"/>`;
@@ -1621,6 +2021,706 @@
         );
         io.observe(document.getElementById("vals"));
       } else fillBars();
+
+      // Interactive coach challenges for the three phases of a Xiangqi game.
+      const COACH_LESSONS = [
+        {
+          id: "opening",
+          label: "Opening principle",
+          title: "Centralize the cannon",
+          prompt:
+            "Red to move. Choose a developing move that brings your cannon toward the centre and increases pressure on the black central soldier.",
+          principle:
+            "Opening goal: develop active pieces and contest the centre. The central cannon uses the soldier in front of your general as a screen, threatening the black central soldier. After this, keep developing your horses and chariots rather than moving the same piece repeatedly without a reason.",
+          hint: "Look across the cannon's rank. The central point is clear, and moving there lines the cannon up with the black central soldier behind your own soldier screen.",
+          success:
+            "Excellent development! The cannon is centralized and has a screen on the same file. The cannon now threatens the black central soldier. In a real game, continue by developing your horses and chariots.",
+          mover: { t: "C", x: 1, y: 7 },
+          target: { x: 4, y: 7 },
+          setup: st.map((p) => ({ ...p })),
+        },
+        {
+          id: "middlegame",
+          label: "Middlegame tactic",
+          title: "Use the screen to win a chariot",
+          prompt:
+            "Red to move. Your cannon and soldier are aligned with a black chariot. Find the cannon shot that wins the chariot.",
+          principle:
+            "Middlegame goal: count the pieces between your cannon and its target. A cannon capture requires exactly one screen; zero screens or two screens will not work.",
+          hint: "Trace the cannon's file toward the black chariot. The red soldier is the one screen; the chariot beyond it is the capture target.",
+          success:
+            "Well played! The cannon jumped over exactly one screen and captured the chariot. Before every cannon move, count the screens and check what the capture wins—and what your opponent might threaten next.",
+          mover: { t: "C", x: 2, y: 5 },
+          target: { x: 2, y: 0 },
+          setup: [
+            { t: "K", s: "red", x: 4, y: 9 },
+            { t: "C", s: "red", x: 2, y: 5 },
+            { t: "S", s: "red", x: 2, y: 3 },
+            { t: "S", s: "red", x: 4, y: 6 },
+            { t: "K", s: "black", x: 4, y: 0 },
+            { t: "R", s: "black", x: 2, y: 0 },
+          ],
+        },
+        {
+          id: "endgame",
+          label: "Endgame technique",
+          title: "Advance with check",
+          prompt:
+            "Red to move. Your soldier has crossed the river. Find the forward move that checks the black general and makes it harder for the general to stay safe.",
+          principle:
+            "Endgame goal: use active soldiers and your general together. After crossing the river, a soldier can also move sideways—but a forcing check can be more powerful than a quiet step. Note that the soldier is safe from the general because it stands outside the palace.",
+          hint: "Advance one point on the same file toward the black general. A soldier attacks forward, so the move will give check—and the general cannot capture the soldier because it is outside the palace.",
+          success:
+            "Correct! The advanced soldier moves forward with check. The general cannot capture it because the soldier is outside the palace. In endgames, look for forcing moves first—checks, captures, and threats—then improve your general and support passed soldiers.",
+          mover: { t: "S", x: 4, y: 4 },
+          target: { x: 4, y: 3 },
+          setup: [
+            { t: "K", s: "red", x: 4, y: 9 },
+            { t: "S", s: "red", x: 4, y: 4 },
+            { t: "K", s: "black", x: 4, y: 2 },
+          ],
+        },
+      ];
+
+      // (coach rendering/event code unchanged — see original file)
+
+      // Interactive tactical motifs. Each step is a visualized legal move.
+      const TACTICS = [
+        {
+          id: "horse-fork",
+          title: "Horse fork",
+          chinese: "马叉 · Fork",
+          family: "Fork / double attack",
+          description:
+            "A single horse jump attacks two valuable enemy pieces at once. In this diagram, the landing square forks a black chariot and cannon.",
+          principle:
+            "Look for enemy pieces on the eight squares a horse can attack. A fork is strongest when the opponent cannot save both targets. Remember that the horse's leg can be blocked.",
+          finish:
+            "Fork found! The horse attacks the black chariot and cannon simultaneously. The opponent can usually save only one.",
+          setup: [
+            { t: "K", s: "red", x: 3, y: 9 },
+            { t: "H", s: "red", x: 4, y: 5 },
+            { t: "K", s: "black", x: 4, y: 0 },
+            { t: "R", s: "black", x: 2, y: 1 },
+            { t: "C", s: "black", x: 4, y: 1 },
+          ],
+          steps: [
+            {
+              s: "red",
+              t: "H",
+              from: [4, 5],
+              to: [3, 3],
+              prompt: "Jump the horse to the highlighted central point.",
+              result:
+                "The horse lands between two valuable targets and attacks both.",
+            },
+          ],
+          finishHalos: [
+            { x: 2, y: 1 },
+            { x: 4, y: 1 },
+          ],
+        },
+        {
+          id: "discovered-check",
+          title: "Discovered check",
+          chinese: "闪将 · Discovered check",
+          family: "Line reveal",
+          description:
+            "Move a front piece out of the way to uncover a chariot's attack on the enemy general. The moving piece does not have to give the check itself.",
+          principle:
+            "Before moving a blocker, look behind it. A quiet sidestep can reveal a forcing attack and take away the opponent's freedom to respond.",
+          finish:
+            "Discovered check! The soldier sidesteps and opens the file from the red chariot to the black general. The opponent must answer the check.",
+          setup: [
+            { t: "K", s: "red", x: 3, y: 9 },
+            { t: "R", s: "red", x: 4, y: 8 },
+            { t: "S", s: "red", x: 4, y: 4 },
+            { t: "K", s: "black", x: 4, y: 1 },
+          ],
+          steps: [
+            {
+              s: "red",
+              t: "S",
+              from: [4, 4],
+              to: [3, 4],
+              prompt: "Move the soldier sideways to clear the chariot's file.",
+              result:
+                "The blocker has moved away. The red chariot now gives check to the black general.",
+            },
+          ],
+          finishLines: [{ from: [4, 8], to: [4, 1] }],
+        },
+        {
+          id: "cannon-screen",
+          title: "Cannon screen capture",
+          chinese: "炮架 · Cannon screen",
+          family: "Cannon tactic",
+          description:
+            "A cannon captures by jumping over exactly one intervening piece. Here the soldier is the screen and the black chariot is the target.",
+          principle:
+            "Count screens before every cannon shot: zero screens cannot capture, one screen works, and two or more screens block the shot.",
+          finish:
+            "The cannon jumped exactly one screen and captured the chariot. Always count the pieces between the cannon and its target before committing.",
+          setup: [
+            { t: "K", s: "red", x: 3, y: 9 },
+            { t: "C", s: "red", x: 2, y: 7 },
+            { t: "S", s: "red", x: 2, y: 5 },
+            { t: "R", s: "black", x: 2, y: 2 },
+            { t: "K", s: "black", x: 4, y: 0 },
+          ],
+          steps: [
+            {
+              s: "red",
+              t: "C",
+              from: [2, 7],
+              to: [2, 2],
+              prompt: "Shoot along the file, jumping the single red soldier.",
+              result:
+                "The cannon has one screen between it and the target, so the capture works.",
+              lines: [{ from: [2, 7], to: [2, 2] }],
+            },
+          ],
+        },
+        {
+          id: "pin",
+          title: "Pin",
+          chinese: "牵制 · Pin",
+          family: "Restrict a defender",
+          description:
+            "Line up your chariot with an enemy horse and the general behind it. The horse cannot move off the file without exposing the general.",
+          principle:
+            "A pin ties a piece to a more valuable piece behind it. The pinned piece may still have legal moves along the line, but moves off the line are illegal. Look for pieces that cannot move without exposing the general.",
+          finish:
+            "The black horse is completely pinned. Any horse move would leave the general in check, and the horse cannot capture the chariot because it does not attack that square.",
+          setup: [
+            { t: "K", s: "red", x: 3, y: 9 },
+            { t: "R", s: "red", x: 1, y: 6 },
+            { t: "H", s: "black", x: 4, y: 2 },
+            { t: "K", s: "black", x: 4, y: 0 },
+          ],
+          steps: [
+            {
+              s: "red",
+              t: "R",
+              from: [1, 6],
+              to: [4, 6],
+              prompt:
+                "Bring the chariot onto the file behind the black horse and general.",
+              result:
+                "The red chariot now attacks along the same file. The black horse is the only thing shielding its general, and it has no legal moves.",
+            },
+          ],
+          finishLines: [{ from: [4, 6], to: [4, 0] }],
+          finishHalos: [{ x: 4, y: 2 }],
+        },
+        {
+          id: "skewer",
+          title: "Skewer",
+          chinese: "串打 · Skewer",
+          family: "Line tactic",
+          description:
+            "Attack the more valuable piece first. When it moves out of the line, the piece behind it becomes available to capture.",
+          principle:
+            "A skewer is the reverse order of a pin: the more valuable target is in front, and a less valuable target sits behind it.",
+          finish:
+            "The general had to leave the file, exposing the chariot behind it. The red chariot then wins the rear target.",
+          setup: [
+            { t: "K", s: "red", x: 3, y: 9 },
+            { t: "R", s: "red", x: 2, y: 7 },
+            { t: "K", s: "black", x: 4, y: 2 },
+            { t: "R", s: "black", x: 4, y: 0 },
+          ],
+          steps: [
+            {
+              s: "red",
+              t: "R",
+              from: [2, 7],
+              to: [4, 7],
+              prompt:
+                "Align the chariot with the black general and the chariot behind it.",
+              result:
+                "The chariot gives check along the file, with the general in front of the second target.",
+            },
+            {
+              s: "black",
+              t: "K",
+              from: [4, 2],
+              to: [5, 2],
+              prompt: "Follow the forced general sidestep shown on the board.",
+              result:
+                "The general leaves the file. The black chariot behind it is now exposed.",
+              lines: [
+                { from: [4, 7], to: [4, 2] },
+                { from: [4, 7], to: [4, 0] },
+              ],
+            },
+            {
+              s: "red",
+              t: "R",
+              from: [4, 7],
+              to: [4, 0],
+              prompt: "Capture the now-exposed chariot at the end of the file.",
+              result:
+                "The red chariot wins the rear target after forcing the general away.",
+              lines: [{ from: [4, 7], to: [4, 0] }],
+            },
+          ],
+        },
+        {
+          id: "double-attack",
+          title: "Double attack",
+          chinese: "捉双 · Double attack",
+          family: "Two threats at once",
+          description:
+            "Move the cannon to a point where it threatens two different targets. Each capture line has its own single screen—here both screens are red soldiers, which is legal because a cannon can jump over its own pieces.",
+          principle:
+            "After making a threat, look for all of the enemy pieces you attack—not just the most obvious one. One move can create two urgent problems.",
+          finish:
+            "The cannon threatens both the black horse and the black chariot. Each target is behind exactly one red soldier screen, so the opponent must decide which threat to meet—and the cannon cannot be captured.",
+          setup: [
+            { t: "K", s: "red", x: 3, y: 9 },
+            { t: "C", s: "red", x: 0, y: 5 },
+            { t: "S", s: "red", x: 3, y: 4 },
+            { t: "S", s: "red", x: 5, y: 5 },
+            { t: "H", s: "black", x: 3, y: 2 },
+            { t: "R", s: "black", x: 6, y: 5 },
+            { t: "K", s: "black", x: 4, y: 0 },
+          ],
+          steps: [
+            {
+              s: "red",
+              t: "C",
+              from: [0, 5],
+              to: [3, 5],
+              prompt: "Centralize the cannon on the highlighted point.",
+              result:
+                "From this square, the cannon threatens the horse vertically and the chariot horizontally, each behind one red soldier screen.",
+            },
+          ],
+          finishLines: [
+            { from: [3, 5], to: [3, 2] },
+            { from: [3, 5], to: [6, 5] },
+          ],
+        },
+        {
+          id: "sacrifice-deflection",
+          title: "Sacrifice & deflection",
+          chinese: "弃子引离 · Sacrifice",
+          family: "Break the palace",
+          description:
+            "Offer a chariot to remove a palace defender. The general cannot recapture because the cannon covers the square. If the black chariot captures the invading chariot, the cannon recaptures, winning material.",
+          principle:
+            "A sacrifice is justified by what it forces: removing a defender, pulling a key piece away, or opening a decisive line. Calculate the follow-up before giving material.",
+          finish:
+            "The chariot sacrifice removed the advisor and drew the black chariot into the cannon's line. Red wins a chariot and an advisor for a chariot, and the attack continues.",
+          setup: [
+            { t: "K", s: "red", x: 4, y: 9 },
+            { t: "R", s: "red", x: 4, y: 2 },
+            { t: "C", s: "red", x: 4, y: 7 },
+            { t: "S", s: "red", x: 4, y: 5 },
+            { t: "K", s: "black", x: 4, y: 0 },
+            { t: "A", s: "black", x: 4, y: 1 },
+            { t: "R", s: "black", x: 0, y: 1 },
+          ],
+          steps: [
+            {
+              s: "red",
+              t: "R",
+              from: [4, 2],
+              to: [4, 1],
+              prompt: "Capture the palace advisor with the chariot sacrifice.",
+              result:
+                "The advisor is removed and the red chariot gives check. The general cannot recapture because the cannon covers that square.",
+            },
+            {
+              s: "black",
+              t: "R",
+              from: [0, 1],
+              to: [4, 1],
+              prompt:
+                "Follow the black chariot's recapture of the sacrificed chariot.",
+              result:
+                "The black chariot captures the invading chariot, removing the check.",
+            },
+            {
+              s: "red",
+              t: "C",
+              from: [4, 7],
+              to: [4, 1],
+              prompt: "Recapture the black chariot with the cannon.",
+              result:
+                "The cannon uses the soldier as a screen and recaptures. Red has won a chariot and an advisor for a chariot.",
+              lines: [{ from: [4, 7], to: [4, 1] }],
+            },
+          ],
+        },
+        {
+          id: "horse-cannon-mate",
+          title: "Horse-and-cannon mating net",
+          chinese: "马后炮 · Horse + cannon",
+          family: "Mating pattern",
+          description:
+            "The horse and soldier control the general's escape squares, while the cannon delivers a screened check along the file. This is a classic mating net.",
+          principle:
+            "A mating attack is about the general's escape squares, not just the checking piece. The horse restricts flight while the cannon uses a single screen.",
+          finish:
+            "The cannon checks along the file. The horse covers the sideways escapes, and the soldier covers the remaining square. The general cannot escape—mate.",
+          setup: [
+            { t: "K", s: "red", x: 4, y: 9 },
+            { t: "C", s: "red", x: 7, y: 6 },
+            { t: "S", s: "red", x: 4, y: 4 },
+            { t: "H", s: "red", x: 2, y: 2 },
+            { t: "S", s: "red", x: 5, y: 1 },
+            { t: "K", s: "black", x: 4, y: 0 },
+          ],
+          steps: [
+            {
+              s: "red",
+              t: "C",
+              from: [7, 6],
+              to: [4, 6],
+              prompt:
+                "Deliver the cannon check along the file, using the soldier as the screen.",
+              result:
+                "The cannon checks the general. The horse and soldier cover the escape squares, so the general has no legal move.",
+            },
+          ],
+          finishLines: [{ from: [4, 6], to: [4, 0] }],
+          finishHalos: [
+            { x: 3, y: 0 },
+            { x: 5, y: 0 },
+            { x: 4, y: 1 },
+          ],
+        },
+        {
+          id: "double-cannon",
+          title: "Double-cannon mate",
+          chinese: "重炮 · Double cannon",
+          family: "Cannon combination",
+          description:
+            "Two cannons on the same file: the front cannon acts as the screen, allowing the rear cannon to check the general. The horse and soldier cover the escape squares.",
+          principle:
+            "A cannon can use a friendly piece as its screen. Coordinate the two cannons so the screening cannon supports the final attack rather than blocking it.",
+          finish:
+            "The upper cannon is the single screen, allowing the lower cannon to deliver the final check. The horse and soldier cover the escapes—mate.",
+          setup: [
+            { t: "K", s: "red", x: 4, y: 9 },
+            { t: "C", s: "red", x: 1, y: 5 },
+            { t: "C", s: "red", x: 4, y: 3 },
+            { t: "H", s: "red", x: 2, y: 2 },
+            { t: "S", s: "red", x: 5, y: 1 },
+            { t: "K", s: "black", x: 4, y: 0 },
+          ],
+          steps: [
+            {
+              s: "red",
+              t: "C",
+              from: [1, 5],
+              to: [4, 5],
+              prompt: "Bring the rear cannon onto the general's file.",
+              result:
+                "The rear cannon checks the general, using the front cannon as the single screen. The horse and soldier cover the escape squares.",
+            },
+          ],
+          finishLines: [{ from: [4, 5], to: [4, 0] }],
+          finishHalos: [
+            { x: 3, y: 0 },
+            { x: 5, y: 0 },
+            { x: 4, y: 1 },
+          ],
+        },
+        {
+          id: "double-chariot-mate",
+          title: "Double-chariot mating net",
+          chinese: "双车配合 · Double chariot",
+          family: "Coordinated mate",
+          description:
+            "One chariot gives the final check while the second protects the checking square. The general's remaining palace exits are blocked by its own pieces.",
+          principle:
+            "Two chariots working together can cover both the checking line and the escape squares. Always check whether the general can capture the checking piece.",
+          finish:
+            "The chariot checks from beside the general, while its partner protects the checking square. The other palace exits are occupied, so capturing the checking chariot would expose the general to the supporting chariot.",
+          setup: [
+            { t: "K", s: "red", x: 4, y: 9 },
+            { t: "R", s: "red", x: 3, y: 8 },
+            { t: "R", s: "red", x: 3, y: 9 },
+            { t: "K", s: "black", x: 4, y: 1 },
+            { t: "A", s: "black", x: 4, y: 0 },
+            { t: "S", s: "black", x: 4, y: 2 },
+            { t: "A", s: "black", x: 5, y: 1 },
+          ],
+          steps: [
+            {
+              s: "red",
+              t: "R",
+              from: [3, 8],
+              to: [3, 1],
+              prompt:
+                "Bring the first chariot beside the general to give check.",
+              result:
+                "The first chariot checks horizontally. The second chariot supports it from below, so the general cannot safely capture it.",
+            },
+          ],
+          finishLines: [
+            { from: [3, 1], to: [4, 1] },
+            { from: [3, 9], to: [3, 1] },
+          ],
+        },
+      ];
+
+      let tacticIndex = 0;
+      let tacticStepIndex = 0;
+      let tacticBad = null;
+      let tacticFeedback = "";
+      let tacticAnimation = null;
+      const tacticsCompleted = new Set();
+      const tacticPicker = document.getElementById("tacticPicker");
+      const tacticBoardEl = document.getElementById("tacticBoard");
+      const tacticStatusEl = document.getElementById("tacticStatus");
+
+      TACTICS.forEach((tactic, index) => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "tactic-select";
+        button.dataset.tactic = tactic.id;
+        button.setAttribute("aria-pressed", "false");
+        button.innerHTML = `<span class="tactic-num">${index + 1}</span><span>${tactic.title}</span><span class="tactic-check" aria-hidden="true">✓</span>`;
+        button.addEventListener("click", () => loadTactic(index));
+        tacticPicker.appendChild(button);
+      });
+
+      function tacticPosition(tactic, count) {
+        const pieces = tactic.setup.map((piece) => ({ ...piece }));
+        for (let i = 0; i < count; i++) {
+          const move = tactic.steps[i];
+          const mover = pieces.find(
+            (piece) =>
+              piece.s === move.s &&
+              piece.t === move.t &&
+              piece.x === move.from[0] &&
+              piece.y === move.from[1],
+          );
+          if (!mover) {
+            console.error(
+              `Tactic setup error in ${tactic.id}, move ${i + 1}`,
+              move,
+            );
+            continue;
+          }
+          const targetIndex = pieces.findIndex(
+            (piece) =>
+              piece !== mover &&
+              piece.x === move.to[0] &&
+              piece.y === move.to[1],
+          );
+          if (targetIndex >= 0) pieces.splice(targetIndex, 1);
+          mover.x = move.to[0];
+          mover.y = move.to[1];
+        }
+        return pieces;
+      }
+
+      function currentTacticMover(pieces, move) {
+        if (!move) return null;
+        return (
+          pieces.find(
+            (piece) =>
+              piece.s === move.s &&
+              piece.t === move.t &&
+              piece.x === move.from[0] &&
+              piece.y === move.from[1],
+          ) || null
+        );
+      }
+
+      function renderTactic() {
+        const tactic = TACTICS[tacticIndex];
+        const pieces = tacticPosition(tactic, tacticStepIndex);
+        const nextMove = tactic.steps[tacticStepIndex] || null;
+        const hero = nextMove
+          ? currentTacticMover(pieces, nextMove)
+          : tactic.steps.length
+            ? pieces.find((piece) => {
+                const last = tactic.steps[tactic.steps.length - 1];
+                return (
+                  piece.s === last.s &&
+                  piece.t === last.t &&
+                  piece.x === last.to[0] &&
+                  piece.y === last.to[1]
+                );
+              })
+            : null;
+        const target =
+          nextMove &&
+          pieces.find(
+            (piece) => piece.x === nextMove.to[0] && piece.y === nextMove.to[1],
+          );
+        const lines = nextMove
+          ? nextMove.lines || []
+          : tactic.finishLines || [];
+        const halos = nextMove
+          ? nextMove.halos || []
+          : tactic.finishHalos || [];
+        tacticBoardEl.innerHTML = board(pieces, {
+          hero,
+          mv: nextMove
+            ? [{ x: nextMove.to[0], y: nextMove.to[1], cap: !!target }]
+            : [],
+          hit: true,
+          bad: tacticBad,
+          lines,
+          halos,
+          animate: tacticAnimation,
+        });
+        tacticAnimation = null;
+        tacticBoardEl
+          .querySelector("svg.board")
+          ?.setAttribute(
+            "aria-label",
+            `${tactic.title}. ${nextMove ? `Play move ${tacticStepIndex + 1} by moving the highlighted piece to the marked point.` : "Tactic demonstration complete."}`,
+          );
+
+        document.getElementById("tacticCount").textContent =
+          `${tacticsCompleted.size} of ${TACTICS.length} tactics explored`;
+        document.getElementById("tacticFill").style.width =
+          `${(tacticsCompleted.size / TACTICS.length) * 100}%`;
+        document.getElementById("tacticFamily").textContent = tactic.family;
+        document.getElementById("tacticChinese").textContent = tactic.chinese;
+        document.getElementById("tacticTitle").textContent = tactic.title;
+        document.getElementById("tacticDescription").textContent =
+          tactic.description;
+        document.getElementById("tacticPrinciple").textContent =
+          tactic.principle;
+        document.getElementById("tacticStepCount").textContent = nextMove
+          ? `Move ${tacticStepIndex + 1} of ${tactic.steps.length}`
+          : "Pattern complete";
+        document.getElementById("tacticStepEffect").textContent =
+          `${tacticStepIndex} of ${tactic.steps.length} moves played`;
+        document.getElementById("tacticInstructions").textContent = nextMove
+          ? `Move ${tacticStepIndex + 1}: ${nextMove.prompt} Tap the marked destination or use Show move.`
+          : "Replay the pattern, go back a move, or choose another tactic above.";
+
+        let status = "Tap the highlighted destination or choose Show move.";
+        if (tacticBad && tacticFeedback) {
+          status = tacticFeedback;
+        } else if (
+          tacticStepIndex > 0 &&
+          tacticStepIndex < tactic.steps.length
+        ) {
+          status =
+            tactic.steps[tacticStepIndex - 1].result +
+            " " +
+            tactic.steps[tacticStepIndex].prompt;
+        } else if (tacticStepIndex === tactic.steps.length) {
+          status = tactic.finish;
+        } else if (tacticFeedback) {
+          status = tacticFeedback;
+        }
+        tacticStatusEl.textContent = status;
+        tacticStatusEl.className =
+          "tactic-status" +
+          (tacticBad
+            ? " warn"
+            : tacticStepIndex === tactic.steps.length
+              ? " good"
+              : "");
+
+        document.getElementById("tacticPrev").disabled = tacticStepIndex === 0;
+        document.getElementById("tacticNext").textContent = nextMove
+          ? `Show move ${tacticStepIndex + 1} →`
+          : tacticIndex === TACTICS.length - 1
+            ? "Start again ↺"
+            : "Next tactic →";
+        tacticPicker
+          .querySelectorAll(".tactic-select")
+          .forEach((button, index) => {
+            button.setAttribute("aria-pressed", String(index === tacticIndex));
+            button.classList.toggle(
+              "done",
+              tacticsCompleted.has(TACTICS[index].id),
+            );
+          });
+      }
+
+      function loadTactic(index) {
+        tacticIndex = (index + TACTICS.length) % TACTICS.length;
+        tacticStepIndex = 0;
+        tacticBad = null;
+        tacticFeedback = "";
+        tacticAnimation = null;
+        renderTactic();
+      }
+
+      function playTacticStep() {
+        const tactic = TACTICS[tacticIndex];
+        if (tacticStepIndex >= tactic.steps.length) {
+          if (tacticIndex === TACTICS.length - 1) loadTactic(0);
+          else loadTactic(tacticIndex + 1);
+          return;
+        }
+        const move = tactic.steps[tacticStepIndex];
+        const pieces = tacticPosition(tactic, tacticStepIndex);
+        const mover = currentTacticMover(pieces, move);
+        if (!mover) {
+          tacticFeedback =
+            "This teaching diagram needs a move correction. Please choose Replay tactic.";
+          tacticBad = null;
+          renderTactic();
+          return;
+        }
+        tacticStepIndex += 1;
+        tacticAnimation = {
+          s: move.s,
+          t: move.t,
+          from: move.from,
+          to: move.to,
+        };
+        tacticBad = null;
+        tacticFeedback = move.result;
+        if (tacticStepIndex === tactic.steps.length)
+          tacticsCompleted.add(tactic.id);
+        renderTactic();
+      }
+
+      tacticBoardEl.addEventListener("click", (event) => {
+        const point = event.target.closest(".hit");
+        if (!point) return;
+        const tactic = TACTICS[tacticIndex];
+        const move = tactic.steps[tacticStepIndex];
+        if (!move) {
+          tacticFeedback =
+            "Pattern complete. Use Replay tactic or choose another pattern.";
+          tacticBad = null;
+          renderTactic();
+          return;
+        }
+        const x = Number(point.dataset.x);
+        const y = Number(point.dataset.y);
+        if (x === move.to[0] && y === move.to[1]) {
+          playTacticStep();
+        } else {
+          tacticBad = { x, y, bl: [] };
+          tacticFeedback =
+            "Not this point. Follow the highlighted destination to see the tactical idea.";
+          renderTactic();
+        }
+      });
+
+      document.getElementById("tacticPrev").addEventListener("click", () => {
+        if (tacticStepIndex === 0) return;
+        tacticStepIndex -= 1;
+        tacticBad = null;
+        tacticFeedback = "";
+        tacticAnimation = null;
+        renderTactic();
+      });
+      document
+        .getElementById("tacticReset")
+        .addEventListener("click", () => loadTactic(tacticIndex));
+      document
+        .getElementById("tacticNext")
+        .addEventListener("click", playTacticStep);
+      loadTactic(0);
     </script>
   </body>
 </html>
