@@ -6,19 +6,23 @@
       name="viewport"
       content="width=device-width, initial-scale=1, viewport-fit=cover"
     />
-    <title>Xiangqi in 10 minutes</title>
+    <title>How to Play Xiangqi (Chinese Chess) in 10 Minutes</title>
     <meta
       name="description"
-      content="Learn Xiangqi in 10 minutes with an interactive board, piece lessons, coaching positions, and 10 tactics."
+      content="Learn Xiangqi (Chinese chess) in 10 minutes with an interactive board, piece lessons, coached positions, and 10 tactics."
     />
     <link rel="icon" type="image/png" sizes="256x256" href="./favicon.png" />
     <link rel="apple-touch-icon" href="./favicon.png" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="Xiangqi in 10 minutes" />
+    <meta
+      property="og:title"
+      content="How to Play Xiangqi (Chinese Chess) in 10 Minutes"
+    />
     <meta
       property="og:description"
       content="Learn Chinese chess by moving the pieces yourself."
     />
+    <!-- TODO: use absolute URLs for og:image / twitter:image and add og:url + canonical for your domain -->
     <meta property="og:image" content="./og-image.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
@@ -27,7 +31,10 @@
       content="Xiangqi board with a red horse showing its legal moves, beside the title Xiangqi in 10 minutes"
     />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Xiangqi in 10 minutes" />
+    <meta
+      name="twitter:title"
+      content="How to Play Xiangqi (Chinese Chess) in 10 Minutes"
+    />
     <meta
       name="twitter:description"
       content="Learn Chinese chess by moving the pieces yourself."
@@ -335,7 +342,8 @@
       }
       .btn:focus-visible,
       button:focus-visible,
-      a:focus-visible {
+      a:focus-visible,
+      summary:focus-visible {
         outline: 3px solid var(--go);
         outline-offset: 3px;
       }
@@ -362,6 +370,24 @@
         overflow: hidden;
         margin-top: 36px;
         border-radius: 16px;
+      }
+      .ad-top:has(ins[data-ad-status="unfilled"]) {
+        display: none;
+      }
+
+      /* ---------- divider ---------- */
+      .deeper {
+        margin-top: 80px;
+        padding-top: 28px;
+        border-top: 2px dashed var(--rule);
+        text-align: center;
+      }
+      .deeper h2 {
+        margin-bottom: 6px;
+      }
+      .deeper p {
+        margin-left: auto;
+        margin-right: auto;
       }
 
       /* ---------- lesson ---------- */
@@ -677,6 +703,37 @@
         color: var(--red);
       }
 
+      /* ---------- keyboard move lists ---------- */
+      .kbd {
+        margin: 10px 4px 0;
+        font-size: 14px;
+        color: var(--mute);
+      }
+      .kbd summary {
+        cursor: pointer;
+        font-weight: 700;
+      }
+      .kbd-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin-top: 8px;
+      }
+      .kbd-move {
+        font:
+          600 13px Figtree,
+          sans-serif;
+        color: var(--ink);
+        background: transparent;
+        border: 2px solid var(--rule);
+        border-radius: 999px;
+        padding: 6px 10px;
+        cursor: pointer;
+      }
+      .kbd-move:hover {
+        border-color: var(--hero);
+      }
+
       /* ---------- generic cards ---------- */
       .board-wrap {
         background: var(--card);
@@ -815,6 +872,22 @@
           sans-serif;
         opacity: 0.92;
         margin-top: 8px;
+      }
+      .goal-notes {
+        background: var(--card);
+        border: 2px solid var(--rule);
+        border-radius: 20px;
+        padding: 16px 18px;
+      }
+      .goal-notes p {
+        margin: 0 0 10px;
+      }
+      .goal-notes p:last-child {
+        margin-bottom: 0;
+      }
+      .goal-notes ul {
+        margin: 6px 0 10px;
+        padding-left: 22px;
       }
       .foot {
         margin-top: 56px;
@@ -1083,6 +1156,13 @@
         cursor: not-allowed;
       }
       @media (max-width: 480px) {
+        main {
+          padding: 0 12px 56px;
+        }
+        .lesson,
+        .board-wrap {
+          padding: 10px;
+        }
         .tactic-grid {
           grid-template-columns: 1fr;
         }
@@ -1138,8 +1218,8 @@
         </div>
         <h1>Xiangqi in <em>10 minutes</em></h1>
         <p class="lede">
-          Chinese chess: two armies, one goal—trap the enemy general. Move the
-          pieces yourself and learn by playing.
+          Chinese chess: two armies, one goal—trap the enemy general. Steps 1–6
+          are the 10-minute core; Steps 7–8 are optional training.
         </p>
         <div class="cta-row">
           <a class="btn" href="#try"
@@ -1153,7 +1233,6 @@
         </div>
       </header>
 
-      <!-- CO_TUTOR_res -->
       <div class="ad-top">
         <ins
           class="adsbygoogle"
@@ -1166,13 +1245,56 @@
         (adsbygoogle = window.adsbygoogle || []).push({});
       </script>
 
+      <section>
+        <span class="eyebrow">Step 1 · Look around</span>
+        <h2>The board</h2>
+        <p class="sub">
+          Nine files, ten ranks. Pieces sit on crossings. Shaded boxes are
+          <b>palaces</b>; the gap is the <b>river</b>. Red moves first.
+        </p>
+        <div class="board-wrap">
+          <div id="start"></div>
+          <p class="hint">
+            Red at bottom, black at top. Same pieces; different characters.
+          </p>
+        </div>
+      </section>
+
+      <section>
+        <span class="eyebrow">Step 2 · Win</span>
+        <h2>The goal</h2>
+        <div class="goal">
+          <div class="big">
+            Checkmate the enemy general.
+            <small>No legal move means you lose, not draw.</small>
+          </div>
+          <div class="goal-notes">
+            <p>
+              <b>Check</b> means a general is under attack. You must answer it
+              immediately, in one of three ways:
+            </p>
+            <ul>
+              <li><b>Move</b> the general to a safe point,</li>
+              <li><b>Block</b> the line of attack, or</li>
+              <li><b>Capture</b> the attacking piece.</li>
+            </ul>
+            <p>
+              If none of those works, it is <b>checkmate</b>. Before you capture
+              anything, ask: <i>is it protected?</i> If an enemy piece can take
+              back, you have made a trade, not won material.
+            </p>
+          </div>
+        </div>
+      </section>
+
       <section id="try">
-        <span class="eyebrow">Step 1 · Play</span>
+        <span class="eyebrow">Step 3 · Play</span>
         <h2>Try every piece</h2>
         <p class="sub">
           Pick a piece. Tap a <b style="color: var(--go)">green dot</b> to move
           or a <b style="color: var(--cap)">red ring</b> to capture. Tap
-          anywhere else to learn why a move is illegal.
+          anywhere else to learn why a move is illegal. Prefer the keyboard?
+          Open “Keyboard moves” under the board.
         </p>
         <div class="lesson">
           <div class="progress">
@@ -1186,6 +1308,7 @@
             aria-label="Choose a piece"
           ></div>
           <div class="stage"><div id="play"></div></div>
+          <div class="kbd" id="labKbd"></div>
           <div class="info" id="info"></div>
           <div
             class="notice"
@@ -1214,35 +1337,12 @@
       </section>
 
       <section>
-        <span class="eyebrow">Step 2 · Look around</span>
-        <h2>The board</h2>
-        <p class="sub">
-          Nine files, ten ranks. Pieces sit on crossings. Shaded boxes are
-          <b>palaces</b>; the gap is the <b>river</b>. Red moves first.
-        </p>
-        <div class="board-wrap">
-          <div id="start"></div>
-          <p class="hint">
-            Red at bottom, black at top. Same pieces; different characters.
-          </p>
-        </div>
-      </section>
-
-      <section>
-        <span class="eyebrow">Step 3 · Win</span>
-        <h2>The goal</h2>
-        <div class="goal">
-          <div class="big">
-            Checkmate the enemy general.
-            <small>No legal move means you lose, not draw.</small>
-          </div>
-        </div>
-      </section>
-
-      <section>
         <span class="eyebrow">Step 4 · Trade smart</span>
         <h2>How much is each piece worth?</h2>
-        <p class="sub">Rough trade values. Longer bar = more valuable.</p>
+        <p class="sub">
+          Rough trade values. Longer bar = more valuable. A soldier that has
+          crossed the river is worth about 2.
+        </p>
         <div class="vals" id="vals"></div>
       </section>
 
@@ -1256,7 +1356,8 @@
               <b>Generals cannot face each other</b>
               <p>
                 If the generals face each other down an open file with nothing
-                between them, the position is illegal. Watch the file.
+                between them, the position is illegal. You also cannot move a
+                piece off that file if it would open it.
               </p>
             </div>
           </div>
@@ -1294,23 +1395,35 @@
           </li>
           <li>
             <b>Develop chariots.</b><br />
-            Your strongest pieces start in corners. Open files for them.
+            Your strongest pieces start in corners. Open files for them, and
+            don’t trade a chariot for a lesser piece.
           </li>
           <li>
-            <b>Keep guards home.</b><br />
-            Advisors and elephants defend. Attack with chariots, horses,
-            cannons.
+            <b>Mind the legs.</b><br />
+            Before every horse or elephant move, check it isn’t blocked—and look
+            for ways to block your opponent’s.
           </li>
         </ol>
       </section>
+
+      <div class="deeper">
+        <span class="eyebrow">Go deeper · optional</span>
+        <h2>Ready for training?</h2>
+        <p class="sub">
+          The 10-minute lesson is done. The sections below are guided practice
+          with coached positions and tactics. Work through them at your own
+          pace.
+        </p>
+      </div>
 
       <section id="coach">
         <span class="eyebrow">Step 7 · Train with a coach</span>
         <h2>Opening, middlegame, and endgame</h2>
         <p class="sub">
           Twelve coached positions—four per phase. Tap a green destination to
-          try the idea. Weaker legal moves are explained; illegal moves too.
-          Work through a phase in order.
+          try the idea. Illegal moves are always explained; some lessons also
+          explain why a legal alternative is weaker. Opening lessons show only
+          Red’s side; real opponents will reply differently.
         </p>
         <div class="lesson" id="coachLesson">
           <div class="coach-progress">
@@ -1357,10 +1470,11 @@
             <p class="coach-principle" id="coachPrinciple"></p>
           </div>
           <p class="coach-instructions">
-            Gold-ringed piece is yours. Tap a green dot to try a move; only the
-            lesson move passes.
+            Gold-ringed piece is yours. Tap a green dot (or use Keyboard moves)
+            to try a move; only the lesson move passes.
           </p>
           <div class="stage"><div id="coachBoard"></div></div>
+          <div class="kbd" id="coachKbd"></div>
           <p
             class="coach-status"
             id="coachStatus"
@@ -1387,7 +1501,8 @@
         <h2>10 Xiangqi tactics worth spotting</h2>
         <p class="sub">
           Pick a pattern, then follow the highlighted move. Tap the destination
-          or use Show move. Dashed lines/rings mark targets.
+          or use Show move. Where it matters, Black’s reply is shown too. Dashed
+          lines/rings mark targets.
         </p>
         <div class="lesson" id="tacticLesson">
           <div class="progress">
@@ -1403,7 +1518,7 @@
           <div class="tactic-heading">
             <div class="tactic-meta">
               <span class="eyebrow" id="tacticFamily">Fork</span>
-              <span class="tactic-cn" id="tacticChinese">马叉</span>
+              <span class="tactic-cn" id="tacticChinese">Fork</span>
             </div>
             <h3 id="tacticTitle">Horse fork</h3>
             <p id="tacticDescription"></p>
@@ -1440,8 +1555,9 @@
       </section>
 
       <p class="foot">
-        Next: play beginner games and learn check rules (a perpetual chase can
-        be illegal in formal play).
+        Next: play beginner games and learn the check rules. Rules on perpetual
+        check and perpetual chase vary by ruleset, but in formal play you
+        generally can’t win or draw by repeating them forever.
       </p>
 
       <p class="lang-link">
@@ -1564,7 +1680,47 @@
         },
       };
       const Cs = 52,
-        M = 36;
+        M = 30;
+      let boardUid = 0;
+
+      // persistence helpers (progress survives reloads)
+      function loadSet(key, valid) {
+        try {
+          return new Set(
+            JSON.parse(localStorage.getItem(key) || "[]").filter((v) =>
+              valid.includes(v),
+            ),
+          );
+        } catch (e) {
+          return new Set();
+        }
+      }
+      function saveSet(key, set) {
+        try {
+          localStorage.setItem(key, JSON.stringify([...set]));
+        } catch (e) {}
+      }
+
+      // Are the two generals facing each other on an open file?
+      // Returns [redKing, blackKing] if so, else null.
+      function genFace(pcs) {
+        const rk = pcs.find((p) => p.t === "K" && p.s === "red");
+        const bk = pcs.find((p) => p.t === "K" && p.s === "black");
+        if (!rk || !bk || rk.x !== bk.x) return null;
+        const lo = Math.min(rk.y, bk.y),
+          hi = Math.max(rk.y, bk.y);
+        return pcs.some(
+          (p) => p !== rk && p !== bk && p.x === rk.x && p.y > lo && p.y < hi,
+        )
+          ? null
+          : [rk, bk];
+      }
+      // Position after hero h moves to m (captures whatever stands there).
+      function after(h, m, pcs) {
+        return pcs
+          .filter((p) => p !== h && !(p.x === m.x && p.y === m.y))
+          .concat([{ ...h, x: m.x, y: m.y }]);
+      }
       function facing(h, x, y, pcs) {
         const ek = pcs.find((p) => p.t === "K" && p.s !== h.s);
         if (!ek || ek.x !== x) return null;
@@ -1657,15 +1813,16 @@
             add(h.x + 1, h.y);
           }
         }
-        if (h.t === "K") return out.filter((m) => !facing(h, m.x, m.y, pcs));
-        return out;
+        // A move may never leave the generals facing each other.
+        return out.filter((m) => !genFace(after(h, m, pcs)));
       }
       const px = (x) => M + x * Cs,
         py = (y) => M + y * Cs;
       function board(pcs, o = {}) {
+        const uid = ++boardUid;
         const W = 8 * Cs + 2 * M,
           H = 9 * Cs + 2 * M;
-        let s = `<svg class="board" viewBox="0 0 ${W} ${H}" role="img" aria-label="Xiangqi board"><defs><linearGradient id="wd" x1="0" y1="0" x2="1" y2="1"><stop offset="0" style="stop-color:var(--board)"/><stop offset="1" style="stop-color:var(--board2)"/></linearGradient><radialGradient id="dg" cx=".35" cy=".28" r=".85"><stop offset="0" stop-color="#fffdf2"/><stop offset=".45" style="stop-color:var(--disc)"/><stop offset="1" style="stop-color:var(--disc2)"/></radialGradient></defs><rect x="0" y="0" width="${W}" height="${H}" rx="18" fill="url(#wd)"/>`;
+        let s = `<svg class="board" viewBox="0 0 ${W} ${H}" role="img" aria-label="Xiangqi board"><defs><linearGradient id="wd${uid}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" style="stop-color:var(--board)"/><stop offset="1" style="stop-color:var(--board2)"/></linearGradient><radialGradient id="dg${uid}" cx=".35" cy=".28" r=".85"><stop offset="0" stop-color="#fffdf2"/><stop offset=".45" style="stop-color:var(--disc)"/><stop offset="1" style="stop-color:var(--disc2)"/></radialGradient></defs><rect x="0" y="0" width="${W}" height="${H}" rx="18" fill="url(#wd${uid})"/>`;
         s += `<rect x="${px(3)}" y="${py(0)}" width="${2 * Cs}" height="${2 * Cs}" fill="var(--palace)"/><rect x="${px(3)}" y="${py(7)}" width="${2 * Cs}" height="${2 * Cs}" fill="var(--palace)"/>`;
         let d = "";
         for (let y = 0; y < 10; y++) d += `M${px(0)} ${py(y)}H${px(8)}`;
@@ -1707,7 +1864,7 @@
             p.y === o.animate.to[1]
               ? ` class="slide" style="--dx:${px(o.animate.from[0]) - px(o.animate.to[0])}px;--dy:${py(o.animate.from[1]) - py(o.animate.to[1])}px"`
               : "";
-          s += `<g pointer-events="none"${anim || (p === o.hero ? sl : "")}><ellipse cx="${cx}" cy="${cy + 6}" rx="23" ry="21" fill="#000" opacity=".28"/><circle cx="${cx}" cy="${cy + 3}" r="23" fill="var(--line)"/><circle cx="${cx}" cy="${cy}" r="23" fill="url(#dg)" stroke="var(--line)" stroke-width="2"/><circle cx="${cx}" cy="${cy}" r="18" fill="none" stroke="${c}" stroke-width="1.6"/><text x="${cx}" y="${cy + 1}" text-anchor="middle" dominant-baseline="central" font-family="Noto Serif SC,serif" font-weight="900" font-size="24" fill="${c}">${CH[p.s][p.t]}</text></g>`;
+          s += `<g pointer-events="none"${anim || (p === o.hero ? sl : "")}><ellipse cx="${cx}" cy="${cy + 6}" rx="23" ry="21" fill="#000" opacity=".28"/><circle cx="${cx}" cy="${cy + 3}" r="23" fill="var(--line)"/><circle cx="${cx}" cy="${cy}" r="23" fill="url(#dg${uid})" stroke="var(--line)" stroke-width="2"/><circle cx="${cx}" cy="${cy}" r="18" fill="none" stroke="${c}" stroke-width="1.6"/><text x="${cx}" y="${cy + 1}" text-anchor="middle" dominant-baseline="central" font-family="Noto Serif SC,serif" font-weight="900" font-size="24" fill="${c}">${CH[p.s][p.t]}</text></g>`;
         });
         if (o.hero)
           s += `<circle${sl} cx="${px(o.hero.x)}" cy="${py(o.hero.y)}" r="29" fill="none" stroke="var(--hero)" stroke-width="4" pointer-events="none"/>`;
@@ -1725,21 +1882,29 @@
         }
         return s + "</svg>";
       }
+
+      // Keyboard / screen-reader alternative to tapping the board.
+      function renderKbd(el, list) {
+        const open = !!el.querySelector("details[open]");
+        el.innerHTML = list.length
+          ? `<details${open ? " open" : ""}><summary>Keyboard moves (columns count from the left, rows from the top)</summary><div class="kbd-list">${list
+              .map(
+                (m) =>
+                  `<button type="button" class="kbd-move" data-x="${m.x}" data-y="${m.y}">${m.cap ? "Capture at" : "Move to"} column ${m.x + 1}, row ${m.y + 1}</button>`,
+              )
+              .join("")}</div></details>`
+          : "";
+      }
+
       let cur = "K",
         pos = { ...D.K },
         obs = D.K.o.map((p) => ({ ...p })),
         note = null,
         bad = null,
         slide = null;
-      let learned = new Set();
-      try {
-        learned = new Set(
-          JSON.parse(localStorage.getItem("xq-learned") || "[]").filter((t) =>
-            ORDER.includes(t),
-          ),
-        );
-      } catch (e) {}
+      const learned = loadSet("xq-learned", ORDER);
       const play = document.getElementById("play"),
+        labKbd = document.getElementById("labKbd"),
         info = document.getElementById("info"),
         picker = document.getElementById("picker"),
         statusEl = document.getElementById("status"),
@@ -1850,26 +2015,36 @@
             );
           if ((r = own())) return r;
         }
+        // Otherwise-legal moves that would open the file between the generals.
+        const g = genFace(after(h, { x, y }, pcs));
+        if (g)
+          return W(
+            "That would leave the generals facing each other on an open file, which is never allowed.",
+            g,
+          );
         return W(`That move isn’t allowed for the ${me}.`);
       }
       const coach = () => ({
         k: "info",
         t: `Tap a green dot to move the ${nameOf(cur)}. Tap elsewhere to see why a move is illegal.`,
       });
-      function save() {
-        try {
-          localStorage.setItem("xq-learned", JSON.stringify([...learned]));
-        } catch (e) {}
-      }
       function draw() {
         const hero = { t: cur, s: "red", x: pos.x, y: pos.y };
+        const legalNow = moves(hero, obs);
         play.innerHTML = board([...obs, hero], {
           hero,
-          mv: moves(hero, obs),
+          mv: legalNow,
           hit: true,
           bad,
           slide,
         });
+        renderKbd(labKbd, legalNow);
+        play
+          .querySelector("svg.board")
+          ?.setAttribute(
+            "aria-label",
+            `Xiangqi board with a red ${nameOf(cur)}. Use Keyboard moves below to play without a pointer.`,
+          );
         slide = null;
         const i = INFO[cur];
         info.innerHTML = `<span class="disc" aria-hidden="true">${CH.red[cur]}</span><div><h3>${i[0]}</h3><p>${i[1]}</p><p class="tip">${i[2]}</p></div>`;
@@ -1911,11 +2086,7 @@
         b.onclick = () => reset(t);
         picker.appendChild(b);
       });
-      play.addEventListener("click", (e) => {
-        const t = e.target.closest(".hit");
-        if (!t) return;
-        const x = +t.dataset.x,
-          y = +t.dataset.y;
+      function labClick(x, y) {
         const hero = { t: cur, s: "red", x: pos.x, y: pos.y };
         bad = null;
         if (x === pos.x && y === pos.y) {
@@ -1927,7 +2098,7 @@
           const target = obs.find((p) => p.x === x && p.y === y);
           const wasNew = !learned.has(cur);
           learned.add(cur);
-          save();
+          saveSet("xq-learned", learned);
           slide = { x: pos.x, y: pos.y };
           if (target) {
             obs = obs.filter((p) => p !== target);
@@ -1952,6 +2123,16 @@
           note = { k: "warn", t: r.t };
         }
         draw();
+      }
+      play.addEventListener("click", (e) => {
+        const t = e.target.closest(".hit");
+        if (t) labClick(+t.dataset.x, +t.dataset.y);
+      });
+      labKbd.addEventListener("click", (e) => {
+        const b = e.target.closest(".kbd-move");
+        if (!b) return;
+        labClick(+b.dataset.x, +b.dataset.y);
+        labKbd.querySelector("summary")?.focus();
       });
       draw();
       // start position
@@ -2009,6 +2190,7 @@
         endgame: "Endgame",
       };
 
+      // Each lesson step may carry `weak`: { "x,y": "why this legal move is weaker" }.
       const COACH_LESSONS = [
         /* ======================= OPENING ======================= */
         {
@@ -2031,7 +2213,8 @@
                 "Central cannon! Your soldier screens it, pressuring the black central soldier.",
             },
           ],
-          finish: "Popular first move. Next, develop horses and chariots.",
+          finish:
+            "A popular first move. Black usually replies by developing horses to guard the central soldier. Next, develop your own horses and chariots.",
         },
         {
           id: "op-2",
@@ -2039,23 +2222,26 @@
           title: "Develop a horse",
           prompt: "Red to move. Develop a horse.",
           principle:
-            "Horses are slow but strong. Keep their legs clear and develop before the board crowds. Center squares give more reach.",
-          hint: "Jump the right horse forward, toward the middle.",
+            "Horses are slow but strong. Keep their legs clear and develop before the board crowds. Central squares give a horse more reach than edge squares.",
+          hint: "Jump the right horse forward and toward the centre.",
           setup: shifted(openBase(), "red", "C", [7, 7], [4, 7]),
           steps: [
             {
               s: "red",
               t: "H",
               from: [7, 9],
-              targets: [
-                [6, 7],
-                [8, 7],
-              ],
-              prompt: "Jump the right horse forward.",
-              result: "Horse developed. Either jump escapes the corner.",
+              targets: [[6, 7]],
+              weak: {
+                "8,7":
+                  "Legal, but the edge hurts the horse: from the side file it reaches far fewer points than from the centre side. Prefer the other jump.",
+              },
+              prompt: "Jump the right horse toward the centre.",
+              result:
+                "Horse developed toward the centre, where it controls the most points.",
             },
           ],
-          finish: "Develop all pieces before hunting tactics.",
+          finish:
+            "Develop all your pieces before hunting tactics. Your next job: free the corner chariot.",
         },
         {
           id: "op-3",
@@ -2064,7 +2250,7 @@
           prompt: "Red to move. Activate a chariot.",
           principle:
             "A chariot on its start square is weak. Chariots love open files and ranks. Bring them out early.",
-          hint: "The right file is open now that the horse moved.",
+          hint: "Slide the chariot sideways into the corner square the horse just left; that opens a long file.",
           setup: shifted(
             shifted(openBase(), "red", "C", [7, 7], [4, 7]),
             "red",
@@ -2077,12 +2263,16 @@
               s: "red",
               t: "R",
               from: [8, 9],
-              targets: [
-                [8, 8],
-                [8, 7],
-              ],
-              prompt: "Advance the right chariot up its open file.",
-              result: "Chariot out and sweeping.",
+              targets: [[7, 9]],
+              weak: {
+                "8,8":
+                  "Legal, but your own soldier on this file stops the chariot two steps up. The file next door is wide open.",
+                "8,7":
+                  "Legal, but your own soldier on this file stops the chariot two steps up. The file next door is wide open.",
+              },
+              prompt: "Slide the right chariot into the square the horse left.",
+              result:
+                "The chariot is out and now eyes the whole open file toward Black's side.",
             },
           ],
           finish:
@@ -2095,7 +2285,7 @@
           prompt: "Red to move. Develop an elephant toward the centre.",
           principle:
             "Elephants defend and never cross the river. From the centre they cover the palace front. Their eye must be empty.",
-          hint: "Right elephant jumps two diagonally toward the middle.",
+          hint: "The right elephant jumps two points diagonally toward the middle.",
           setup: openBase(),
           steps: [
             {
@@ -2107,7 +2297,8 @@
               result: "Elephant guards the centre behind the river.",
             },
           ],
-          finish: "Keep advisors and elephants near home.",
+          finish:
+            "This lesson starts again from the initial position. Advisors and elephants defend, so use them to cover your general while your chariots, horses and cannons attack.",
         },
 
         /* ====================== MIDDLEGAME ====================== */
@@ -2141,15 +2332,16 @@
         {
           id: "mg-2",
           stage: "middlegame",
-          title: "Uncover a discovered check",
-          prompt: "Red to move. Uncover a discovered check.",
+          title: "Capture with discovered check",
+          prompt: "Red to move. Win material while uncovering a check.",
           principle:
-            "Move a blocker so a chariot behind it checks the general. The moving piece may also threaten something.",
-          hint: "The soldier crossed the river, so it can sidestep. Move it off the chariot's file.",
+            "Move a blocker so a chariot behind it checks the general. Best of all, the moving piece captures something on the way, so Black has no time to save it.",
+          hint: "The soldier has crossed the river, so it can capture sideways. Take the horse and uncover the chariot.",
           setup: [
             { t: "K", s: "red", x: 3, y: 9 },
             { t: "R", s: "red", x: 4, y: 8 },
             { t: "S", s: "red", x: 4, y: 4 },
+            { t: "H", s: "black", x: 3, y: 4 },
             { t: "K", s: "black", x: 4, y: 1 },
           ],
           steps: [
@@ -2157,12 +2349,14 @@
               s: "red",
               t: "S",
               from: [4, 4],
-              targets: [
-                [3, 4],
-                [5, 4],
-              ],
-              prompt: "Step the soldier sideways off the file.",
-              result: "The chariot now checks down the open file.",
+              targets: [[3, 4]],
+              weak: {
+                "5,4":
+                  "That also uncovers the check, but it wins nothing. Capturing the horse wins material for free.",
+              },
+              prompt: "Capture the horse with the soldier.",
+              result:
+                "The soldier takes the horse and the chariot checks down the open file. Black must answer the check, so the horse is lost for nothing.",
             },
           ],
           finish:
@@ -2171,31 +2365,35 @@
         {
           id: "mg-3",
           stage: "middlegame",
-          title: "Fork two targets",
-          prompt: "Red to move. Fork two black pieces with one horse jump.",
+          title: "Fork the general and a chariot",
+          prompt:
+            "Red to move. Check the general with a horse jump that also attacks a chariot.",
           principle:
-            "A horse attacks eight points. Find two enemy pieces one jump apart from a landing square. The landing square and leg must be clear.",
-          hint: "Find a square attacking both the black chariot and cannon.",
+            "A horse attacks up to eight points. Look for a landing square that gives check and hits another piece. Black must answer the check, then the horse takes. The landing square and the leg must be clear.",
+          hint: "Find the jump that attacks the general at the top and the black chariot on the left.",
           setup: [
             { t: "K", s: "red", x: 3, y: 9 },
-            { t: "H", s: "red", x: 4, y: 5 },
+            { t: "H", s: "red", x: 4, y: 4 },
             { t: "K", s: "black", x: 4, y: 0 },
-            { t: "R", s: "black", x: 2, y: 1 },
-            { t: "C", s: "black", x: 4, y: 1 },
+            { t: "R", s: "black", x: 1, y: 3 },
           ],
           steps: [
             {
               s: "red",
               t: "H",
-              from: [4, 5],
-              targets: [[3, 3]],
+              from: [4, 4],
+              targets: [[3, 2]],
+              weak: {
+                "5,2":
+                  "That also gives check, but the horse attacks nothing else from there. The other jump hits the chariot too.",
+              },
               prompt: "Jump the horse to the forking square.",
               result:
-                "The horse attacks chariot and cannon. Black saves only one.",
+                "Check, and the horse also attacks the chariot. Black must answer the check; then the horse takes the chariot.",
             },
           ],
           finish:
-            "Before horse moves, check which pieces each destination attacks.",
+            "Before a horse moves, check which pieces each landing square attacks, and whether any of them is the general.",
         },
         {
           id: "mg-4",
@@ -2203,8 +2401,8 @@
           title: "Pin a defender",
           prompt: "Red to move. Pin the black horse to its general.",
           principle:
-            "A pinned piece can't move off the line because a more valuable piece sits behind it. Pins freeze defenders.",
-          hint: "Put the chariot on the black general's file behind the horse.",
+            "A pinned piece can't leave the line because a more valuable piece stands behind it. Pins freeze defenders; a second attacker then wins them.",
+          hint: "Put the chariot on the black general's file, in front of the horse.",
           setup: [
             { t: "K", s: "red", x: 3, y: 9 },
             { t: "R", s: "red", x: 1, y: 6 },
@@ -2219,10 +2417,11 @@
               targets: [[4, 6]],
               prompt: "Slide the chariot onto the general's file.",
               result:
-                "The black horse can't move without exposing its general.",
+                "The chariot attacks the horse, and the general stands behind it. The horse can't move without exposing its general.",
             },
           ],
-          finish: "Attack pinned pieces again; they often fall.",
+          finish:
+            "A pinned piece can't run away, but it can still be defended. Add a second attacker and it falls.",
         },
 
         /* ======================= ENDGAME ======================= */
@@ -2232,7 +2431,7 @@
           title: "Push the soldier with check",
           prompt: "Red to move. Check with the soldier.",
           principle:
-            "Crossed soldiers can move sideways and are valuable. Forcing moves first.",
+            "Crossed soldiers are valuable and give forcing checks. Notice that sideways steps are illegal here: moving the soldier off the file would leave the generals facing each other.",
           hint: "Advance the soldier one point. The general can't capture it outside the palace.",
           setup: [
             { t: "K", s: "red", x: 4, y: 9 },
@@ -2282,11 +2481,11 @@
         {
           id: "eg-3",
           stage: "endgame",
-          title: "Back-rank mate with soldiers",
-          prompt: "Red to move. Back-rank mate with soldiers.",
+          title: "Chariot and two soldiers mate",
+          prompt: "Red to move. Mate with the chariot.",
           principle:
             "Chariot mates depend on escape squares. The chariot checks; other pieces cover sideways steps.",
-          hint: "Slide the chariot onto the black general's file, then check covered escapes.",
+          hint: "Slide the chariot onto the black general's file, then check every escape square is covered.",
           setup: [
             { t: "K", s: "red", x: 5, y: 9 },
             { t: "R", s: "red", x: 0, y: 9 },
@@ -2302,7 +2501,7 @@
               targets: [[4, 9]],
               prompt: "Slide the chariot onto the general's file.",
               result:
-                "Checkmate. The chariot covers the file; soldiers cover sideways steps.",
+                "Checkmate. The chariot covers the file; the soldiers cover the sideways steps.",
             },
           ],
           finish: "Before checking, list every escape square.",
@@ -2348,9 +2547,13 @@
       let coachMessage = null;
       let coachAnim = null;
       let coachHintOn = false;
-      const coachDone = new Set();
+      const coachDone = loadSet(
+        "xq-coach",
+        COACH_LESSONS.map((l) => l.id),
+      );
 
       const coachBoardEl = document.getElementById("coachBoard");
+      const coachKbdEl = document.getElementById("coachKbd");
       const coachStatusEl = document.getElementById("coachStatus");
 
       function coachPosition(lesson, count, chosen) {
@@ -2411,6 +2614,7 @@
           halos,
           animate: coachAnim,
         });
+        renderKbd(coachKbdEl, legal);
         coachAnim = null;
 
         coachBoardEl
@@ -2419,7 +2623,7 @@
             "aria-label",
             `${lesson.title}. ${
               step
-                ? "The gold-ringed piece is yours to move."
+                ? "The gold-ringed piece is yours to move. Keyboard moves are listed below the board."
                 : "Lesson complete."
             }`,
           );
@@ -2486,12 +2690,7 @@
         renderCoach();
       }
 
-      coachBoardEl.addEventListener("click", (event) => {
-        const point = event.target.closest(".hit");
-        if (!point) return;
-        const x = Number(point.dataset.x);
-        const y = Number(point.dataset.y);
-
+      function coachClick(x, y) {
         const lesson = COACH_LESSONS[coachIndex];
         const step = lesson.steps[coachStep];
         if (!step) {
@@ -2525,6 +2724,7 @@
           coachHintOn = false;
           if (coachStep >= lesson.steps.length) {
             coachDone.add(lesson.id);
+            saveSet("xq-coach", coachDone);
             coachMessage = { k: "good", t: `${step.result} ${lesson.finish}` };
           } else {
             const nextStep = lesson.steps[coachStep];
@@ -2537,7 +2737,9 @@
           coachBad = { x, y, bl: [] };
           coachMessage = {
             k: "warn",
-            t: "Legal, but not the lesson idea. Try again or use Hint.",
+            t:
+              (step.weak && step.weak[`${x},${y}`]) ||
+              "Legal, but not the lesson idea. Try again or use Hint.",
           };
         } else {
           const reason = why(hero, x, y, pieces);
@@ -2545,6 +2747,17 @@
           coachMessage = { k: "warn", t: `Illegal move. ${reason.t}` };
         }
         renderCoach();
+      }
+
+      coachBoardEl.addEventListener("click", (event) => {
+        const point = event.target.closest(".hit");
+        if (point) coachClick(Number(point.dataset.x), Number(point.dataset.y));
+      });
+      coachKbdEl.addEventListener("click", (event) => {
+        const b = event.target.closest(".kbd-move");
+        if (!b) return;
+        coachClick(Number(b.dataset.x), Number(b.dataset.y));
+        coachKbdEl.querySelector("summary")?.focus();
       });
 
       document.querySelectorAll(".coach-tab").forEach((tab) => {
@@ -2584,56 +2797,78 @@
 
       loadLesson(0);
 
-      // Interactive tactical motifs. Each step is a visualized legal move.
+      // Interactive tactical motifs. Each step is a visualized legal move
+      // (including Black's forced replies where they matter).
       const TACTICS = [
         {
           id: "horse-fork",
           title: "Horse fork",
-          chinese: "马叉 · Fork",
+          chinese: "Fork",
           family: "Fork / double attack",
           description:
-            "One horse jump attacks two valuable pieces—here a chariot and cannon.",
+            "One horse jump gives check and attacks a chariot at the same time.",
           principle:
-            "Look for enemy pieces on the eight squares a horse attacks. Best when both can't be saved. Watch the leg.",
-          finish: "The horse attacks chariot and cannon; black saves only one.",
+            "Look for a landing square that attacks the general and another piece. Black must answer the check, then the horse takes. Watch the leg.",
+          finish:
+            "The horse forked the general and the chariot. Black had to deal with the check, and the chariot fell.",
           setup: [
             { t: "K", s: "red", x: 3, y: 9 },
-            { t: "H", s: "red", x: 4, y: 5 },
+            { t: "H", s: "red", x: 4, y: 4 },
             { t: "K", s: "black", x: 4, y: 0 },
-            { t: "R", s: "black", x: 2, y: 1 },
-            { t: "C", s: "black", x: 4, y: 1 },
+            { t: "R", s: "black", x: 1, y: 3 },
           ],
           steps: [
             {
               s: "red",
               t: "H",
-              from: [4, 5],
-              to: [3, 3],
-              prompt: "Jump the horse to the highlighted central point.",
+              from: [4, 4],
+              to: [3, 2],
+              prompt: "Jump the horse to the highlighted forking point.",
               result:
-                "The horse lands between two valuable targets and attacks both.",
+                "The horse gives check to the general and also attacks the chariot.",
+              halos: [
+                { x: 4, y: 0 },
+                { x: 1, y: 3 },
+              ],
             },
-          ],
-          finishHalos: [
-            { x: 2, y: 1 },
-            { x: 4, y: 1 },
+            {
+              s: "black",
+              t: "K",
+              from: [4, 0],
+              to: [5, 0],
+              prompt:
+                "Follow one of Black’s legal replies: the general steps out of check.",
+              result:
+                "The general escapes, but nothing can save the chariot now.",
+              halos: [{ x: 1, y: 3 }],
+            },
+            {
+              s: "red",
+              t: "H",
+              from: [3, 2],
+              to: [1, 3],
+              prompt: "Capture the chariot with the horse.",
+              result:
+                "The horse takes the chariot. A check plus a second target is the classic fork.",
+            },
           ],
         },
         {
           id: "discovered-check",
           title: "Discovered check",
-          chinese: "闪将 · Discovered check",
+          chinese: "Discovered check",
           family: "Line reveal",
           description:
-            "Move a front piece to uncover a chariot's attack on the general.",
+            "Move a front piece to uncover a chariot's attack on the general, and capture something while you do it.",
           principle:
-            "Before moving a blocker, look behind it. A quiet sidestep can reveal a forcing attack.",
+            "Before moving a blocker, look behind it. If the blocker can also capture, Black has no time to react.",
           finish:
-            "Discovered check! The soldier sidesteps; the chariot checks. Black must respond.",
+            "Discovered check! The soldier took the horse; the chariot checks. Black must respond to the check, so the horse is lost.",
           setup: [
             { t: "K", s: "red", x: 3, y: 9 },
             { t: "R", s: "red", x: 4, y: 8 },
             { t: "S", s: "red", x: 4, y: 4 },
+            { t: "H", s: "black", x: 3, y: 4 },
             { t: "K", s: "black", x: 4, y: 1 },
           ],
           steps: [
@@ -2642,9 +2877,10 @@
               t: "S",
               from: [4, 4],
               to: [3, 4],
-              prompt: "Move the soldier sideways to clear the chariot's file.",
+              prompt:
+                "Capture the horse sideways, clearing the chariot's file.",
               result:
-                "The blocker has moved away. The red chariot now gives check to the black general.",
+                "The soldier removed the horse and uncovered the chariot. The red chariot now gives check.",
             },
           ],
           finishLines: [{ from: [4, 8], to: [4, 1] }],
@@ -2652,7 +2888,7 @@
         {
           id: "cannon-screen",
           title: "Cannon screen capture",
-          chinese: "炮架 · Cannon screen",
+          chinese: "Cannon screen",
           family: "Cannon tactic",
           description:
             "A cannon captures by jumping exactly one piece. Here the soldier screens; the black chariot is the target.",
@@ -2682,13 +2918,14 @@
         {
           id: "pin",
           title: "Pin",
-          chinese: "牵制 · Pin",
+          chinese: "牽制 · Pin",
           family: "Restrict a defender",
           description:
-            "Line your chariot with an enemy horse and the general behind it. The horse can't move off the file.",
+            "Put your chariot on the file in front of an enemy horse with its general behind it. The horse can't move off the file.",
           principle:
-            "A pin ties a piece to a more valuable piece behind it. Moves off the line expose the general.",
-          finish: "The black horse is pinned. Any move exposes its general.",
+            "A pin ties a piece to a more valuable piece behind it. Moves off the line expose the general. A second attacker then wins the pinned piece.",
+          finish:
+            "The black horse is pinned. Any move exposes its general, so it can only be defended.",
           setup: [
             { t: "K", s: "red", x: 3, y: 9 },
             { t: "R", s: "red", x: 1, y: 6 },
@@ -2702,9 +2939,9 @@
               from: [1, 6],
               to: [4, 6],
               prompt:
-                "Bring the chariot onto the file behind the black horse and general.",
+                "Bring the chariot onto the file in front of the black horse and general.",
               result:
-                "The red chariot now attacks along the same file. The black horse is the only thing shielding its general, and it has no legal moves.",
+                "The red chariot attacks the horse along the file, with the black general behind it. The horse has no legal moves.",
             },
           ],
           finishLines: [{ from: [4, 6], to: [4, 0] }],
@@ -2713,7 +2950,7 @@
         {
           id: "skewer",
           title: "Skewer",
-          chinese: "串打 · Skewer",
+          chinese: "Skewer",
           family: "Line tactic",
           description:
             "Attack the more valuable piece first; when it moves, capture the piece behind.",
@@ -2743,7 +2980,8 @@
               t: "K",
               from: [4, 2],
               to: [5, 2],
-              prompt: "Follow the forced general sidestep shown on the board.",
+              prompt:
+                "Follow Black’s only legal reply. Stepping to the left would let the generals face each other.",
               result:
                 "The general leaves the file. The black chariot behind it is now exposed.",
               lines: [
@@ -2766,14 +3004,14 @@
         {
           id: "double-attack",
           title: "Double attack",
-          chinese: "捉双 · Double attack",
+          chinese: "Double attack",
           family: "Two threats at once",
           description:
             "Move the cannon to threaten two targets. Each capture line has one red soldier screen—legal.",
           principle:
             "After a threat, list all attacked enemy pieces. One move can create two problems.",
           finish:
-            "The cannon threatens the horse and chariot, each behind one red soldier screen. Black can't save both.",
+            "The cannon threatens the horse and the chariot, each behind one red soldier screen. Black cannot save everything and loses material.",
           setup: [
             { t: "K", s: "red", x: 3, y: 9 },
             { t: "C", s: "red", x: 0, y: 5 },
@@ -2802,19 +3040,20 @@
         {
           id: "sacrifice-deflection",
           title: "Sacrifice & deflection",
-          chinese: "弃子引离 · Sacrifice",
+          chinese: "棄子 · Sacrifice",
           family: "Break the palace",
           description:
-            "Offer a chariot to remove a palace defender. The general can't recapture; the cannon covers the square. If the black chariot recaptures, the cannon wins material.",
+            "Offer a chariot to remove a palace defender. The general can't recapture because the cannon covers the square, and a horse backs up the cannon.",
           principle:
-            "A sacrifice must force something: remove a defender, pull a piece away, or open a line. Calculate the follow-up.",
+            "A sacrifice must force something: remove a defender, pull a piece away, or open a line. Calculate every recapture, including the last one.",
           finish:
-            "The sacrifice removed the advisor and drew the black chariot into the cannon's line. Red wins a chariot and advisor for a chariot.",
+            "Red won an advisor and a chariot for a chariot. The cannon on the advisor's square is protected by the horse, so the general can't take it. If Black had stepped the general aside instead, Red would simply have kept the free advisor.",
           setup: [
             { t: "K", s: "red", x: 4, y: 9 },
             { t: "R", s: "red", x: 4, y: 2 },
             { t: "C", s: "red", x: 4, y: 7 },
             { t: "S", s: "red", x: 4, y: 5 },
+            { t: "H", s: "red", x: 3, y: 3 },
             { t: "K", s: "black", x: 4, y: 0 },
             { t: "A", s: "black", x: 4, y: 1 },
             { t: "R", s: "black", x: 0, y: 1 },
@@ -2825,9 +3064,9 @@
               t: "R",
               from: [4, 2],
               to: [4, 1],
-              prompt: "Capture the palace advisor with the chariot sacrifice.",
+              prompt: "Capture the palace advisor with the chariot.",
               result:
-                "The advisor is removed and the red chariot gives check. The general cannot recapture because the cannon covers that square.",
+                "The advisor is removed and the red chariot gives check. The general cannot take it: the cannon (behind its soldier screen) and the horse both cover that square.",
             },
             {
               s: "black",
@@ -2835,7 +3074,7 @@
               from: [0, 1],
               to: [4, 1],
               prompt:
-                "Follow the black chariot's recapture of the sacrificed chariot.",
+                "Follow one reply: the black chariot recaptures the sacrificed chariot.",
               result:
                 "The black chariot captures the invading chariot, removing the check.",
             },
@@ -2853,15 +3092,15 @@
         },
         {
           id: "horse-cannon-mate",
-          title: "Horse-and-cannon mating net",
-          chinese: "马后炮 · Horse + cannon",
+          title: "Cannon check with horse support",
+          chinese: "Mating pattern",
           family: "Mating pattern",
           description:
-            "The horse and soldier cover escapes; the cannon checks along the file using a soldier screen.",
+            "The horse and soldier cover the escapes; the cannon checks along the file using a soldier as its screen.",
           principle:
             "Mating is about escape squares, not just the check. The horse restricts flight; the cannon uses one screen.",
           finish:
-            "The cannon checks; the horse and soldier cover escapes. Mate.",
+            "The cannon checks; the horse and soldier cover every escape. Mate.",
           setup: [
             { t: "K", s: "red", x: 4, y: 9 },
             { t: "C", s: "red", x: 7, y: 6 },
@@ -2899,7 +3138,7 @@
           principle:
             "A cannon can use a friendly piece as a screen. Coordinate the cannons so the screen doesn't block the attack.",
           finish:
-            "The upper cannon screens; the lower cannon mates. Horse and soldier cover escapes.",
+            "The front cannon is the screen; the rear cannon gives the check. The horse and soldier cover the escapes. Mate.",
           setup: [
             { t: "K", s: "red", x: 4, y: 9 },
             { t: "C", s: "red", x: 1, y: 5 },
@@ -2928,39 +3167,40 @@
         },
         {
           id: "double-chariot-mate",
-          title: "Double-chariot mating net",
-          chinese: "双车配合 · Double chariot",
+          title: "Double-chariot ladder mate",
+          chinese: "雙車錯 · Double chariot",
           family: "Coordinated mate",
           description:
-            "One chariot checks; the second protects the checking square. The general's palace exits are blocked.",
+            "One chariot checks along the back rank while the other cuts off the second rank. The general has nowhere to go.",
           principle:
-            "Two chariots can cover the checking line and escape squares. Check whether the general can capture the checker.",
+            "Two chariots can cover two ranks at once, like rungs of a ladder. Check every point the general could step to.",
           finish:
-            "The chariot checks beside the general; its partner protects it. Other exits are blocked, so capturing loses to the supporting chariot.",
+            "The back-rank chariot checks and covers the rank; the second chariot covers the rank below. Every escape is closed. Mate.",
           setup: [
-            { t: "K", s: "red", x: 4, y: 9 },
-            { t: "R", s: "red", x: 3, y: 8 },
-            { t: "R", s: "red", x: 3, y: 9 },
-            { t: "K", s: "black", x: 4, y: 1 },
-            { t: "A", s: "black", x: 4, y: 0 },
-            { t: "S", s: "black", x: 4, y: 2 },
-            { t: "A", s: "black", x: 5, y: 1 },
+            { t: "K", s: "red", x: 3, y: 9 },
+            { t: "R", s: "red", x: 8, y: 1 },
+            { t: "R", s: "red", x: 0, y: 5 },
+            { t: "K", s: "black", x: 4, y: 0 },
           ],
           steps: [
             {
               s: "red",
               t: "R",
-              from: [3, 8],
-              to: [3, 1],
-              prompt:
-                "Bring the first chariot beside the general to give check.",
+              from: [0, 5],
+              to: [0, 0],
+              prompt: "Swing the left chariot to the back rank to give check.",
               result:
-                "The first chariot checks horizontally. The second chariot supports it from below, so the general cannot safely capture it.",
+                "The chariot checks along the back rank. The other chariot already covers the second rank, so the general has no safe square.",
             },
           ],
           finishLines: [
-            { from: [3, 1], to: [4, 1] },
-            { from: [3, 9], to: [3, 1] },
+            { from: [0, 0], to: [4, 0] },
+            { from: [8, 1], to: [4, 1] },
+          ],
+          finishHalos: [
+            { x: 3, y: 0 },
+            { x: 5, y: 0 },
+            { x: 4, y: 1 },
           ],
         },
       ];
@@ -2970,7 +3210,10 @@
       let tacticBad = null;
       let tacticFeedback = "";
       let tacticAnimation = null;
-      const tacticsCompleted = new Set();
+      const tacticsCompleted = loadSet(
+        "xq-tactics",
+        TACTICS.map((t) => t.id),
+      );
       const tacticPicker = document.getElementById("tacticPicker");
       const tacticBoardEl = document.getElementById("tacticBoard");
       const tacticStatusEl = document.getElementById("tacticStatus");
@@ -3074,7 +3317,7 @@
           .querySelector("svg.board")
           ?.setAttribute(
             "aria-label",
-            `${tactic.title}. ${nextMove ? `Play move ${tacticStepIndex + 1} by moving the highlighted piece to the marked point.` : "Tactic demonstration complete."}`,
+            `${tactic.title}. ${nextMove ? `Play move ${tacticStepIndex + 1} by moving the highlighted piece to the marked point, or press Show move.` : "Tactic demonstration complete."}`,
           );
 
         document.getElementById("tacticCount").textContent =
@@ -3173,8 +3416,10 @@
         };
         tacticBad = null;
         tacticFeedback = move.result;
-        if (tacticStepIndex === tactic.steps.length)
+        if (tacticStepIndex === tactic.steps.length) {
           tacticsCompleted.add(tactic.id);
+          saveSet("xq-tactics", tacticsCompleted);
+        }
         renderTactic();
       }
 
