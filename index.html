@@ -20,7 +20,7 @@
     />
     <meta
       property="og:description"
-      content="Learn Chinese chess by moving the pieces yourself."
+      content="Learn Xiangqi (Chinese chess) in 10 minutes with an interactive board, piece lessons, coached positions, and 10 tactics."
     />
     <!-- TODO: use absolute URLs for og:image / twitter:image and add og:url + canonical for your domain -->
     <meta property="og:image" content="./og-image.png" />
@@ -37,7 +37,7 @@
     />
     <meta
       name="twitter:description"
-      content="Learn Chinese chess by moving the pieces yourself."
+      content="Learn Xiangqi (Chinese chess) in 10 minutes with an interactive board, piece lessons, coached positions, and 10 tactics."
     />
     <meta name="twitter:image" content="./og-image.png" />
     <link
@@ -1594,7 +1594,7 @@
         E: [
           "Elephant",
           "Jumps exactly two points diagonally. Can’t cross the river or jump if its eye is occupied.",
-          "The red soldier blocks one eye.",
+          "Your horse sits on one eye and blocks that jump.",
         ],
         H: [
           "Horse",
@@ -1643,7 +1643,7 @@
             { t: "R", s: "black", x: 5, y: 7 },
           ],
         },
-        E: { x: 4, y: 7, o: [{ t: "S", s: "red", x: 3, y: 6 }] },
+        E: { x: 4, y: 7, o: [{ t: "H", s: "red", x: 3, y: 6 }] },
         H: {
           x: 2,
           y: 7,
@@ -1656,7 +1656,7 @@
           x: 4,
           y: 6,
           o: [
-            { t: "S", s: "red", x: 7, y: 6 },
+            { t: "S", s: "red", x: 6, y: 6 },
             { t: "S", s: "black", x: 4, y: 3 },
           ],
         },
@@ -1665,7 +1665,7 @@
           y: 7,
           o: [
             { t: "S", s: "red", x: 1, y: 4 },
-            { t: "S", s: "black", x: 1, y: 2 },
+            { t: "H", s: "black", x: 1, y: 2 },
             { t: "H", s: "black", x: 1, y: 0 },
           ],
         },
@@ -1675,7 +1675,7 @@
           o: [
             { t: "H", s: "black", x: 4, y: 5 },
             { t: "R", s: "red", x: 3, y: 4 },
-            { t: "S", s: "black", x: 5, y: 4 },
+            { t: "S", s: "black", x: 6, y: 4 },
           ],
         },
       };
@@ -3016,7 +3016,7 @@
             { t: "K", s: "red", x: 3, y: 9 },
             { t: "C", s: "red", x: 0, y: 5 },
             { t: "S", s: "red", x: 3, y: 4 },
-            { t: "S", s: "red", x: 5, y: 5 },
+            { t: "S", s: "red", x: 4, y: 5 },
             { t: "H", s: "black", x: 3, y: 2 },
             { t: "R", s: "black", x: 6, y: 5 },
             { t: "K", s: "black", x: 4, y: 0 },
