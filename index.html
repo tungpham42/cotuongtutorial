@@ -1831,6 +1831,23 @@
           d += `M${px(x)} ${py(0)}V${py(4)}M${px(x)} ${py(5)}V${py(9)}`;
         d += `M${px(3)} ${py(0)}L${px(5)} ${py(2)}M${px(5)} ${py(0)}L${px(3)} ${py(2)}M${px(3)} ${py(7)}L${px(5)} ${py(9)}M${px(5)} ${py(7)}L${px(3)} ${py(9)}`;
         s += `<path d="${d}" stroke="var(--line)" stroke-width="1.6" fill="none" stroke-linecap="round"/><rect x="${px(0) - 5}" y="${py(0) - 5}" width="${8 * Cs + 10}" height="${9 * Cs + 10}" rx="3" fill="none" stroke="var(--line)" stroke-width="3.5"/>`;
+        // Cross marks at cannon and soldier starting points (half-crosses on the edge files).
+        let cm = "";
+        const markAt = (x, y) => {
+          const g = 5,
+            l = 9,
+            cx = px(x),
+            cy = py(y);
+          [-1, 1].forEach((dx) => {
+            if (x + dx < 0 || x + dx > 8) return;
+            [-1, 1].forEach((dy) => {
+              cm += `M${cx + dx * (g + l)} ${cy + dy * g}H${cx + dx * g}V${cy + dy * (g + l)}`;
+            });
+          });
+        };
+        [1, 7].forEach((x) => [2, 7].forEach((y) => markAt(x, y)));
+        [0, 2, 4, 6, 8].forEach((x) => [3, 6].forEach((y) => markAt(x, y)));
+        s += `<path d="${cm}" stroke="var(--line)" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>`;
         (o.lines || []).forEach((line) => {
           const [x1, y1] = line.from;
           const [x2, y2] = line.to;
